@@ -1,0 +1,33 @@
+=======
+xivo-ws
+=======
+
+xivo-ws is a python library that enables programmatic access to a `XiVO server`_
+via the XiVO web services.
+
+
+Configuration
+=============
+
+On your XiVO, you must `create a web service user`_.
+
+
+Example
+=======
+
+::
+
+   from xivo_ws import XivoServer, User, UserLine
+
+   xivo_server = XivoServer('skaro', 'my_username', 'my_password')
+
+   user = User(firstname=u'Jack', lastname=u'Johnson')
+   user.line = UserLine(context=u'default', number=1001)
+
+   xivo_server.user.add(user)
+
+More examples are available in the :file:`examples` directory.
+
+
+.. _XiVO server: http://documentation.xivo.fr/production/
+.. _create a web service user: http://documentation.xivo.fr/production/api_sdk/web_services.html#configuration
