@@ -17,12 +17,14 @@
 
 import argparse
 import getpass
+import json
 import readline
 import sys
-from xivo_ws_debug.formatter import JSONFormatter, PprintFormatter, \
-    PythonFormatter
 from xivo_ws.facade import XivoServer
 from xivo_ws.exception import WebServiceRequestError
+from xivo_ws_debug.editor import read_content_from_editor
+from xivo_ws_debug.formatter import JSONFormatter, PprintFormatter, \
+    PythonFormatter
 
 
 def main():
@@ -66,6 +68,7 @@ def _new_argument_parser():
 
 
 def loop(xivo_ws, formatter):
+    add_raw_data = ''
     try:
         while True:
             try:
@@ -81,21 +84,36 @@ def loop(xivo_ws, formatter):
                     continue
 
                 action, sep, tail = tail.rstrip().partition(' ')
-                if action == 'list':
-                    data = formatter.format(obj.raw_list())
+                if action == 'add':
+                    add_raw_data = read_content_from_editor(add_raw_data)
+                    if not add_raw_data.rstrip():
+                        print 'Aborting add due to empty data'
+                        add_raw_data = ''
+                        continue
+                    print repr(add_raw_data)
+                    data = eval(add_raw_data)
+                    obj.raw_add(data)
+                elif action == 'delete':
+                    object_id = tail
+                    obj.raw_delete(object_id)
+                elif action == 'list':
+                    print formatter.format(obj.raw_list())
                 elif action == 'search':
                     search_pattern = tail
-                    data = formatter.format(obj.raw_search(search_pattern))
+                    print formatter.format(obj.raw_search(search_pattern))
                 elif action == 'view':
                     object_id = tail
-                    data = formatter.format(obj.raw_view(object_id))
+                    print formatter.format(obj.raw_view(object_id))
                 else:
-                    data = 'Unknown action %r' % action
-                print data
+                    print 'Unknown action %r' % action
             except WebServiceRequestError as e:
                 print e
             except KeyboardInterrupt:
                 print
+            except EOFError:
+                raise
+            except Exception as e:
+                print 'Unexpected exception:', e
     except EOFError:
         print
 
