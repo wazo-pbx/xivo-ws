@@ -83,12 +83,13 @@ def loop(xivo_ws, formatter):
                         print 'Aborting add due to empty data'
                         add_raw_data = ''
                         continue
-                    print repr(add_raw_data)
                     data = eval(add_raw_data)
                     obj.raw_add(data)
                 elif action == 'delete':
                     object_id = tail
                     obj.raw_delete(object_id)
+                elif action == 'delete_all':
+                    obj.raw_delete_all()
                 elif action == 'list':
                     print formatter.format(obj.raw_list())
                 elif action == 'search':

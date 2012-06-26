@@ -41,6 +41,7 @@ def _action(name):
 class Actions(object):
     ADD = 'add'
     DELETE = 'delete'
+    DELETE_ALL = 'delete_all'
     EDIT = 'edit'
     LIST = 'list'
     SEARCH = 'search'
@@ -80,6 +81,13 @@ class AbstractWebService(object):
 
     def raw_delete(self, obj_id):
         self._ws_client.delete(self._PATH, obj_id)
+
+    @_action(Actions.DELETE_ALL)
+    def delete_all(self):
+        self._ws_client.delete_all(self._PATH)
+
+    def raw_delete_all(self):
+        self._ws_client.delete_all(self._PATH)
 
     @_action(Actions.EDIT)
     def edit(self, obj):
