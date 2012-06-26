@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 class HTTPClient(object):
-    _USER_AGENT = u'libxivo-ws/0.1'
+    _USER_AGENT = u'xivo-ws/0.1'
 
     def __init__(self, host, username=None, password=None,
                  force_http=False, xdebug_eclipse=False):
