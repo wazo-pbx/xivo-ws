@@ -16,8 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import argparse
-import getpass
-import json
 import readline
 import sys
 from xivo_ws.facade import XivoServer
@@ -29,11 +27,6 @@ from xivo_ws_debug.formatter import JSONFormatter, PprintFormatter, \
 
 def main():
     parsed_args = _parse_args(sys.argv[1:])
-
-    if parsed_args.username is None:
-        parsed_args.user = raw_input('Username: ')
-    if parsed_args.password is None:
-        parsed_args.password = getpass.getpass('Password: ')
 
     if parsed_args.format == 'json':
         formatter = JSONFormatter()
