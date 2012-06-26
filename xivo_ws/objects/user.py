@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -38,25 +40,25 @@ class User(AbstractObject):
 
     def _to_userfeatures(self, obj_dict):
         userfeatures = {
-            u'musiconhold': u'default',
-            u'entityid': 1,
+            'musiconhold': 'default',
+            'entityid': 1,
             # TODO check why default values for enablehint and enablexfer (and
             #      other that we don't see) aren't working
-            u'enablehint': True,
-            u'enablexfer': True,
-            u'firstname': self.firstname,
+            'enablehint': True,
+            'enablexfer': True,
+            'firstname': self.firstname,
         }
         if self.lastname is not None:
-            userfeatures[u'lastname'] = self.lastname
+            userfeatures['lastname'] = self.lastname
         if self.enable_client is not None:
-            userfeatures[u'enableclient'] = self.enable_client
+            userfeatures['enableclient'] = self.enable_client
         if self.client_username is not None:
-            userfeatures[u'loginclient'] = self.client_username
+            userfeatures['loginclient'] = self.client_username
         if self.client_password is not None:
-            userfeatures[u'passwdclient'] = self.client_password
+            userfeatures['passwdclient'] = self.client_password
         if self.client_profile is not None:
-            userfeatures[u'profileclient'] = self.client_profile
-        obj_dict[u'userfeatures'] = userfeatures
+            userfeatures['profileclient'] = self.client_profile
+        obj_dict['userfeatures'] = userfeatures
 
     def _to_linefeatures(self, obj_dict):
         if self.line:
@@ -64,20 +66,20 @@ class User(AbstractObject):
 
     def _to_dialaction(self, obj_dict):
         dialaction = {
-            u'noanswer': {
-                u'actiontype': 'none',
+            'noanswer': {
+                'actiontype': 'none',
             },
-            u'busy': {
-                u'actiontype': 'none',
+            'busy': {
+                'actiontype': 'none',
             },
-            u'congestion': {
-                u'actiontype': 'none',
+            'congestion': {
+                'actiontype': 'none',
             },
-            u'chanunavail': {
-                u'actiontype': 'none',
+            'chanunavail': {
+                'actiontype': 'none',
             },
         }
-        obj_dict[u'dialaction'] = dialaction
+        obj_dict['dialaction'] = dialaction
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -86,33 +88,33 @@ class User(AbstractObject):
         return obj
 
     def _from_userfeatures(self, userfeatures):
-        self.id = userfeatures[u'id']
-        self.firstname = userfeatures[u'firstname']
-        self.lastname = userfeatures[u'lastname']
+        self.id = userfeatures['id']
+        self.firstname = userfeatures['firstname']
+        self.lastname = userfeatures['lastname']
 
 
 class UserLine(AbstractObject):
     _ATTRIBUTES = [
-        Attribute('protocol', default=u'sip'),
+        Attribute('protocol', default='sip'),
         Attribute('context'),
         Attribute('number'),
     ]
 
     def _to_linefeatures(self, obj_dict):
         if self.protocol is None:
-            raise ValueError(u'protocol must be given')
+            raise ValueError('protocol must be given')
         if self.context is None:
-            raise ValueError(u'context must be given')
+            raise ValueError('context must be given')
         linefeatures = {
-            u'protocol': [self.protocol],
-            u'context': [self.context],
-            u'number': [self.number],
+            'protocol': [self.protocol],
+            'context': [self.context],
+            'number': [self.number],
         }
-        obj_dict[u'linefeatures'] = linefeatures
+        obj_dict['linefeatures'] = linefeatures
 
 
 class UserWebService(AbstractWebService):
-    _PATH = u'/service/ipbx/json.php/restricted/pbx_settings/users/'
+    _PATH = '/service/ipbx/json.php/restricted/pbx_settings/users/'
     _OBJECT_CLASS = User
 
     _ACTIONS = [

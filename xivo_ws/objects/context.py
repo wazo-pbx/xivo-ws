@@ -15,14 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
 
 class Context(AbstractObject):
-    TYPE_INTERNAL = u'internal'
-    TYPE_INCALL = u'incall'
-    TYPE_OUTCALL = u'outcall'
+    TYPE_INTERNAL = 'internal'
+    TYPE_INCALL = 'incall'
+    TYPE_OUTCALL = 'outcall'
 
     _ATTRIBUTES = [
         Attribute('id'),
@@ -45,51 +47,51 @@ class Context(AbstractObject):
 
     def _to_context(self, obj_dict):
         context = {
-            u'name': self.name,
-            u'displayname': self.display_name,
-            u'entity': self.entity,
-            u'contexttype': self.type,
+            'name': self.name,
+            'displayname': self.display_name,
+            'entity': self.entity,
+            'contexttype': self.type,
         }
-        obj_dict[u'context'] = context
+        obj_dict['context'] = context
 
     def _to_contextinclude(self, obj_dict):
         if self.context_include:
-            obj_dict[u'contextinclude'] = list(self.context_include)
+            obj_dict['contextinclude'] = list(self.context_include)
 
     def _to_contextnumbers(self, obj_dict):
         contextnumbers = {}
         if self.users:
-            contextnumbers[u'user'] = self._to_contextnumbers_value(self.users)
+            contextnumbers['user'] = self._to_contextnumbers_value(self.users)
         if self.groups:
-            contextnumbers[u'group'] = self._to_contextnumbers_value(self.groups)
+            contextnumbers['group'] = self._to_contextnumbers_value(self.groups)
         if self.queues:
-            contextnumbers[u'queue'] = self._to_contextnumbers_value(self.queues)
+            contextnumbers['queue'] = self._to_contextnumbers_value(self.queues)
         if self.conf_rooms:
-            contextnumbers[u'meetme'] = self._to_contextnumbers_value(self.conf_rooms)
+            contextnumbers['meetme'] = self._to_contextnumbers_value(self.conf_rooms)
         if self.incalls:
-            contextnumbers[u'incall'] = self._to_contextnumbers_value(self.incalls, include_didlength=True)
+            contextnumbers['incall'] = self._to_contextnumbers_value(self.incalls, include_didlength=True)
         if contextnumbers:
-            obj_dict[u'contextnumbers'] = contextnumbers
+            obj_dict['contextnumbers'] = contextnumbers
 
     def _to_contextnumbers_value(self, list_, include_didlength=False):
         if include_didlength:
-            return [{u'numberbeg': context_range.start, u'numberend': context_range.end, u'didlength': context_range.did_length} for
+            return [{'numberbeg': context_range.start, 'numberend': context_range.end, 'didlength': context_range.did_length} for
                     context_range in list_]
         else:
-            return [{u'numberbeg': context_range.start, u'numberend': context_range.end} for
+            return [{'numberbeg': context_range.start, 'numberend': context_range.end} for
                     context_range in list_]
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_context(obj_dict[u'context'])
+        obj._from_context(obj_dict['context'])
         return obj
 
     def _from_context(self, context):
-        self.id = context[u'name']
-        self.name = context[u'name']
-        self.display_name = context[u'displayname']
-        self.entity = context[u'entity']
+        self.id = context['name']
+        self.name = context['name']
+        self.display_name = context['displayname']
+        self.entity = context['entity']
 
     from_list_obj_dict = from_obj_dict
 
@@ -110,7 +112,7 @@ class ContextRange(object):
 
 
 class ContextWebService(AbstractWebService):
-    _PATH = u'/service/ipbx/json.php/restricted/system_management/context/'
+    _PATH = '/service/ipbx/json.php/restricted/system_management/context/'
     _OBJECT_CLASS = Context
 
     _ACTIONS = [

@@ -26,7 +26,7 @@ class Queue(AbstractObject):
         Attribute('display_name', required=True),
         Attribute('number', required=True),
         Attribute('context', required=True),
-        Attribute('ring_strategy', default=u'ringall'),
+        Attribute('ring_strategy', default='ringall'),
         Attribute('autopause', default=True),
         Attribute('reachability_timeout'),
         Attribute('agents', default_factory=list),
@@ -40,70 +40,64 @@ class Queue(AbstractObject):
 
     def _to_queuefeatures(self, obj_dict):
         queuefeatures = {
-            u'timeout': u'0',
-            u'hitting_caller': True,
-            u'transfer_user': True,
-            u'name': self.name,
-            u'displayname': self.display_name,
-            u'number': self.number,
-            u'context': self.context,
+            'timeout': '0',
+            'hitting_caller': True,
+            'transfer_user': True,
+            'name': self.name,
+            'displayname': self.display_name,
+            'number': self.number,
+            'context': self.context,
         }
-        obj_dict[u'queuefeatures'] = queuefeatures
+        obj_dict['queuefeatures'] = queuefeatures
 
     def _to_queue(self, obj_dict):
         queue = {
-            u'musicclass': u'default',
-            u'min-announce-frequency': u'60',
-            u'announce-position': u'yes',
-            u'announce-position-limit': u'5',
-            u'timeoutpriority': u'app',
-            u'ringinuse': True,
-            u'autofill': True,
-            u'setqueueentryvar': True,
-            u'setqueuevar': True,
+            'musicclass': 'default',
+            'min-announce-frequency': '60',
+            'announce-position': 'yes',
+            'announce-position-limit': '5',
+            'timeoutpriority': 'app',
+            'ringinuse': True,
+            'autofill': True,
+            'setqueueentryvar': True,
+            'setqueuevar': True,
         }
-        queue[u'strategy'] = self.ring_strategy
+        queue['strategy'] = self.ring_strategy
         if self.reachability_timeout is not None:
-            queue[u'timeout'] = self.reachability_timeout
-        queue[u'autopause'] = self.autopause
-        obj_dict[u'queue'] = queue
+            queue['timeout'] = self.reachability_timeout
+        queue['autopause'] = self.autopause
+        obj_dict['queue'] = queue
 
     def _to_dialaction(self, obj_dict):
         dialaction = {
-            u'noanswer': {
-                u'actiontype': u'none',
+            'noanswer': {
+                'actiontype': 'none',
             },
-            u'busy': {
-                u'actiontype': u'none',
+            'busy': {
+                'actiontype': 'none',
             },
-            u'congestion': {
-                u'actiontype': u'none',
+            'congestion': {
+                'actiontype': 'none',
             },
-            u'chanunavail': {
-                u'actiontype': u'none',
+            'chanunavail': {
+                'actiontype': 'none',
             },
-            u'qctipresence': {
-                u'actiontype': u'none',
+            'qwaittime': {
+                'actiontype': 'none',
             },
-            u'qnonctipresence': {
-                u'actiontype': u'none',
-            },
-            u'qwaittime': {
-                u'actiontype': u'none',
-            },
-            u'qwaitratio': {
-                u'actiontype': u'none',
+            'qwaitratio': {
+                'actiontype': 'none',
             },
         }
-        obj_dict[u'dialaction'] = dialaction
+        obj_dict['dialaction'] = dialaction
 
     def _to_agent(self, obj_dict):
-        obj_dict[u'agent'] = list(self.agents)
+        obj_dict['agent'] = list(self.agents)
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_queuefeatures(obj_dict[u'queuefeatures'])
+        obj._from_queuefeatures(obj_dict['queuefeatures'])
         return obj
 
     @classmethod
@@ -113,15 +107,15 @@ class Queue(AbstractObject):
         return obj
 
     def _from_queuefeatures(self, queuefeatures):
-        self.id = int(queuefeatures[u'id'])
-        self.name = queuefeatures[u'name']
-        self.display_name = queuefeatures[u'displayname']
-        self.number = queuefeatures[u'number']
-        self.context = queuefeatures[u'context']
+        self.id = int(queuefeatures['id'])
+        self.name = queuefeatures['name']
+        self.display_name = queuefeatures['displayname']
+        self.number = queuefeatures['number']
+        self.context = queuefeatures['context']
 
 
 class QueueWebService(AbstractWebService):
-    _PATH = u'/callcenter/json.php/restricted/settings/queues/'
+    _PATH = '/callcenter/json.php/restricted/settings/queues/'
     _OBJECT_CLASS = Queue
 
     _ACTIONS = [

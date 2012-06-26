@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -33,10 +35,10 @@ class Incall(AbstractObject):
 
     def _to_incall(self, obj_dict):
         incall = {
-            u'exten': self.number,
-            u'context': self.context,
+            'exten': self.number,
+            'context': self.context,
         }
-        obj_dict[u'incall'] = incall
+        obj_dict['incall'] = incall
 
     def _to_dialaction(self, obj_dict):
         self.destination._to_dialaction(obj_dict)
@@ -44,9 +46,9 @@ class Incall(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj.id = int(obj_dict[u'id'])
-        obj.number = obj_dict[u'exten']
-        obj.context = obj_dict[u'context']
+        obj.id = int(obj_dict['id'])
+        obj.number = obj_dict['exten']
+        obj.context = obj_dict['context']
         return obj
 
 
@@ -56,17 +58,17 @@ class IncallQueueDestination(object):
 
     def _to_dialaction(self, obj_dict):
         dialaction = {
-            u'answer': {
-                u'actiontype': u'queue',
-                u'actionarg1': self.queue_id,
-                u'actionarg2': u'',
+            'answer': {
+                'actiontype': 'queue',
+                'actionarg1': self.queue_id,
+                'actionarg2': '',
             }
         }
         obj_dict['dialaction'] = dialaction
 
 
 class IncallWebService(AbstractWebService):
-    _PATH = u'/service/ipbx/json.php/restricted/call_management/incall/'
+    _PATH = '/service/ipbx/json.php/restricted/call_management/incall/'
     _OBJECT_CLASS = Incall
 
     _ACTIONS = [

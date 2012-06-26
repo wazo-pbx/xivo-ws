@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -37,26 +39,26 @@ class Outcall(AbstractObject):
 
     def _to_outcall(self, obj_dict):
         outcall = {
-            u'name': self.name,
-            u'context': self.context,
+            'name': self.name,
+            'context': self.context,
         }
-        obj_dict[u'outcall'] = outcall
+        obj_dict['outcall'] = outcall
 
     def _to_outcalltrunk(self, obj_dict):
-        obj_dict[u'outcalltrunk'] = list(self.trunks)
+        obj_dict['outcalltrunk'] = list(self.trunks)
 
     def _to_dialpattern(self, obj_dict):
         if self.extens:
             # reverse and add a needed but meaningless one at the end of the list
             extens = list(reversed(self.extens))
-            extens.append(OutcallExten(u''))
-            obj_dict[u'dialpattern'] = {
-                u'id': [u'0' for _ in extens],
-                u'externprefix': [u'' for _ in extens],
-                u'prefix': [u'' for _ in extens],
-                u'exten': [exten.exten for exten in extens],
-                u'stripnum': [exten.stripnum for exten in extens],
-                u'callerid': [u'' for _ in extens],
+            extens.append(OutcallExten(''))
+            obj_dict['dialpattern'] = {
+                'id': ['0' for _ in extens],
+                'externprefix': ['' for _ in extens],
+                'prefix': ['' for _ in extens],
+                'exten': [exten.exten for exten in extens],
+                'stripnum': [exten.stripnum for exten in extens],
+                'callerid': ['' for _ in extens],
             }
 
     @classmethod
@@ -66,8 +68,8 @@ class Outcall(AbstractObject):
         return obj
 
     def _from_outcall(self, outcall):
-        self.id = int(outcall[u'id'])
-        self.name = outcall[u'name']
+        self.id = int(outcall['id'])
+        self.name = outcall['name']
 
 
 class OutcallExten(object):
@@ -77,7 +79,7 @@ class OutcallExten(object):
 
 
 class OutcallWebService(AbstractWebService):
-    _PATH = u'/service/ipbx/json.php/restricted/call_management/outcall/'
+    _PATH = '/service/ipbx/json.php/restricted/call_management/outcall/'
     _OBJECT_CLASS = Outcall
 
     _ACTIONS = [

@@ -15,13 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
 
 class SIPTrunk(AbstractObject):
-    TYPE_OUTGOING = u'peer'
-    TYPE_INCOMING_OUTGOING = u'friend'
+    TYPE_OUTGOING = 'peer'
+    TYPE_INCOMING_OUTGOING = 'friend'
 
     _ATTRIBUTES = [
         Attribute('id'),
@@ -39,28 +41,28 @@ class SIPTrunk(AbstractObject):
 
     def _to_protocol(self, obj_dict):
         protocol = {
-            u'transport': u'udp',
-            u'name': self.name,
-            u'context': self.context,
+            'transport': 'udp',
+            'name': self.name,
+            'context': self.context,
         }
         if self.username is not None:
-            protocol[u'username'] = self.username
+            protocol['username'] = self.username
         if self.secret is not None:
-            protocol[u'secret'] = self.secret
+            protocol['secret'] = self.secret
         if self.host is None:
-            protocol[u'host-type'] = u'dynamic'
+            protocol['host-type'] = 'dynamic'
         else:
             protocol.update({
-                u'host-type': u'static',
-                u'host-static': self.host,
+                'host-type': 'static',
+                'host-static': self.host,
             })
         if self.type is not None:
-            protocol[u'type'] = self.type
-        obj_dict[u'protocol'] = protocol
+            protocol['type'] = self.type
+        obj_dict['protocol'] = protocol
 
     def _to_trunkfeatures(self, obj_dict):
         trunkfeatures = {}
-        obj_dict[u'trunkfeatures'] = trunkfeatures
+        obj_dict['trunkfeatures'] = trunkfeatures
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -69,12 +71,12 @@ class SIPTrunk(AbstractObject):
         return obj
 
     def _from_trunkfeatures(self, trunkfeatures):
-        self.id = trunkfeatures[u'id']
-        self.name = trunkfeatures[u'name']
+        self.id = trunkfeatures['id']
+        self.name = trunkfeatures['name']
 
 
 class SIPTrunkWebService(AbstractWebService):
-    _PATH = u'/service/ipbx/json.php/restricted/trunk_management/sip/'
+    _PATH = '/service/ipbx/json.php/restricted/trunk_management/sip/'
     _OBJECT_CLASS = SIPTrunk
 
     _ACTIONS = [

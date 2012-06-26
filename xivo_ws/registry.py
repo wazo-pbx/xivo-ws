@@ -20,7 +20,7 @@ _ws_registry = {}
 
 def register_ws_class(ws_class, name):
     if name in _ws_registry:
-        raise ValueError('%r already registered' % name)
+        raise ValueError(u'%r already registered' % name)
     _ws_registry[name] = ws_class
 
 

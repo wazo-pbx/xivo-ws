@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -35,41 +37,41 @@ class Agent(AbstractObject):
 
     def _to_agentfeatures(self, obj_dict):
         agentfeatures = {
-            u'numgroup': u'1',
-            u'musiconhold': u'default',
-            u'ackcall': u'no',
-            u'acceptdtmf': u'#',
-            u'enddtmf': u'*',
-            u'autologoff': u'0',
-            u'wrapuptime': u'0',
-            u'firstname': self.firstname,
-            u'number': self.number,
-            u'context': self.context,
+            'numgroup': '1',
+            'musiconhold': 'default',
+            'ackcall': 'no',
+            'acceptdtmf': '#',
+            'enddtmf': '*',
+            'autologoff': '0',
+            'wrapuptime': '0',
+            'firstname': self.firstname,
+            'number': self.number,
+            'context': self.context,
         }
         if self.lastname is not None:
-            agentfeatures[u'lastname'] = self.lastname
-        obj_dict[u'agentfeatures'] = agentfeatures
+            agentfeatures['lastname'] = self.lastname
+        obj_dict['agentfeatures'] = agentfeatures
 
     def _to_userselect(self, obj_dict):
-        obj_dict[u'user-select'] = list(self.users)
+        obj_dict['user-select'] = list(self.users)
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_agentfeatures(obj_dict[u'agentfeatures'])
-        obj._from_usermember(obj_dict[u'usermember'])
+        obj._from_agentfeatures(obj_dict['agentfeatures'])
+        obj._from_usermember(obj_dict['usermember'])
         return obj
 
     def _from_agentfeatures(self, agentfeatures):
-        self.id = agentfeatures[u'id']
-        self.firstname = agentfeatures[u'firstname']
-        self.lastname = agentfeatures[u'lastname']
-        self.number = agentfeatures[u'number']
-        self.context = agentfeatures[u'context']
+        self.id = agentfeatures['id']
+        self.firstname = agentfeatures['firstname']
+        self.lastname = agentfeatures['lastname']
+        self.number = agentfeatures['number']
+        self.context = agentfeatures['context']
 
     def _from_usermember(self, usermember):
         if usermember:
-            self.users = [user[u'id'] for user in usermember]
+            self.users = [user['id'] for user in usermember]
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -79,7 +81,7 @@ class Agent(AbstractObject):
 
 
 class AgentWebService(AbstractWebService):
-    _PATH = u'/callcenter/json.php/restricted/settings/agents/'
+    _PATH = '/callcenter/json.php/restricted/settings/agents/'
     _OBJECT_CLASS = Agent
 
     _ACTIONS = [

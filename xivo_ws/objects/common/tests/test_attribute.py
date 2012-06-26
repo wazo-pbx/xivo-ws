@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 import unittest
 from xivo_ws.objects.common.attribute import Attribute
 
@@ -28,9 +30,9 @@ class TestAttribute(unittest.TestCase):
         self.assertEqual(False, attr.required)
 
     def test_attribute_with_default(self):
-        attr = Attribute('foo', default=u'foobar')
+        attr = Attribute('foo', default='foobar')
 
-        self.assertEqual(u'foobar', attr.get_default())
+        self.assertEqual('foobar', attr.get_default())
 
     def test_attribute_with_default_factory(self):
         attr = Attribute('foo', default_factory=list)

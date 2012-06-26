@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -27,8 +29,8 @@ class Entity(AbstractObject):
     ]
 
     def _to_obj_dict(self, obj_dict):
-        obj_dict[u'name'] = self.name
-        obj_dict[u'displayname'] = self.display_name
+        obj_dict['name'] = self.name
+        obj_dict['displayname'] = self.display_name
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
@@ -37,15 +39,15 @@ class Entity(AbstractObject):
         return obj
 
     def _from_entity(self, entity):
-        self.id = int(entity[u'id'])
-        self.name = entity[u'name']
-        self.display_name = entity[u'displayname']
+        self.id = int(entity['id'])
+        self.name = entity['name']
+        self.display_name = entity['displayname']
 
     from_list_obj_dict = from_obj_dict
 
 
 class EntityWebService(AbstractWebService):
-    _PATH = u'/xivo/configuration/json.php/restricted/manage/entity/'
+    _PATH = '/xivo/configuration/json.php/restricted/manage/entity/'
     _OBJECT_CLASS = Entity
 
     _ACTIONS = [
