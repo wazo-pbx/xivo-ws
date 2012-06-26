@@ -48,7 +48,8 @@ def main():
         print >> sys.stderr, 'Unknown format %r' % parsed_args.format
         sys.exit(1)
 
-    http_client = HTTPClient(parsed_args.hostname, parsed_args.username, parsed_args.password)
+    http_client = HTTPClient(parsed_args.hostname, parsed_args.username, parsed_args.password,
+                             xdebug_eclipse=parsed_args.xdebug_eclipse)
     if parsed_args.verbose:
         http_client = TimingHTTPClientDecorator(http_client)
         http_client = DebugHTTPClientDecorator(http_client)
@@ -67,14 +68,16 @@ def _parse_args(args):
 
 def _new_argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='increase verbosity')
     parser.add_argument('-u', '--username',
                         help='authentication username')
     parser.add_argument('-p', '--password',
                         help='authentication password')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='increase verbosity')
     parser.add_argument('--format', choices=['json', 'pprint', 'python'], default='python',
                         help='print format')
+    parser.add_argument('--xdebug-eclipse', action='store_true',
+                        help='enable xdebug with eclipse')
     parser.add_argument('hostname',
                         help='hostname of xivo server')
     return parser
