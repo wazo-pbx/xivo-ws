@@ -16,17 +16,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import argparse
+import logging
 import readline
 import sys
-from xivo_ws.facade import XivoServer
-from xivo_ws.exception import WebServiceRequestError
+from xivo_ws import WebServiceRequestError
+from xivo_ws.facade import BaseXivoServer
+from xivo_ws.client.http import HTTPClient
+from xivo_ws.client.webservice import WebServiceClient
 from xivo_ws_debug.editor import read_content_from_editor
 from xivo_ws_debug.formatter import JSONFormatter, PprintFormatter, \
     PythonFormatter
+from xivo_ws_debug.client.http import TimingHTTPClientDecorator, \
+    DebugHTTPClientDecorator
 
 
 def main():
     parsed_args = _parse_args(sys.argv[1:])
+
+    if parsed_args.verbose:
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(logging.StreamHandler())
 
     if parsed_args.format == 'json':
         formatter = JSONFormatter()
@@ -38,7 +48,15 @@ def main():
         print >> sys.stderr, 'Unknown format %r' % parsed_args.format
         sys.exit(1)
 
-    xivo_ws = XivoServer(parsed_args.hostname, parsed_args.username, parsed_args.password)
+    http_client = HTTPClient(parsed_args.hostname, parsed_args.username, parsed_args.password)
+    if parsed_args.verbose:
+        http_client = TimingHTTPClientDecorator(http_client)
+        http_client = DebugHTTPClientDecorator(http_client)
+
+    ws_client = WebServiceClient(http_client)
+
+    xivo_ws = BaseXivoServer(ws_client)
+
     loop(xivo_ws, formatter)
 
 
@@ -49,11 +67,13 @@ def _parse_args(args):
 
 def _new_argument_parser():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='increase verbosity')
     parser.add_argument('-u', '--username',
                         help='authentication username')
     parser.add_argument('-p', '--password',
                         help='authentication password')
-    parser.add_argument('--format', choices=['json', 'pprint', 'python'], default='json',
+    parser.add_argument('--format', choices=['json', 'pprint', 'python'], default='python',
                         help='print format')
     parser.add_argument('hostname',
                         help='hostname of xivo server')
@@ -62,6 +82,7 @@ def _new_argument_parser():
 
 def loop(xivo_ws, formatter):
     add_raw_data = ''
+    edit_raw_data = ''
     try:
         while True:
             try:
@@ -90,6 +111,15 @@ def loop(xivo_ws, formatter):
                     obj.raw_delete(object_id)
                 elif action == 'delete_all':
                     obj.raw_delete_all()
+                elif action == 'edit':
+                    object_id = tail
+                    edit_raw_data = read_content_from_editor(edit_raw_data)
+                    if not edit_raw_data.rstrip():
+                        print 'Aborting edit due to empty data'
+                        edit_raw_data = ''
+                        continue
+                    data = eval(edit_raw_data)
+                    obj.raw_edit(object_id, data)
                 elif action == 'list':
                     print formatter.format(obj.raw_list())
                 elif action == 'search':

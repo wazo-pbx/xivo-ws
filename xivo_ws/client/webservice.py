@@ -16,10 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import json
-import logging
 from urllib import quote_plus
-
-logger = logging.getLogger(__name__)
 
 
 class WebServiceClient(object):
@@ -80,37 +77,3 @@ class WebServiceClient(object):
         response_content = self._do_get_request(path, query)
         obj_dict = json.loads(response_content)
         return obj_dict
-
-
-class DebugWebServiceClientDecorator(object):
-    def __init__(self, ws_client):
-        self._ws_client = ws_client
-
-    def __getattr__(self, name):
-        return getattr(self._ws_client, name)
-
-    def add(self, path, obj_dict):
-        logger.debug('HTTP request (agent) obj_dict:\n%s', self._format_obj_dict(obj_dict))
-        self._ws_client.add(path, obj_dict)
-
-    def edit(self, path, obj_id, obj_dict):
-        logger.debug('HTTP request (edit) obj_dict:\n%s', self._format_obj_dict(obj_dict))
-        self._ws_client.edit(path, obj_id, obj_dict)
-
-    def list(self, path):
-        obj_dict = self._ws_client.list(path)
-        logger.debug('HTTP response (list) obj_dict:\n%s', self._format_obj_dict(obj_dict))
-        return obj_dict
-
-    def search(self, path, search_pattern):
-        obj_dict = self._ws_client.search(path, search_pattern)
-        logger.debug('HTTP response (search) obj_dict:\n%s', self._format_obj_dict(obj_dict))
-        return obj_dict
-
-    def view(self, path, obj_id):
-        obj_dict = self._ws_client.view(path, obj_id)
-        logger.debug('HTTP response (view) obj_dict:\n%s', self._format_obj_dict(obj_dict))
-        return obj_dict
-
-    def _format_obj_dict(self, obj_dict):
-        return json.dumps(obj_dict, indent=4, sort_keys=True)

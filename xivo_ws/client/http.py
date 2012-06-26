@@ -59,14 +59,14 @@ class HTTPClient(object):
         try:
             fobj = self._opener.open(request)
         except urllib2.HTTPError as e:
-            logger.debug(u'HTTP status code %s', e.code)
+            logger.debug(u'HTTP %s %s', e.code, e.msg)
             raise WebServiceRequestError(e.code, e.msg)
         except urllib2.URLError as e:
             logger.debug(u'Error while requesting: %s', e)
             raise WebServiceError(e)
         else:
             try:
-                logger.debug(u'HTTP status code %s', fobj.code)
+                logger.debug(u'HTTP %s %s', fobj.code, fobj.msg)
                 return fobj.read()
             finally:
                 fobj.close()
