@@ -20,6 +20,7 @@ from xivo_ws.facade import XivoServer
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.context import Context, ContextRange
 from xivo_ws.objects.entity import Entity
+from xivo_ws.objects.group import Group
 from xivo_ws.objects.incall import Incall, IncallQueueDestination
 from xivo_ws.objects.line import Line
 from xivo_ws.objects.outcall import Outcall, OutcallExten
