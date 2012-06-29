@@ -22,7 +22,6 @@ from xivo_ws.objects.user import User, UserLine
 
 
 class TestUser(unittest.TestCase):
-    maxDiff = None
     def test_to_obj_dict(self):
         expected_obj_dict = {
             'userfeatures': {
