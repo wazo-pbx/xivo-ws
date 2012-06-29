@@ -19,11 +19,11 @@ Example
 
    from xivo_ws import XivoServer, User, UserLine
 
+   user = User(firstname=u'Jack',
+               lastname=u'Johnson',
+               line=UserLine(context=u'default', number=1001))
+
    xivo_server = XivoServer('skaro', 'my_username', 'my_password')
-
-   user = User(firstname=u'Jack', lastname=u'Johnson')
-   user.line = UserLine(context=u'default', number=1001)
-
    xivo_server.user.add(user)
 
 More examples are available in the :file:`examples` directory.

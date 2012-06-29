@@ -35,22 +35,21 @@ class Group(AbstractObject):
         self._add_queue(obj_dict)
         self._add_user(obj_dict)
 
-    def _add_user(self, obj_dict):
-        user = self.user_ids
-        obj_dict['user'] = user
-
-    def _add_queue(self, obj_dict):
-        obj_dict['queue'] = {}
-
     def _add_groupfeatures(self, obj_dict):
         groupfeatures = {
             'name': self.name,
             'context': self.context,
             'timeout': '0'
-            }
-        if self.number:
+        }
+        if self.number is not None:
             groupfeatures['number'] = self.number
         obj_dict['groupfeatures'] = groupfeatures
+
+    def _add_queue(self, obj_dict):
+        obj_dict['queue'] = {}
+
+    def _add_user(self, obj_dict):
+        obj_dict['user'] = list(self.user_ids)
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):

@@ -22,12 +22,6 @@ from xivo_ws.objects.line import Line
 
 
 class TestLine(unittest.TestCase):
-    def test_new_line_with_no_attribute_in_constructor(self):
-        line = Line()
-
-        self.assertEqual(None, line.id)
-        self.assertEqual(None, line.protocol)
-
     def test_from_obj_dict(self):
         obj_dict = {
             "contextnummember": {

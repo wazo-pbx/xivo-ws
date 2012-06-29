@@ -22,6 +22,25 @@ from xivo_ws.objects.group import Group
 
 
 class TestGroup(unittest.TestCase):
+    def test_to_obj_dict(self):
+        expected_obj_dict = {
+            'groupfeatures': {
+                'name': 'huge',
+                'number': '2034',
+                'context': 'default',
+                'timeout': '0'
+                },
+            'queue': {},
+            'user': [1, 2, 3]
+        }
+        group = Group(name='huge',
+                      number='2034',
+                      context='default',
+                      user_ids=[1, 2, 3])
+
+        obj_dict = group.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
 
     def test_from_list_obj_dict(self):
         obj_dict = {
@@ -48,23 +67,3 @@ class TestGroup(unittest.TestCase):
         self.assertEqual('axelgroup', group.name)
         self.assertEqual('2060', group.number)
         self.assertEqual('default', group.context)
-
-    def test_to_obj_dict(self):
-        expected = {
-            'groupfeatures': {
-                'name': 'huge',
-                'number': '2034',
-                'context': 'default',
-                'timeout': '0'
-                },
-            'queue': {},
-            'user': [1, 2, 3]
-        }
-
-        group = Group(name='huge',
-                      number='2034',
-                      context='default',
-                      user_ids=[1, 2, 3])
-        obj_dict = group.to_obj_dict()
-
-        self.assertEqual(expected, obj_dict)

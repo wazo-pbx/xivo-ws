@@ -35,13 +35,10 @@ class Entity(AbstractObject):
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_entity(obj_dict)
+        obj.id = int(obj_dict['id'])
+        obj.name = obj_dict['name']
+        obj.display_name = obj_dict['displayname']
         return obj
-
-    def _from_entity(self, entity):
-        self.id = int(entity['id'])
-        self.name = entity['name']
-        self.display_name = entity['displayname']
 
     from_list_obj_dict = from_obj_dict
 

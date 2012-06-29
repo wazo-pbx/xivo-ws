@@ -22,7 +22,7 @@ from xivo_ws.objects.agent import Agent
 
 
 class TestAgent(unittest.TestCase):
-    def test_new_agent_with_no_attribute_in_constructor(self):
+    def test_new_agent_with_no_attribute(self):
         agent = Agent()
 
         self.assertEqual(None, agent.id)
@@ -32,7 +32,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(None, agent.context)
         self.assertEqual([], agent.users)
 
-    def test_new_agent_with_all_attributes_in_constructor(self):
+    def test_new_agent_with_all_attributes(self):
         agent = Agent(id=1,
                       firstname='First',
                       lastname='Last',
@@ -46,26 +46,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual('555', agent.number)
         self.assertEqual('default', agent.context)
         self.assertEqual([1, 2], agent.users)
-
-    def test_to_obj_dict_raise_if_required_args_not_given(self):
-        agent = Agent()
-        agent.firstname = 'First'
-        agent.number = '555'
-        agent.context = 'default'
-
-        agent.firstname = None
-        self.assertRaises(Exception, agent.to_obj_dict)
-        agent.firstname = 'First'
-
-        agent.number = None
-        self.assertRaises(Exception, agent.to_obj_dict)
-        agent.number = '555'
-
-        agent.context = None
-        self.assertRaises(Exception, agent.to_obj_dict)
-        agent.context = 'default'
-
-        agent.to_obj_dict()
 
     def test_to_obj_dict_with_minimum(self):
         expected_obj_dict = {

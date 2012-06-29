@@ -61,11 +61,11 @@ class Queue(AbstractObject):
             'autofill': True,
             'setqueueentryvar': True,
             'setqueuevar': True,
+            'strategy': self.ring_strategy,
+            'autopause': self.autopause,
         }
-        queue['strategy'] = self.ring_strategy
         if self.reachability_timeout is not None:
             queue['timeout'] = self.reachability_timeout
-        queue['autopause'] = self.autopause
         obj_dict['queue'] = queue
 
     def _to_dialaction(self, obj_dict):
@@ -100,18 +100,18 @@ class Queue(AbstractObject):
         obj._from_queuefeatures(obj_dict['queuefeatures'])
         return obj
 
-    @classmethod
-    def from_list_obj_dict(cls, obj_dict):
-        obj = cls()
-        obj._from_queuefeatures(obj_dict)
-        return obj
-
     def _from_queuefeatures(self, queuefeatures):
         self.id = int(queuefeatures['id'])
         self.name = queuefeatures['name']
         self.display_name = queuefeatures['displayname']
         self.number = queuefeatures['number']
         self.context = queuefeatures['context']
+
+    @classmethod
+    def from_list_obj_dict(cls, obj_dict):
+        obj = cls()
+        obj._from_queuefeatures(obj_dict)
+        return obj
 
 
 class QueueWebService(AbstractWebService):
@@ -120,6 +120,7 @@ class QueueWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
         Actions.VIEW,

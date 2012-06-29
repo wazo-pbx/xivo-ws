@@ -22,8 +22,9 @@ from xivo_ws.registry import register_ws_class
 
 
 class SIPTrunk(AbstractObject):
-    TYPE_OUTGOING = 'peer'
-    TYPE_INCOMING_OUTGOING = 'friend'
+    TYPE_PEER = 'peer'
+    TYPE_USER = 'user'
+    TYPE_FRIEND = 'friend'
 
     _ATTRIBUTES = [
         Attribute('id'),
@@ -32,7 +33,7 @@ class SIPTrunk(AbstractObject):
         Attribute('secret'),
         Attribute('context', required=True),
         Attribute('host'),
-        Attribute('type'),
+        Attribute('type', default=TYPE_PEER),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -44,6 +45,7 @@ class SIPTrunk(AbstractObject):
             'transport': 'udp',
             'name': self.name,
             'context': self.context,
+            'type': self.type,
         }
         if self.username is not None:
             protocol['username'] = self.username
@@ -56,23 +58,17 @@ class SIPTrunk(AbstractObject):
                 'host-type': 'static',
                 'host-static': self.host,
             })
-        if self.type is not None:
-            protocol['type'] = self.type
         obj_dict['protocol'] = protocol
 
     def _to_trunkfeatures(self, obj_dict):
-        trunkfeatures = {}
-        obj_dict['trunkfeatures'] = trunkfeatures
+        obj_dict['trunkfeatures'] = {}
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_trunkfeatures(obj_dict)
+        obj.id = obj_dict['id']
+        obj.name = obj_dict['name']
         return obj
-
-    def _from_trunkfeatures(self, trunkfeatures):
-        self.id = trunkfeatures['id']
-        self.name = trunkfeatures['name']
 
 
 class SIPTrunkWebService(AbstractWebService):

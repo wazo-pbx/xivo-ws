@@ -22,7 +22,7 @@ from xivo_ws.objects.incall import Incall, IncallQueueDestination
 
 
 class TestIncall(unittest.TestCase):
-    def test_to_obj_dict_with_full(self):
+    def test_to_obj_dict(self):
         expected_obj_dict = {
             'incall': {
                 'exten': '502',

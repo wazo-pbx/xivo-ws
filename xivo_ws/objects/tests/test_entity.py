@@ -22,29 +22,12 @@ from xivo_ws.objects.entity import Entity
 
 
 class TestEntity(unittest.TestCase):
-    def test_new_entity_with_no_attribute_in_constructor(self):
-        entity = Entity()
-
-        self.assertEqual(None, entity.id)
-        self.assertEqual(None, entity.name)
-        self.assertEqual(None, entity.display_name)
-
-    def test_new_entity_with_all_attributes_in_constructor(self):
-        entity = Entity(id=1,
-                        name='entity',
-                        display_name='Entity')
-
-        self.assertEqual(1, entity.id)
-        self.assertEqual('entity', entity.name)
-        self.assertEqual('Entity', entity.display_name)
-
-    def test_to_obj_dict_with_full(self):
+    def test_to_obj_dict(self):
         expected_obj_dict = {
             'name': 'entity',
             'displayname': 'Entity',
         }
-        entity = Entity(id=1,
-                        name='entity',
+        entity = Entity(name='entity',
                         display_name='Entity')
 
         obj_dict = entity.to_obj_dict()

@@ -15,52 +15,56 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+from __future__ import unicode_literals
+
 import unittest
 from xivo_ws.objects.user import User, UserLine
 
 
 class TestUser(unittest.TestCase):
-    def test_raise_error_if_firstname_is_none(self):
-        user = User()
-
-        self.assertRaises(ValueError, user.to_obj_dict)
-
-    def test_doesnt_raise_if_firstname_is_provided(self):
-        user = User()
-        user.firstname = u'Alice'
-
-        user.to_obj_dict()
-
-    def test_id_is_none_after_init(self):
-        user = User()
-
-        self.assertEqual(None, user.id)
-
-    def test_unspecified_fields_are_not_mapped_to_obj_dict(self):
-        user = User()
-        user.firstname = u'John'
+    maxDiff = None
+    def test_to_obj_dict(self):
+        expected_obj_dict = {
+            'userfeatures': {
+                'musiconhold': 'default',
+                'entityid': 1,
+                'enablehint': True,
+                'enablexfer': True,
+                'firstname': 'Jack',
+                'lastname': 'Johnson',
+                'enableclient': True,
+                'loginclient': 'jack',
+                'passwdclient': 'jack',
+                'profileclient': 'agent',
+            },
+            'linefeatures': {
+                'protocol': ['sip'],
+                'context': ['default'],
+                'number': [1000],
+            },
+            'dialaction': {
+                'noanswer': {
+                    'actiontype': 'none',
+                },
+                'busy': {
+                    'actiontype': 'none',
+                },
+                'congestion': {
+                    'actiontype': 'none',
+                },
+                'chanunavail': {
+                    'actiontype': 'none',
+                },
+            }
+        }
+        user = User(firstname='Jack',
+                    lastname='Johnson',
+                    enable_client=True,
+                    client_username='jack',
+                    client_password='jack',
+                    client_profile='agent',
+                    line=UserLine(number=1000, context='default'))
 
         obj_dict = user.to_obj_dict()
 
-        self.assertTrue(u'lastname' not in obj_dict[u'userfeatures'])
-
-    def test_fields_are_mapped_correctly(self):
-        user = User()
-        user.firstname = u'Jack'
-        user.lastname = u'Johnson'
-        user.enable_client = True
-        user.client_username = u'jack'
-        user.client_password = u'jack'
-        user.client_profile = u'agent'
-        user.line = UserLine()
-        user.line.number = 1000
-        user.line.context = u'default'
-
-        obj_dict = user.to_obj_dict()
-        self.assertEqual(user.firstname, obj_dict[u'userfeatures'][u'firstname'])
-        self.assertEqual(user.lastname, obj_dict[u'userfeatures'][u'lastname'])
-        self.assertEqual(user.enable_client, obj_dict[u'userfeatures'][u'enableclient'])
-        self.assertEqual(user.client_username, obj_dict[u'userfeatures'][u'loginclient'])
-        self.assertEqual(user.client_password, obj_dict[u'userfeatures'][u'passwdclient'])
-        self.assertEqual(user.client_profile, obj_dict[u'userfeatures'][u'profileclient'])
-        self.assertEqual(user.line.number, int(obj_dict[u'linefeatures'][u'number'][0]))
+        self.assertEqual(expected_obj_dict, obj_dict)

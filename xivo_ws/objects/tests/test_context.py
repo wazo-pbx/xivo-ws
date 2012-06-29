@@ -22,7 +22,7 @@ from xivo_ws.objects.context import Context, ContextRange
 
 
 class TestContext(unittest.TestCase):
-    def test_new_context_with_no_attribute_in_constructor(self):
+    def test_new_context_with_no_attribute(self):
         context = Context()
 
         self.assertEqual(None, context.id)
@@ -37,7 +37,7 @@ class TestContext(unittest.TestCase):
         self.assertEqual([], context.conf_rooms)
         self.assertEqual([], context.incalls)
 
-    def test_new_context_with_all_attributes_in_constructor(self):
+    def test_new_context_with_all_attributes(self):
         context = Context(id='default',
                           name='default',
                           display_name='Default',

@@ -22,41 +22,7 @@ from xivo_ws.objects.queue import Queue
 
 
 class TestQueue(unittest.TestCase):
-    def test_new_queue_with_no_attribute_in_constructor(self):
-        queue = Queue()
-
-        self.assertEqual(None, queue.id)
-        self.assertEqual(None, queue.name)
-        self.assertEqual(None, queue.display_name)
-        self.assertEqual(None, queue.number)
-        self.assertEqual(None, queue.context)
-        self.assertEqual('ringall', queue.ring_strategy)
-        self.assertEqual(True, queue.autopause)
-        self.assertEqual(None, queue.reachability_timeout)
-        self.assertEqual([], queue.agents)
-
-    def test_new_queue_with_all_attributes_in_constructor(self):
-        queue = Queue(id=1,
-                      name='foo',
-                      display_name='Foo bar',
-                      number='555',
-                      context='default',
-                      ring_strategy='linear',
-                      autopause=False,
-                      reachability_timeout=30,
-                      agents=[1, 2])
-
-        self.assertEqual(1, queue.id)
-        self.assertEqual('foo', queue.name)
-        self.assertEqual('Foo bar', queue.display_name)
-        self.assertEqual('555', queue.number)
-        self.assertEqual('default', queue.context)
-        self.assertEqual('linear', queue.ring_strategy)
-        self.assertEqual(False, queue.autopause)
-        self.assertEqual(30, queue.reachability_timeout)
-        self.assertEqual([1, 2], queue.agents)
-
-    def test_to_obj_dict_with_full(self):
+    def test_to_obj_dict(self):
         expected_obj_dict = {
             'queuefeatures': {
                 'timeout': '0',

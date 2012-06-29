@@ -84,13 +84,10 @@ class User(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_userfeatures(obj_dict)
+        obj.id = obj_dict['id']
+        obj.firstname = obj_dict['firstname']
+        obj.lastname = obj_dict['lastname']
         return obj
-
-    def _from_userfeatures(self, userfeatures):
-        self.id = userfeatures['id']
-        self.firstname = userfeatures['firstname']
-        self.lastname = userfeatures['lastname']
 
 
 class UserLine(AbstractObject):

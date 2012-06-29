@@ -64,12 +64,9 @@ class Outcall(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_outcall(obj_dict)
+        obj.id = int(obj_dict['id'])
+        obj.name = obj_dict['name']
         return obj
-
-    def _from_outcall(self, outcall):
-        self.id = int(outcall['id'])
-        self.name = outcall['name']
 
 
 class OutcallExten(object):

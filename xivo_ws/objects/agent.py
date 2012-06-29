@@ -86,6 +86,7 @@ class AgentWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
         Actions.VIEW,

@@ -65,14 +65,12 @@ def add_trunks(xivo_server):
         sip_trunk.name = '%s-call-manager' % entity.name
         sip_trunk.context = '%s-from-extern' % entity.name
         sip_trunk.host = '10.54.4.10'
-        sip_trunk.type = SIPTrunk.TYPE_OUTGOING
         xivo_server.sip_trunk.add(sip_trunk)
         # backup
         sip_trunk = SIPTrunk()
         sip_trunk.name = '%s-sub-call-manager' % entity.name
         sip_trunk.context = '%s-from-extern' % entity.name
         sip_trunk.host = '10.74.4.10'
-        sip_trunk.type = SIPTrunk.TYPE_OUTGOING
         xivo_server.sip_trunk.add(sip_trunk)
 
 
