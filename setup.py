@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='xivo-ws',
-    version='0.1.1',
+    version='0.1.2',
     description='Enable programmatic access to a XiVO server via the XiVO web services.',
     url='https://gitorious.org/xivo/xivo-ws',
     packages=['xivo_ws',
