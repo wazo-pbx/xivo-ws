@@ -117,6 +117,7 @@ class UserWebService(AbstractWebService):
     _ACTIONS = [
         Actions.ADD,
         Actions.DELETE,
+        Actions.DELETE_ALL,
         Actions.LIST,
         Actions.SEARCH,
     ]
