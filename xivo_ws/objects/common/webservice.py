@@ -29,7 +29,7 @@ class _ActionDescriptor(object):
         if self._name in owner._ACTIONS:
             return MethodType(self._fun, instance, owner)
         else:
-            raise AttributeError()
+            raise AttributeError(self._name)
 
 
 def _action(name):
