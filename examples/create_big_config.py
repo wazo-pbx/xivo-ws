@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 
 from xivo_ws import XivoServer, Agent, Context, ContextRange, Incall, Queue, \
-    User, UserLine, IncallQueueDestination
+    User, UserLine, QueueDestination
 
 INTERNAL_CONTEXT_NAME = 'default'
 INCALL_CONTEXT_NAME = 'from-extern'
@@ -78,7 +78,8 @@ def create_contexts(xivo_server):
     context.entity = entity_name
     context.type = Context.TYPE_INTERNAL
     context.users = [ContextRange(USER_START_NO, USER_START_NO + NB_USERS - 1)]
-    context.queues = [ContextRange(QUEUE_START_NO, QUEUE_START_NO + NB_QUEUES - 1)]
+    if NB_QUEUES > 0:
+        context.queues = [ContextRange(QUEUE_START_NO, QUEUE_START_NO + NB_QUEUES - 1)]
     xivo_server.context.add(context)
 
     print 'Creating context "%s"...' % INCALL_CONTEXT_NAME
@@ -87,8 +88,9 @@ def create_contexts(xivo_server):
     context.display_name = context.name
     context.entity = entity_name
     context.type = Context.TYPE_INCALL
-    context.incalls = [ContextRange(INCALL_START_NO, INCALL_START_NO + NB_QUEUES - 1,
-                                    did_length=len(str(INCALL_START_NO)))]
+    if NB_QUEUES > 0:
+        context.incalls = [ContextRange(INCALL_START_NO, INCALL_START_NO + NB_QUEUES - 1,
+                                        did_length=len(str(INCALL_START_NO)))]
     xivo_server.context.add(context)
 
 
