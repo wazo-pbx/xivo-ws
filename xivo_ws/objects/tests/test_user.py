@@ -18,7 +18,8 @@
 from __future__ import unicode_literals
 
 import unittest
-from xivo_ws.objects.user import User, UserLine
+from mock import Mock
+from xivo_ws.objects.user import User, UserLine, UserWebService, _ImportContentGenerator
 
 
 class TestUser(unittest.TestCase):
@@ -68,3 +69,53 @@ class TestUser(unittest.TestCase):
         obj_dict = user.to_obj_dict()
 
         self.assertEqual(expected_obj_dict, obj_dict)
+
+
+class TestImportContentGenerator(unittest.TestCase):
+    def test_header(self):
+        generator = _ImportContentGenerator()
+
+        self.assertEqual('entityid|firstname|lastname|enableclient|username|password|profileclient|phonenumber|context|protocol',
+                         generator._rows[0])
+
+    def test_one_minimal_user(self):
+        generator = _ImportContentGenerator()
+        user = User(firstname='John')
+
+        generator.add_users([user])
+
+        self.assertEqual('1|John||||||||', generator._rows[1])
+
+    def test_one_full_user(self):
+        generator = _ImportContentGenerator()
+        user = User(firstname='John F',
+                    lastname='Jackson',
+                    enable_client=True,
+                    client_username='user',
+                    client_password='pass',
+                    client_profile='client',
+                    entity_id=2,
+                    line=UserLine(number=123, context='default', protocol='sip'))
+
+        generator.add_users([user])
+
+        self.assertEqual('2|John F|Jackson|1|user|pass|client|123|default|sip', generator._rows[1])
+
+
+class TestUserWebService(unittest.TestCase):
+    def setUp(self):
+        ws_client = Mock()
+        self._ws = UserWebService(ws_client)
+
+    def test_import(self):
+        expected_content = b"""\
+entityid|firstname|lastname|enableclient|username|password|profileclient|phonenumber|context|protocol
+1|John||||||||
+1|Jack|Johnson|||||||
+"""
+        users = [User(firstname='John'), User(firstname='Jack', lastname='Johnson')]
+
+        self._ws.import_(users)
+
+        self._ws._ws_client.custom_request.assert_called_once_with(
+                    self._ws._PATH, 'act=import', expected_content)

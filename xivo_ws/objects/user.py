@@ -17,6 +17,7 @@
 
 from __future__ import unicode_literals
 
+from itertools import chain
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -111,6 +112,62 @@ class UserLine(AbstractObject):
         obj_dict['linefeatures'] = linefeatures
 
 
+class _ImportContentGenerator(object):
+    _COLUMNS = [
+        # (attr_name, column_name, map function)
+        ('entity_id', 'entityid', None),
+        ('firstname', 'firstname', None),
+        ('lastname', 'lastname', None),
+        ('enable_client', 'enableclient', int),
+        ('client_username', 'username', None),
+        ('client_password', 'password', None),
+        ('client_profile', 'profileclient', None),
+    ]
+    _LINE_COLUMNS = [
+        ('number', 'phonenumber'),
+        ('context', 'context'),
+        ('protocol', 'protocol'),
+    ]
+
+    def __init__(self):
+        self._rows = []
+        self._add_header()
+
+    def _add_header(self):
+        header = '|'.join(column[1] for column in chain(self._COLUMNS, self._LINE_COLUMNS))
+        self._rows.append(header)
+
+    def add_users(self, users):
+        for user in users:
+            self._rows.append(self._user_to_row(user))
+
+    def _user_to_row(self, user):
+        elements = []
+        for attribute_name, _, map_function in self._COLUMNS:
+            attribute = getattr(user, attribute_name)
+            if attribute is None:
+                elements.append('')
+            else:
+                if map_function is not None:
+                    attribute = map_function(attribute)
+                elements.append(unicode(attribute))
+        line = user.line
+        for attribute_name, _ in self._LINE_COLUMNS:
+            if line is None:
+                elements.append('')
+            else:
+                attribute = getattr(line, attribute_name)
+                if attribute is None:
+                    elements.append('')
+                else:
+                    elements.append(unicode(attribute))
+        return '|'.join(elements)
+
+    def get_content(self):
+        unicode_content = '\n'.join(chain(self._rows, ['']))
+        return unicode_content.encode('UTF-8')
+
+
 class UserWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/pbx_settings/users/'
     _OBJECT_CLASS = User
@@ -123,5 +180,13 @@ class UserWebService(AbstractWebService):
         Actions.SEARCH,
     ]
 
+    def import_(self, users):
+        content = self._generate_import_content(users)
+        self._ws_client.custom_request(self._PATH, 'act=import', content)
+
+    def _generate_import_content(self, users):
+        generator = _ImportContentGenerator()
+        generator.add_users(users)
+        return generator.get_content()
 
 register_ws_class(UserWebService, 'user')
