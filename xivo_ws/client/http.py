@@ -19,12 +19,13 @@ import logging
 import urllib2
 from base64 import b64encode
 from xivo_ws.exception import WebServiceRequestError, WebServiceError
+from xivo_ws.version import version
 
 logger = logging.getLogger(__name__)
 
 
 class HTTPClient(object):
-    _USER_AGENT = u'xivo-ws/0.1'
+    _USER_AGENT = u'xivo-ws/%s' % version
 
     def __init__(self, host, username=None, password=None,
                  force_http=False, xdebug_eclipse=False):

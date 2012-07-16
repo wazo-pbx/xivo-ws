@@ -1,10 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 from distutils.core import setup
+from xivo_ws.version import version
 
 setup(
     name='xivo-ws',
-    version='0.1.2',
+    version=version,
     description='Enable programmatic access to a XiVO server via the XiVO web services.',
     url='https://gitorious.org/xivo/xivo-ws',
     packages=['xivo_ws',
