@@ -30,6 +30,7 @@ class User(AbstractObject):
         Attribute('client_username'),
         Attribute('client_password'),
         Attribute('client_profile'),
+        Attribute('entity_id', required=True, default=1),
         Attribute('line'),
     ]
 
@@ -41,7 +42,7 @@ class User(AbstractObject):
     def _to_userfeatures(self, obj_dict):
         userfeatures = {
             'musiconhold': 'default',
-            'entityid': 1,
+            'entityid': self.entity_id,
             # TODO check why default values for enablehint and enablexfer (and
             #      other that we don't see) aren't working
             'enablehint': True,

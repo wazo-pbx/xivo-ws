@@ -26,7 +26,7 @@ class TestUser(unittest.TestCase):
         expected_obj_dict = {
             'userfeatures': {
                 'musiconhold': 'default',
-                'entityid': 1,
+                'entityid': 2,
                 'enablehint': True,
                 'enablexfer': True,
                 'firstname': 'Jack',
@@ -62,6 +62,7 @@ class TestUser(unittest.TestCase):
                     client_username='jack',
                     client_password='jack',
                     client_profile='agent',
+                    entity_id=2,
                     line=UserLine(number=1000, context='default'))
 
         obj_dict = user.to_obj_dict()
