@@ -15,19 +15,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from xivo_ws.destination import GroupDestination, QueueDestination
-from xivo_ws.exception import WebServiceError, WebServiceRequestError
-from xivo_ws.facade import XivoServer
-from xivo_ws.objects.agent import Agent
-from xivo_ws.objects.context import Context, ContextRange
-from xivo_ws.objects.entity import Entity
-from xivo_ws.objects.group import Group
-from xivo_ws.objects.incall import Incall
-from xivo_ws.objects.line import Line
-from xivo_ws.objects.outcall import Outcall, OutcallExten
-from xivo_ws.objects.queue import Queue
-from xivo_ws.objects.siptrunk import SIPTrunk
-from xivo_ws.objects.user import User, UserLine
+from __future__ import unicode_literals
 
-# deprecated alias
-IncallGroupDestination = GroupDestination
+
+class GroupDestination(object):
+    def __init__(self, group_id):
+        self.group_id = group_id
+
+    def to_obj_dict(self):
+        obj_dict = {
+            'actiontype': 'group',
+            'actionarg1': self.group_id,
+            'actionarg2': '',
+        }
+        return obj_dict
+
+
+class QueueDestination(object):
+    def __init__(self, queue_id):
+        self.queue_id = queue_id
+
+    def to_obj_dict(self):
+        obj_dict = {
+            'actiontype': 'queue',
+            'actionarg1': self.queue_id,
+            'actionarg2': '',
+        }
+        return obj_dict

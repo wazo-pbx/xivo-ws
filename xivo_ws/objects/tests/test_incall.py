@@ -18,7 +18,8 @@
 from __future__ import unicode_literals
 
 import unittest
-from xivo_ws.objects.incall import Incall, IncallQueueDestination
+from xivo_ws.destination import QueueDestination
+from xivo_ws.objects.incall import Incall
 
 
 class TestIncall(unittest.TestCase):
@@ -38,7 +39,7 @@ class TestIncall(unittest.TestCase):
         }
         incall = Incall(number='502',
                         context='from-extern',
-                        destination=IncallQueueDestination(
+                        destination=QueueDestination(
                             queue_id='8'))
 
         obj_dict = incall.to_obj_dict()

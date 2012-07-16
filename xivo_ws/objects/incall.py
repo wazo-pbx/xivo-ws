@@ -30,18 +30,19 @@ class Incall(AbstractObject):
     ]
 
     def _to_obj_dict(self, obj_dict):
-        self._to_incall(obj_dict)
-        self._to_dialaction(obj_dict)
+        self._add_incall(obj_dict)
+        self._add_dialaction(obj_dict)
 
-    def _to_incall(self, obj_dict):
-        incall = {
+    def _add_incall(self, obj_dict):
+        obj_dict['incall'] = {
             'exten': self.number,
             'context': self.context,
         }
-        obj_dict['incall'] = incall
 
-    def _to_dialaction(self, obj_dict):
-        self.destination._to_dialaction(obj_dict)
+    def _add_dialaction(self, obj_dict):
+        obj_dict['dialaction'] = {
+            'answer': self.destination.to_obj_dict()
+        }
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -50,21 +51,6 @@ class Incall(AbstractObject):
         obj.number = obj_dict['exten']
         obj.context = obj_dict['context']
         return obj
-
-
-class IncallQueueDestination(object):
-    def __init__(self, queue_id):
-        self.queue_id = queue_id
-
-    def _to_dialaction(self, obj_dict):
-        dialaction = {
-            'answer': {
-                'actiontype': 'queue',
-                'actionarg1': self.queue_id,
-                'actionarg2': '',
-            }
-        }
-        obj_dict['dialaction'] = dialaction
 
 
 class IncallWebService(AbstractWebService):
