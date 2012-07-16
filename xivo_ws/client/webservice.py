@@ -20,7 +20,7 @@ from urllib import quote_plus
 
 
 class WebServiceClient(object):
-    _POST_HEADERS = {u'Content-Type': u'application/json'}
+    _JSON_POST_HEADERS = {u'Content-Type': u'application/json'}
 
     def __init__(self, http_client):
         self._http_client = http_client
@@ -33,7 +33,7 @@ class WebServiceClient(object):
         path_and_query = self._compute_path_and_query(path, query)
         request_content = json.dumps(obj_dict)
         response_content = self._http_client.post(path_and_query, request_content,
-                                                     self._POST_HEADERS)
+                                                  self._JSON_POST_HEADERS)
         return response_content
 
     def _do_get_request(self, path, query):
@@ -77,3 +77,11 @@ class WebServiceClient(object):
         response_content = self._do_get_request(path, query)
         obj_dict = json.loads(response_content)
         return obj_dict
+
+    def custom_request(self, path, query, data=None):
+        if data is None:
+            return self._do_get_request(path, query)
+        else:
+            path_and_query = self._compute_path_and_query(path, query)
+            response_content = self._http_client.post(path_and_query, data)
+            return response_content
