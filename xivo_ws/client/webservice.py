@@ -27,7 +27,7 @@ class WebServiceClient(object):
 
     def add(self, path, obj_dict):
         query = u'act=add'
-        self._do_post_request(path, query, obj_dict)
+        return self._do_post_request(path, query, obj_dict)
 
     def _do_post_request(self, path, query, obj_dict):
         path_and_query = self._compute_path_and_query(path, query)

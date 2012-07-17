@@ -57,7 +57,7 @@ class AbstractWebService(object):
     @_action(Actions.ADD)
     def add(self, obj):
         obj_dict = obj.to_obj_dict()
-        self._ws_client.add(self._PATH, obj_dict)
+        return self._ws_client.add(self._PATH, obj_dict)
 
     @_action(Actions.ADD)
     def mass_add(self, objs):
