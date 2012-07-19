@@ -205,7 +205,7 @@ def create_incalls(xivo_server):
         incall = Incall()
         incall.number = INCALL_START_NO + incall_no
         incall.context = INCALL_CONTEXT_NAME
-        incall.destination = IncallQueueDestination(queue_ids[incall_no])
+        incall.destination = QueueDestination(queue_ids[incall_no])
         xivo_server.incall.add(incall)
 
 
