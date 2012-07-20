@@ -32,6 +32,7 @@ class User(AbstractObject):
         Attribute('client_password'),
         Attribute('client_profile'),
         Attribute('entity_id', required=True, default=1),
+        Attribute('enable_hint', default=True),
         Attribute('line'),
     ]
 
@@ -44,9 +45,8 @@ class User(AbstractObject):
         userfeatures = {
             'musiconhold': 'default',
             'entityid': self.entity_id,
-            # TODO check why default values for enablehint and enablexfer (and
+            # TODO check why default values for enablexfer (and
             #      other that we don't see) aren't working
-            'enablehint': True,
             'enablexfer': True,
             'firstname': self.firstname,
         }
@@ -60,6 +60,8 @@ class User(AbstractObject):
             userfeatures['passwdclient'] = self.client_password
         if self.client_profile is not None:
             userfeatures['profileclient'] = self.client_profile
+        if self.enable_hint is not None:
+            userfeatures['enablehint'] = self.enable_hint
         obj_dict['userfeatures'] = userfeatures
 
     def _to_linefeatures(self, obj_dict):
@@ -122,6 +124,7 @@ class _ImportContentGenerator(object):
         ('client_username', 'username', None),
         ('client_password', 'password', None),
         ('client_profile', 'profileclient', None),
+        ('enable_hint', 'enablehint', int),
     ]
     _LINE_COLUMNS = [
         ('number', 'phonenumber'),

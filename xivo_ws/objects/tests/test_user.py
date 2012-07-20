@@ -64,6 +64,7 @@ class TestUser(unittest.TestCase):
                     client_password='jack',
                     client_profile='agent',
                     entity_id=2,
+                    enable_hint=True,
                     line=UserLine(number=1000, context='default'))
 
         obj_dict = user.to_obj_dict()
@@ -75,7 +76,7 @@ class TestImportContentGenerator(unittest.TestCase):
     def test_header(self):
         generator = _ImportContentGenerator()
 
-        self.assertEqual('entityid|firstname|lastname|enableclient|username|password|profileclient|phonenumber|context|protocol',
+        self.assertEqual('entityid|firstname|lastname|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol',
                          generator._rows[0])
 
     def test_one_minimal_user(self):
@@ -84,7 +85,7 @@ class TestImportContentGenerator(unittest.TestCase):
 
         generator.add_users([user])
 
-        self.assertEqual('1|John||||||||', generator._rows[1])
+        self.assertEqual('1|John||||||1|||', generator._rows[1])
 
     def test_one_full_user(self):
         generator = _ImportContentGenerator()
@@ -95,11 +96,12 @@ class TestImportContentGenerator(unittest.TestCase):
                     client_password='pass',
                     client_profile='client',
                     entity_id=2,
+                    enable_hint=True,
                     line=UserLine(number=123, context='default', protocol='sip'))
 
         generator.add_users([user])
 
-        self.assertEqual('2|John F|Jackson|1|user|pass|client|123|default|sip', generator._rows[1])
+        self.assertEqual('2|John F|Jackson|1|user|pass|client|1|123|default|sip', generator._rows[1])
 
 
 class TestUserWebService(unittest.TestCase):
@@ -109,9 +111,9 @@ class TestUserWebService(unittest.TestCase):
 
     def test_import(self):
         expected_content = b"""\
-entityid|firstname|lastname|enableclient|username|password|profileclient|phonenumber|context|protocol
-1|John||||||||
-1|Jack|Johnson|||||||
+entityid|firstname|lastname|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol
+1|John||||||1|||
+1|Jack|Johnson|||||1|||
 """
         users = [User(firstname='John'), User(firstname='Jack', lastname='Johnson')]
 
