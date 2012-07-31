@@ -32,6 +32,7 @@ class TestUser(unittest.TestCase):
                 'enablexfer': True,
                 'firstname': 'Jack',
                 'lastname': 'Johnson',
+                'language': 'en_US',
                 'enableclient': True,
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
@@ -64,6 +65,7 @@ class TestUser(unittest.TestCase):
         }
         user = User(firstname='Jack',
                     lastname='Johnson',
+                    language='en_US',
                     enable_client=True,
                     client_username='jack',
                     client_password='jack',

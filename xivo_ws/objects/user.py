@@ -27,6 +27,7 @@ class User(AbstractObject):
         Attribute('id'),
         Attribute('firstname', required=True),
         Attribute('lastname'),
+        Attribute('language'),
         Attribute('enable_client'),
         Attribute('client_username'),
         Attribute('client_password'),
@@ -38,6 +39,8 @@ class User(AbstractObject):
     ]
 
     def _to_obj_dict(self, obj_dict):
+        if self.voicemail is not None and self.language is None:
+            raise ValueError('language must be set when adding voicemail')
         self._add_userfeatures(obj_dict)
         self._add_line(obj_dict)
         self._add_voicemail(obj_dict)
@@ -54,6 +57,8 @@ class User(AbstractObject):
         }
         if self.lastname is not None:
             userfeatures['lastname'] = self.lastname
+        if self.language is not None:
+            userfeatures['language'] = self.language
         if self.enable_client is not None:
             userfeatures['enableclient'] = self.enable_client
         if self.client_username is not None:
