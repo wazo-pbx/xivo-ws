@@ -19,7 +19,7 @@ from __future__ import unicode_literals
 
 import unittest
 from mock import Mock
-from xivo_ws.objects.user import User, UserLine, UserWebService, _ImportContentGenerator
+from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService, _ImportContentGenerator
 
 
 class TestUser(unittest.TestCase):
@@ -55,6 +55,11 @@ class TestUser(unittest.TestCase):
                 'chanunavail': {
                     'actiontype': 'none',
                 },
+            },
+            'voicemail-option': 'add',
+            'voicemail': {
+                'fullname': 'jack johnson',
+                'mailbox': 1000,
             }
         }
         user = User(firstname='Jack',
@@ -65,7 +70,8 @@ class TestUser(unittest.TestCase):
                     client_profile='agent',
                     entity_id=2,
                     enable_hint=True,
-                    line=UserLine(number=1000, context='default'))
+                    line=UserLine(number=1000, context='default'),
+                    voicemail=UserVoicemail(number=1000, name='jack johnson'))
 
         obj_dict = user.to_obj_dict()
 

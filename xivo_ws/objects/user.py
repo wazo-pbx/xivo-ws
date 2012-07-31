@@ -34,14 +34,16 @@ class User(AbstractObject):
         Attribute('entity_id', required=True, default=1),
         Attribute('enable_hint', default=True),
         Attribute('line'),
+        Attribute('voicemail'),
     ]
 
     def _to_obj_dict(self, obj_dict):
-        self._to_userfeatures(obj_dict)
-        self._to_linefeatures(obj_dict)
-        self._to_dialaction(obj_dict)
+        self._add_userfeatures(obj_dict)
+        self._add_line(obj_dict)
+        self._add_voicemail(obj_dict)
+        self._add_dialaction(obj_dict)
 
-    def _to_userfeatures(self, obj_dict):
+    def _add_userfeatures(self, obj_dict):
         userfeatures = {
             'musiconhold': 'default',
             'entityid': self.entity_id,
@@ -64,11 +66,15 @@ class User(AbstractObject):
             userfeatures['enablehint'] = self.enable_hint
         obj_dict['userfeatures'] = userfeatures
 
-    def _to_linefeatures(self, obj_dict):
+    def _add_line(self, obj_dict):
         if self.line:
-            self.line._to_linefeatures(obj_dict)
+            self.line._add_line(obj_dict)
 
-    def _to_dialaction(self, obj_dict):
+    def _add_voicemail(self, obj_dict):
+        if self.voicemail:
+            self.voicemail._add_voicemail(obj_dict)
+
+    def _add_dialaction(self, obj_dict):
         dialaction = {
             'noanswer': {
                 'actiontype': 'none',
@@ -96,22 +102,34 @@ class User(AbstractObject):
 
 class UserLine(AbstractObject):
     _ATTRIBUTES = [
-        Attribute('protocol', default='sip'),
-        Attribute('context'),
+        Attribute('protocol', default='sip', required=True),
+        Attribute('context', required=True),
         Attribute('number'),
     ]
 
-    def _to_linefeatures(self, obj_dict):
-        if self.protocol is None:
-            raise ValueError('protocol must be given')
-        if self.context is None:
-            raise ValueError('context must be given')
+    def _add_line(self, obj_dict):
+        self._check_required_attributes()
         linefeatures = {
             'protocol': [self.protocol],
             'context': [self.context],
             'number': [self.number],
         }
         obj_dict['linefeatures'] = linefeatures
+
+class UserVoicemail(AbstractObject):
+    _ATTRIBUTES = [
+        Attribute('name', required=True),
+        Attribute('number', required=True),
+    ]
+
+    def _add_voicemail(self, obj_dict):
+        self._check_required_attributes()
+        voicemail_dict = {
+            'fullname': self.name,
+            'mailbox': self.number
+        }
+        obj_dict['voicemail'] = voicemail_dict
+        obj_dict['voicemail-option'] = 'add'
 
 
 class _ImportContentGenerator(object):
