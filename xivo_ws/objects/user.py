@@ -102,6 +102,9 @@ class User(AbstractObject):
         obj.id = obj_dict['id']
         obj.firstname = obj_dict['firstname']
         obj.lastname = obj_dict['lastname']
+        if obj_dict['voicemailid']:
+            obj.voicemail = UserVoicemail()
+            obj.voicemail.id = obj_dict['voicemailid']
         return obj
 
 

@@ -79,6 +79,21 @@ class TestUser(unittest.TestCase):
 
         self.assertEqual(expected_obj_dict, obj_dict)
 
+    def test_from_list_obj_dict(self):
+        obj_dict = {
+            'id': 4,
+            'firstname': 'Jack',
+            'lastname': 'Johnson',
+            'voicemailid': 5,
+        }
+
+        user = User.from_list_obj_dict(obj_dict)
+
+        self.assertEqual(user.id, 4)
+        self.assertEqual(user.firstname, 'Jack')
+        self.assertEqual(user.lastname, 'Johnson')
+        self.assertEqual(user.voicemail.id, 5)
+
 
 class TestImportContentGenerator(unittest.TestCase):
     def test_header(self):
