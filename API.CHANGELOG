@@ -1,0 +1,10 @@
+This file describes the changes to the xivo-ws API that break backward compatibility.
+
+
+0.2.0
+=====
+
+* Changed: IncallGroupDestination has been replaced by GroupDestination (deprecated in 0.1.2)
+
+* Deprecated: attributes of XivoServer now use the plural form. For example, "xivo_ws.user" is
+  replaced by "xivo_ws.users".
