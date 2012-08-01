@@ -41,7 +41,7 @@ def create_groups(context, grouplist, xivoserver):
     for l in grouplist :
         for g in l:
             group = Group(name=g, number='', context=context)
-            xivo_server.group.add(group)
+            xivo_server.groups.add(group)
 
 
 grouplist = build_groups_list(DID_START, DID_STOP + 1, GROUPNAME)

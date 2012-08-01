@@ -124,4 +124,6 @@ class ContextWebService(AbstractWebService):
     ]
 
 
+register_ws_class(ContextWebService, 'contexts')
+# deprecated name
 register_ws_class(ContextWebService, 'context')

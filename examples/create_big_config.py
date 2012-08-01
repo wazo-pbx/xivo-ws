@@ -38,35 +38,35 @@ def main():
 
 def remove_all_incalls(xivo_server):
     print 'Removing all incoming calls...'
-    xivo_server.incall.delete_all()
+    xivo_server.incalls.delete_all()
 
 
 def remove_all_queues(xivo_server):
     print 'Removing all queues...'
     # XXX webi doesn't support delete_all for queue web service
-    for queue in xivo_server.queue.list():
-        xivo_server.queue.delete(queue.id)
+    for queue in xivo_server.queues.list():
+        xivo_server.queues.delete(queue.id)
 
 
 def remove_all_agents(xivo_server):
     print 'Removing all agents...'
-    xivo_server.agent.delete_all()
+    xivo_server.agents.delete_all()
 
 
 def remove_all_users(xivo_server):
     print 'Removing all users... '
-    xivo_server.user.delete_all()
+    xivo_server.users.delete_all()
 
 
 def remove_contexts(xivo_server):
     for context_name in [INTERNAL_CONTEXT_NAME, INCALL_CONTEXT_NAME]:
         print 'Removing context "%s"...' % context_name
-        xivo_server.context.delete_if_exists(context_name)
+        xivo_server.contexts.delete_if_exists(context_name)
 
 
 def create_contexts(xivo_server):
     print 'Fetching an entity name...'
-    entities = xivo_server.entity.list()
+    entities = xivo_server.entities.list()
     entity_name = entities[0].name
     if len(entities) > 1:
         print 'NOTE: contexts will be associated to entity "%s"' % entity_name
@@ -80,7 +80,7 @@ def create_contexts(xivo_server):
     context.users = [ContextRange(USER_START_NO, USER_START_NO + NB_USERS - 1)]
     if NB_QUEUES > 0:
         context.queues = [ContextRange(QUEUE_START_NO, QUEUE_START_NO + NB_QUEUES - 1)]
-    xivo_server.context.add(context)
+    xivo_server.contexts.add(context)
 
     print 'Creating context "%s"...' % INCALL_CONTEXT_NAME
     context = Context()
@@ -91,7 +91,7 @@ def create_contexts(xivo_server):
     if NB_QUEUES > 0:
         context.incalls = [ContextRange(INCALL_START_NO, INCALL_START_NO + NB_QUEUES - 1,
                                         did_length=len(str(INCALL_START_NO)))]
-    xivo_server.context.add(context)
+    xivo_server.contexts.add(context)
 
 
 def create_users(xivo_server):
@@ -137,12 +137,12 @@ def create_users(xivo_server):
         current_user_no += 1
 
     print 'Importing users...'
-    xivo_server.user.import_(users)
+    xivo_server.users.import_(users)
 
 
 def create_agents(xivo_server):
     print 'Fetching user IDs of agents...'
-    user_list = xivo_server.user.search('Agent')
+    user_list = xivo_server.users.search('Agent')
     user_by_firstname = dict((user.firstname, user.id) for user in user_list)
 
     print 'Creating %s agents...' % NB_AGENTS
@@ -152,12 +152,12 @@ def create_agents(xivo_server):
         agent.number = agent_no
         agent.context = INTERNAL_CONTEXT_NAME
         agent.users = [user_by_firstname[agent.firstname]]
-        xivo_server.agent.add(agent)
+        xivo_server.agents.add(agent)
 
 
 def create_queues(xivo_server):
     print 'Fetching agent IDs...'
-    agent_list = xivo_server.agent.list()
+    agent_list = xivo_server.agents.list()
     agent_ids = sorted(agent.id for agent in agent_list)
 
     print 'Creating %s queues...' % NB_QUEUES
@@ -169,7 +169,7 @@ def create_queues(xivo_server):
         queue.number = QUEUE_START_NO + queue_no
         queue.context = INTERNAL_CONTEXT_NAME
         queue.agents = agents_iterator.next()
-        xivo_server.queue.add(queue)
+        xivo_server.queues.add(queue)
 
 
 def _subseq_iterator(seq, n):
@@ -197,7 +197,7 @@ def _subseq_iterator(seq, n):
 
 def create_incalls(xivo_server):
     print 'Fetching queues IDs...'
-    queue_list = xivo_server.queue.list()
+    queue_list = xivo_server.queues.list()
     queue_ids = sorted(queue.id for queue in queue_list)
 
     print 'Creating %s incalls...' % NB_QUEUES
@@ -206,7 +206,7 @@ def create_incalls(xivo_server):
         incall.number = INCALL_START_NO + incall_no
         incall.context = INCALL_CONTEXT_NAME
         incall.destination = QueueDestination(queue_ids[incall_no])
-        xivo_server.incall.add(incall)
+        xivo_server.incalls.add(incall)
 
 
 if __name__ == '__main__':

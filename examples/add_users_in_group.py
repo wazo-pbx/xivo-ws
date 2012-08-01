@@ -26,22 +26,22 @@ def add():
         print('Creating user %s...' % i)
         u = User(firstname='%s%s' % (FIRSTNAME_PREFIX, i))
         u.line = UserLine(context=CONTEXT, number=i + NUMBER_START)
-        xivo_server.user.add(u)
-    user_ids = [user.id for user in xivo_server.user.search(FIRSTNAME_PREFIX)]
+        xivo_server.users.add(u)
+    user_ids = [user.id for user in xivo_server.users.search(FIRSTNAME_PREFIX)]
     print('Adding users to group: %s' % user_ids)
     group = Group(name=GROUP_NAME, number=GROUP_NUMBER, context=CONTEXT, user_ids=user_ids)
-    xivo_server.group.add(group)
+    xivo_server.groups.add(group)
 
 
 def delete():
     xivo_server = XivoServer('skaro-rc', 'admin', 'superpass')
-    user_ids = [user.id for user in xivo_server.user.search(FIRSTNAME_PREFIX)]
+    user_ids = [user.id for user in xivo_server.users.search(FIRSTNAME_PREFIX)]
     for user_id in user_ids:
         print('deleting user %s...' % user_id)
-        xivo_server.user.delete(user_id)
-    group_id = [group.id for group in xivo_server.group.search(GROUP_NAME)][0]
+        xivo_server.users.delete(user_id)
+    group_id = [group.id for group in xivo_server.groups.search(GROUP_NAME)][0]
     print('Deleting group %s' % GROUP_NAME)
-    xivo_server.group.delete(group_id)
+    xivo_server.groups.delete(group_id)
 
 
 if __name__ == '__main__':

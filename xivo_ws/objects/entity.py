@@ -56,4 +56,6 @@ class EntityWebService(AbstractWebService):
     ]
 
 
+register_ws_class(EntityWebService, 'entities')
+# deprecated name
 register_ws_class(EntityWebService, 'entity')

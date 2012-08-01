@@ -57,4 +57,6 @@ class LineWebService(AbstractWebService):
     ]
 
 
+register_ws_class(LineWebService, 'lines')
+# deprecated name
 register_ws_class(LineWebService, 'line')

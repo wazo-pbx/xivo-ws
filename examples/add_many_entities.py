@@ -25,7 +25,7 @@ def main():
 def add_entities(xivo_server):
     print 'Adding entities...'
     for entity in ENTITIES:
-        xivo_server.entity.add(entity)
+        xivo_server.entities.add(entity)
 
 
 def add_contexts(xivo_server):
@@ -38,7 +38,7 @@ def add_contexts(xivo_server):
         context.name = outcall_context_name
         context.display_name = '%s - to-extern' % entity.display_name
         context.type = Context.TYPE_OUTCALL
-        xivo_server.context.add(context)
+        xivo_server.contexts.add(context)
         # internal context
         context = Context()
         context.entity = entity.name
@@ -47,14 +47,14 @@ def add_contexts(xivo_server):
         context.type = Context.TYPE_INTERNAL
         context.context_include = [outcall_context_name]
         context.users = [ContextRange(1000, 1099)]
-        xivo_server.context.add(context)
+        xivo_server.contexts.add(context)
         # incall context
         context = Context()
         context.entity = entity.name
         context.name = '%s-from-extern' % entity.name
         context.display_name = '%s - from-extern' % entity.display_name
         context.type = Context.TYPE_INCALL
-        xivo_server.context.add(context)
+        xivo_server.contexts.add(context)
 
 
 def add_trunks(xivo_server):
@@ -65,18 +65,18 @@ def add_trunks(xivo_server):
         sip_trunk.name = '%s-call-manager' % entity.name
         sip_trunk.context = '%s-from-extern' % entity.name
         sip_trunk.host = '10.54.4.10'
-        xivo_server.sip_trunk.add(sip_trunk)
+        xivo_server.sip_trunks.add(sip_trunk)
         # backup
         sip_trunk = SIPTrunk()
         sip_trunk.name = '%s-sub-call-manager' % entity.name
         sip_trunk.context = '%s-from-extern' % entity.name
         sip_trunk.host = '10.74.4.10'
-        xivo_server.sip_trunk.add(sip_trunk)
+        xivo_server.sip_trunks.add(sip_trunk)
 
 
 def add_outcalls(xivo_server):
     print 'Adding outcalls...'
-    trunk_list = xivo_server.sip_trunk.list()
+    trunk_list = xivo_server.sip_trunks.list()
     trunk_by_name = dict((trunk.name, trunk.id) for trunk in trunk_list)
     for entity in ENTITIES:
         outcall = Outcall()
@@ -91,7 +91,7 @@ def add_outcalls(xivo_server):
             trunk_by_name['%s-call-manager' % entity.name],
             trunk_by_name['%s-sub-call-manager' % entity.name]
         ]
-        xivo_server.outcall.add(outcall)
+        xivo_server.outcalls.add(outcall)
 
 
 main()

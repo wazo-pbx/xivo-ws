@@ -23,7 +23,7 @@ WSPWD = 'adminpass'
 def build_incall_to_group(xivoserver, start, end, basename, context):
     xivo_server = XivoServer(xivoserver, WSUSER, WSPWD)
 
-    group_list = xivo_server.group.list()
+    group_list = xivo_server.groups.list()
     group_by_name = dict((group.name, group.id) for group in group_list)
 
     for i in xrange(start, end):
@@ -36,7 +36,7 @@ def build_incall_to_group(xivoserver, start, end, basename, context):
             incallda = GroupDestination(group_id)
             incall = Incall(number=i, context=context, destination=incallda)
             print 'Adding Incall %s going to Group : %s (id = %s)' % (i, basename % i, group_id)
-            xivo_server.incall.add(incall)
+            xivo_server.incalls.add(incall)
 
 
 build_incall_to_group(XIVO_ADDR, DID_START, DID_STOP + 1, GROUPPATTERN, CONTEXT)

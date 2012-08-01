@@ -73,4 +73,6 @@ class GroupWebService(AbstractWebService):
     ]
 
 
+register_ws_class(GroupWebService, 'groups')
+# deprecated name
 register_ws_class(GroupWebService, 'group')

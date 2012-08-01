@@ -127,4 +127,6 @@ class QueueWebService(AbstractWebService):
     ]
 
 
+register_ws_class(QueueWebService, 'queues')
+# deprecated name
 register_ws_class(QueueWebService, 'queue')

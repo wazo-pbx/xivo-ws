@@ -19,12 +19,14 @@ Example
 
    from xivo_ws import XivoServer, User, UserLine
 
-   user = User(firstname=u'Jack',
-               lastname=u'Johnson',
-               line=UserLine(context=u'default', number=1001))
-
    xivo_server = XivoServer('skaro', 'my_username', 'my_password')
-   xivo_server.user.add(user)
+
+   user = User()
+   user.firstname = 'Jack'
+   user.lastname = 'Johnson'
+   user.line = UserLine(context='default', number=1001)
+
+   xivo_server.users.add(user)
 
 More examples are available in the :file:`examples` directory.
 

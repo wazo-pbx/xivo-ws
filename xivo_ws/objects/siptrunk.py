@@ -83,4 +83,6 @@ class SIPTrunkWebService(AbstractWebService):
     ]
 
 
+register_ws_class(SIPTrunkWebService, 'sip_trunks')
+# deprecated name
 register_ws_class(SIPTrunkWebService, 'sip_trunk')

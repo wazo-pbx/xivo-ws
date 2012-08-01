@@ -215,4 +215,7 @@ class UserWebService(AbstractWebService):
         generator.add_users(users)
         return generator.get_content()
 
+
+register_ws_class(UserWebService, 'users')
+# deprecated name
 register_ws_class(UserWebService, 'user')
