@@ -42,3 +42,11 @@ class TestWebServiceClient(unittest.TestCase):
 
         self._http_client.post.assert_called_with(u'/foo/?act=add', '{"a": "b"}',
                                              {u'Content-Type': u'application/json'})
+
+    def test_add_returns_cleaned_object_id(self):
+        ws_client = self._new_web_service_client()
+        self._http_client.post.return_value = '"object_id"\n'
+
+        result = ws_client.add(u'/url/to/web/service/', {u'object_attribute': u'value'})
+
+        self.assertEqual(result, 'object_id')

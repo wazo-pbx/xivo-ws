@@ -27,7 +27,19 @@ class WebServiceClient(object):
 
     def add(self, path, obj_dict):
         query = u'act=add'
-        return self._do_post_request(path, query, obj_dict)
+        object_id = self._do_post_request(path, query, obj_dict)
+        return self._clean_add_return(object_id)
+
+    def _clean_add_return(self, return_string):
+        cleaned_string = self._remove_trailing_eol(return_string)
+        cleaned_string = self._remove_double_quotes(cleaned_string)
+        return cleaned_string
+
+    def _remove_trailing_eol(self, string):
+        return string.strip()
+
+    def _remove_double_quotes(self, string):
+        return string.translate(None, '"')
 
     def _do_post_request(self, path, query, obj_dict):
         path_and_query = self._compute_path_and_query(path, query)
