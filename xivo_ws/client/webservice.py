@@ -36,7 +36,7 @@ class WebServiceClient(object):
         return cleaned_string
 
     def _remove_trailing_eol(self, string):
-        return string.strip()
+        return string.rstrip()
 
     def _remove_double_quotes(self, string):
         return string.translate(None, '"')

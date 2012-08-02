@@ -124,8 +124,10 @@ class UserLine(AbstractObject):
         }
         obj_dict['linefeatures'] = linefeatures
 
+
 class UserVoicemail(AbstractObject):
     _ATTRIBUTES = [
+        Attribute('id'),
         Attribute('name', required=True),
         Attribute('number', required=True),
     ]
