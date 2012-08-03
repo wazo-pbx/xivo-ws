@@ -26,6 +26,7 @@ class Agent(AbstractObject):
         Attribute('id'),
         Attribute('firstname', required=True),
         Attribute('lastname'),
+        Attribute('password'),
         Attribute('number', required=True),
         Attribute('context', required=True),
         Attribute('users', default_factory=list),
@@ -50,6 +51,8 @@ class Agent(AbstractObject):
         }
         if self.lastname is not None:
             agentfeatures['lastname'] = self.lastname
+        if self.password is not None:
+            agentfeatures['passwd'] = self.password
         obj_dict['agentfeatures'] = agentfeatures
 
     def _to_userselect(self, obj_dict):
@@ -66,6 +69,7 @@ class Agent(AbstractObject):
         self.id = agentfeatures['id']
         self.firstname = agentfeatures['firstname']
         self.lastname = agentfeatures['lastname']
+        self.password = agentfeatures['passwd']
         self.number = agentfeatures['number']
         self.context = agentfeatures['context']
 

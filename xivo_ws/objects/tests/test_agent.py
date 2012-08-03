@@ -85,12 +85,14 @@ class TestAgent(unittest.TestCase):
                 'number': '555',
                 'context': 'default',
                 'lastname': 'Last',
+                'passwd': 'password123',
             },
             'user-select': [1, 2],
         }
         agent = Agent(id=1,
                       firstname='First',
                       lastname='Last',
+                      password='password123',
                       number='555',
                       context='default',
                       users=[1, 2])
@@ -224,7 +226,7 @@ class TestAgent(unittest.TestCase):
             'language': '',
             'lastname': '1',
             'number': '*1',
-            'passwd': '',
+            'passwd': 'password123',
             'silent': False,
         }
 
@@ -233,5 +235,6 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(1, agent.id)
         self.assertEqual('Agent', agent.firstname)
         self.assertEqual('1', agent.lastname)
+        self.assertEqual('password123', agent.password)
         self.assertEqual('*1', agent.number)
         self.assertEqual('default', agent.context)
