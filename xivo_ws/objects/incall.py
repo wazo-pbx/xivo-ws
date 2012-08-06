@@ -65,6 +65,11 @@ class IncallWebService(AbstractWebService):
         Actions.SEARCH,
     ]
 
+    def search_by_number(self, number):
+        number = str(number)
+        incalls = self.search(number)
+        return [incall for incall in incalls if incall.number == number]
+
 
 register_ws_class(IncallWebService, 'incalls')
 # deprecated name
