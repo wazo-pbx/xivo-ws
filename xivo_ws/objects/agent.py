@@ -97,12 +97,13 @@ class AgentWebService(AbstractWebService):
         Actions.VIEW,
     ]
 
-    def search_agents_by_number(self, number):
+    def search_by_number(self, number):
+        number = str(number)
         agents = self.search(number)
         return [agent for agent in agents if agent.number == number]
 
-    def search_one_agent_by_number(self, number):
-        agents = self.search_agents_by_number(number)
+    def find_one_by_number(self, number):
+        agents = self.search_by_number(number)
         nb_agents = len(agents)
         if nb_agents == 1:
             return agents[0]
@@ -110,6 +111,7 @@ class AgentWebService(AbstractWebService):
             raise Exception('no agent with number %s' % number)
         else:
             raise Exception('%d agents with number %s' % (nb_agents, number))
+
 
 register_ws_class(AgentWebService, 'agents')
 # deprecated name

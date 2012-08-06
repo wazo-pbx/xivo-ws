@@ -1,6 +1,16 @@
 This file describes the changes to the xivo-ws API that break backward compatibility.
 
 
+1.1
+===
+
+* Changed: search_agents_by_number (introduced in 1.0) has been renamed to
+  search_by_number.
+
+* Changed: search_one_agent_by_number (introduced in 1.0) has been renamed to
+  find_one_by_number.
+
+
 0.2.0
 =====
 
