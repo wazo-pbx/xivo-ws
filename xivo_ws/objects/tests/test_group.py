@@ -18,10 +18,12 @@
 from __future__ import unicode_literals
 
 import unittest
-from xivo_ws.objects.group import Group
+from xivo_ws.objects.group import Group, GroupWebService
+from mock import Mock
 
 
 class TestGroup(unittest.TestCase):
+
     def test_to_obj_dict(self):
         expected_obj_dict = {
             'groupfeatures': {
@@ -67,3 +69,28 @@ class TestGroup(unittest.TestCase):
         self.assertEqual('axelgroup', group.name)
         self.assertEqual('2060', group.number)
         self.assertEqual('default', group.context)
+
+
+class TestGroupWebService(unittest.TestCase):
+
+    def test_search_by_number_using_integer(self):
+        search_return_value = [Group(id=42, number='1010')]
+        group_ws = self._new_group_ws_with_mocked_search(search_return_value)
+
+        groups = group_ws.search_by_number(1010)
+
+        self.assertEqual(search_return_value, groups)
+
+    def _new_group_ws_with_mocked_search(self, search_return_value):
+        group_ws = GroupWebService(None)
+        group_ws.search = Mock()
+        group_ws.search.return_value = search_return_value
+        return group_ws
+
+    def test_search_by_name_using_integer(self):
+        search_return_value = [Group(id=42, name='1010')]
+        group_ws = self._new_group_ws_with_mocked_search(search_return_value)
+
+        groups = group_ws.search_by_name(1010)
+
+        self.assertEqual(search_return_value, groups)

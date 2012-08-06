@@ -73,6 +73,16 @@ class GroupWebService(AbstractWebService):
         Actions.SEARCH,
     ]
 
+    def search_by_number(self, number):
+        number = str(number)
+        groups = self.search(number)
+        return [group for group in groups if group.number == number]
+
+    def search_by_name(self, name):
+        name = str(name)
+        groups = self.search(name)
+        return [group for group in groups if group.name == name]
+
 
 register_ws_class(GroupWebService, 'groups')
 # deprecated name
