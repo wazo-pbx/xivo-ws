@@ -6,7 +6,7 @@ from xivo_ws.version import version
 setup(
     name='xivo-ws',
     version=version,
-    description='Enable programmatic access to a XiVO server via the XiVO web services.',
+    description='A library for the XiVO web services.',
     url='https://gitorious.org/xivo/xivo-ws',
     packages=['xivo_ws',
               'xivo_ws.client',
@@ -19,9 +19,12 @@ setup(
     license='GPLv3',
     long_description=open('README').read(),
     classifiers=[
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
 )
