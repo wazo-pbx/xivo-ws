@@ -20,6 +20,7 @@ from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.facade import XivoServer
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.context import Context, ContextRange
+from xivo_ws.objects.device import Device
 from xivo_ws.objects.entity import Entity
 from xivo_ws.objects.group import Group
 from xivo_ws.objects.incall import Incall
