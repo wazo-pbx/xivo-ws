@@ -42,6 +42,7 @@ class TestUser(unittest.TestCase):
                 'protocol': ['sip'],
                 'context': ['default'],
                 'number': [1000],
+                'device': [42],
             },
             'dialaction': {
                 'noanswer': {
@@ -72,7 +73,7 @@ class TestUser(unittest.TestCase):
                     client_profile='agent',
                     entity_id=2,
                     enable_hint=True,
-                    line=UserLine(number=1000, context='default'),
+                    line=UserLine(number=1000, context='default', device_id=42),
                     voicemail=UserVoicemail(number=1000, name='jack johnson'))
 
         obj_dict = user.to_obj_dict()
