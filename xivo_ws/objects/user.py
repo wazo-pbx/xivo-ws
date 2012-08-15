@@ -100,6 +100,7 @@ class User(AbstractObject):
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
         obj.id = obj_dict['id']
+        obj.entity_id = obj_dict['entityid']
         obj.firstname = obj_dict['firstname']
         obj.lastname = obj_dict['lastname']
         if obj_dict['voicemailid']:

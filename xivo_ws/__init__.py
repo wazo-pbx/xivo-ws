@@ -27,5 +27,5 @@ from xivo_ws.objects.line import Line
 from xivo_ws.objects.outcall import Outcall, OutcallExten
 from xivo_ws.objects.queue import Queue
 from xivo_ws.objects.siptrunk import SIPTrunk
-from xivo_ws.objects.user import User, UserLine, UserVoicemail
 from xivo_ws.objects.statconf import Statconf
+from xivo_ws.objects.user import User, UserLine, UserVoicemail
