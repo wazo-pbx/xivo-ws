@@ -17,6 +17,7 @@
 
 from __future__ import unicode_literals
 
+from operator import itemgetter
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -33,33 +34,27 @@ class Outcall(AbstractObject):
     def _to_obj_dict(self, obj_dict):
         if not self.trunks:
             raise ValueError('at least 1 trunk must be specified')
-        self._to_outcall(obj_dict)
-        self._to_outcalltrunk(obj_dict)
-        self._to_dialpattern(obj_dict)
+        self._add_outcall(obj_dict)
+        self._add_outcalltrunk(obj_dict)
+        self._add_dialpattern(obj_dict)
 
-    def _to_outcall(self, obj_dict):
-        outcall = {
+    def _add_outcall(self, obj_dict):
+        obj_dict['outcall'] = {
             'name': self.name,
             'context': self.context,
         }
-        obj_dict['outcall'] = outcall
 
-    def _to_outcalltrunk(self, obj_dict):
+    def _add_outcalltrunk(self, obj_dict):
         obj_dict['outcalltrunk'] = list(self.trunks)
 
-    def _to_dialpattern(self, obj_dict):
+    def _add_dialpattern(self, obj_dict):
         if self.extens:
-            # reverse and add a needed but meaningless one at the end of the list
-            extens = list(reversed(self.extens))
-            extens.append(OutcallExten(''))
-            obj_dict['dialpattern'] = {
-                'id': ['0' for _ in extens],
-                'externprefix': ['' for _ in extens],
-                'prefix': ['' for _ in extens],
-                'exten': [exten.exten for exten in extens],
-                'stripnum': [exten.stripnum for exten in extens],
-                'callerid': ['' for _ in extens],
-            }
+            exten_dicts = [exten.to_obj_dict() for exten in reversed(self.extens)]
+            dialpattern = {}
+            for key in exten_dicts[0]:
+                dialpattern[key] = map(itemgetter(key), exten_dicts)
+                dialpattern[key].append('')
+            obj_dict['dialpattern'] = dialpattern
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -69,10 +64,22 @@ class Outcall(AbstractObject):
         return obj
 
 
-class OutcallExten(object):
-    def __init__(self, exten=None, stripnum=0):
-        self.exten = exten
-        self.stripnum = stripnum
+class OutcallExten(AbstractObject):
+    _ATTRIBUTES = [
+        Attribute('exten', required=True),
+        Attribute('stripnum', default=0, required=True),
+        Attribute('caller_id', default='', required=True),
+    ]
+
+    def _to_obj_dict(self, obj_dict):
+        obj_dict.update({
+            'id': '0',
+            'externprefix': '',
+            'prefix': '',
+            'exten': self.exten,
+            'stripnum': self.stripnum,
+            'callerid': self.caller_id,
+        })
 
 
 class OutcallWebService(AbstractWebService):
