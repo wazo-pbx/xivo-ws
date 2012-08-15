@@ -86,7 +86,6 @@ class TestQueue(unittest.TestCase):
     def test_from_obj_dict(self):
         obj_dict = {
             "agent": False,
-            "agentgroup": False,
             "callerid": {
                 "callerdisplay": "",
                 "mode": None,
