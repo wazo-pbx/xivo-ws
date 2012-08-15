@@ -66,7 +66,7 @@ class SIPTrunk(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj.id = obj_dict['id']
+        obj.id = int(obj_dict['id'])
         obj.name = obj_dict['name']
         return obj
 
