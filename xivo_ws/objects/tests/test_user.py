@@ -62,6 +62,7 @@ class TestUser(unittest.TestCase):
             'voicemail': {
                 'fullname': 'jack johnson',
                 'mailbox': 1000,
+                'password': 'qwerty',
             }
         }
         user = User(firstname='Jack',
@@ -74,7 +75,7 @@ class TestUser(unittest.TestCase):
                     entity_id=2,
                     enable_hint=True,
                     line=UserLine(number=1000, context='default', device_id=42),
-                    voicemail=UserVoicemail(number=1000, name='jack johnson'))
+                    voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'))
 
         obj_dict = user.to_obj_dict()
 

@@ -134,6 +134,7 @@ class UserVoicemail(AbstractObject):
         Attribute('id'),
         Attribute('name', required=True),
         Attribute('number', required=True),
+        Attribute('password'),
     ]
 
     def _add_voicemail(self, obj_dict):
@@ -142,6 +143,8 @@ class UserVoicemail(AbstractObject):
             'fullname': self.name,
             'mailbox': self.number
         }
+        if self.password is not None:
+            voicemail_dict['password'] = self.password
         obj_dict['voicemail'] = voicemail_dict
         obj_dict['voicemail-option'] = 'add'
 
