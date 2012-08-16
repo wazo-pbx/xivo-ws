@@ -40,7 +40,7 @@ class Device(AbstractObject):
     from_list_obj_dict = from_obj_dict
 
 
-class EntityWebService(AbstractWebService):
+class DeviceWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/pbx_settings/devices/'
     _OBJECT_CLASS = Device
 
@@ -51,4 +51,4 @@ class EntityWebService(AbstractWebService):
     ]
 
 
-register_ws_class(EntityWebService, 'devices')
+register_ws_class(DeviceWebService, 'devices')
