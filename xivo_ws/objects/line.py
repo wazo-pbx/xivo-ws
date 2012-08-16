@@ -48,7 +48,7 @@ class Line(AbstractObject):
 
 class LineWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/pbx_settings/lines/'
-    _WS_OBJECT = Line
+    _OBJECT_CLASS = Line
 
     _ACTIONS = [
         Actions.LIST,
