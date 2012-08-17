@@ -43,21 +43,24 @@ class Line(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_linefeatures(obj_dict['linefeatures'])
+        obj._from_protocol(obj_dict['protocol'])
         return obj
 
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
-        self.name = linefeatures['name']
-        self.type = linefeatures['type']
-        self.username = linefeatures['username']
-        self.secret = linefeatures['secret']
-        self.context = linefeatures['context']
-        self.language = linefeatures['language']
-        self.mailbox = linefeatures['mailbox']
-        self.host = linefeatures['host']
-        self.port = linefeatures['port']
-        self.setvar = linefeatures['setvar']
+
+    def _from_protocol(self, protocol):
+        self.name = protocol['name']
+        self.type = protocol['type']
+        self.username = protocol['username']
+        self.secret = protocol['secret']
+        self.context = protocol['context']
+        self.language = protocol['language']
+        self.mailbox = protocol['mailbox']
+        self.host = protocol['host']
+        self.port = protocol['port']
+        self.setvar = protocol['setvar']
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
