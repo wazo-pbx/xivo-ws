@@ -26,7 +26,17 @@ class Line(AbstractObject):
 
     _ATTRIBUTES = [
         Attribute('id'),
-        Attribute('protocol', required=True)
+        Attribute('protocol', required=True),
+        Attribute('name'),
+        Attribute('type'),
+        Attribute('username'),
+        Attribute('secret'),
+        Attribute('context'),
+        Attribute('language'),
+        Attribute('mailbox'),
+        Attribute('host'),
+        Attribute('port'),
+        Attribute('setvar')
     ]
 
     @classmethod
@@ -38,6 +48,16 @@ class Line(AbstractObject):
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
+        self.name = linefeatures['name']
+        self.type = linefeatures['type']
+        self.username = linefeatures['username']
+        self.secret = linefeatures['secret']
+        self.context = linefeatures['context']
+        self.language = linefeatures['language']
+        self.mailbox = linefeatures['mailbox']
+        self.host = linefeatures['host']
+        self.port = linefeatures['port']
+        self.setvar = linefeatures['setvar']
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
@@ -51,6 +71,8 @@ class LineWebService(AbstractWebService):
     _OBJECT_CLASS = Line
 
     _ACTIONS = [
+        Actions.ADD,
+        Actions.EDIT,
         Actions.LIST,
         Actions.SEARCH,
         Actions.VIEW,
