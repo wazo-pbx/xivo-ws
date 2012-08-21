@@ -33,3 +33,20 @@ More examples are available in the :file:`examples` directory.
 
 .. _XiVO server: http://documentation.xivo.fr/production/
 .. _create a web service user: http://documentation.xivo.fr/production/api_sdk/web_services.html#configuration
+
+
+xivo-ws-debug
+=============
+
+::
+
+   > users add
+
+will pop your editor, in which you should write a Python dictionary to be sent
+to the WS
+
+   > users delete 32
+
+will delete user whose id is 32.
+
+``-v`` option allows you to see what is sent and received to/from the WS.
