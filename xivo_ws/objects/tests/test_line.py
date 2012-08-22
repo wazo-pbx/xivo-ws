@@ -22,7 +22,7 @@ from xivo_ws.objects.line import Line
 
 
 class TestLine(unittest.TestCase):
-    def test_from_obj_dict(self):
+    def test_from_obj_dict_sip(self):
         obj_dict = {
             "contextnummember": {
                 "context": "default",
@@ -175,8 +175,125 @@ class TestLine(unittest.TestCase):
 
         self.assertEqual(4, line.id)
         self.assertEqual(Line.PROTOCOL_SIP, line.protocol)
+        self.assertEqual('iibybz', line.name)
 
-    def test_from_list_obj_dict(self):
+    def test_from_obj_dict_custom(self):
+        obj_dict = {
+            "contextnummember": False,
+            "extenumbers": False,
+            "linefeatures": {
+                "commented": False,
+                "config": "",
+                "configregistrar": "default",
+                "context": "default",
+                "description": "",
+                "device": "",
+                "encryption": False,
+                "id": 270,
+                "iduserfeatures": 0,
+                "internal": False,
+                "ipfrom": "10.32.0.1",
+                "line_num": 0,
+                "name": "dahdi/g0",
+                "num": 0,
+                "number": "",
+                "protocol": "custom",
+                "protocolid": 66,
+                "provisioningid": 0,
+                "rules_group": "",
+                "rules_order": 0,
+                "rules_time": "",
+                "rules_type": ""
+            },
+            "protocol": {
+                "category": "user",
+                "commented": False,
+                "context": "default",
+                "id": 66,
+                "identity": "CUSTOM/",
+                "initialized": True,
+                "interface": "dahdi/g0",
+                "intfsuffix": "",
+                "name": None,
+                "protocol": "custom"
+            },
+            "usermacro": False
+        }
+
+        line = Line.from_obj_dict(obj_dict)
+
+        self.assertEqual(270, line.id)
+        self.assertEqual(Line.PROTOCOL_CUSTOM, line.protocol)
+
+    def test_from_obj_dict_sccp(self):
+        obj_dict = {
+            "contextnummember": {
+                "context": "default",
+                "number": "101",
+                "type": "user",
+                "typeval": "150"
+            },
+            "extenumbers": {
+                "context": "default",
+                "exten": "101",
+                "extenbrut": "101",
+                "extenhash": "dbc0f004854457f59fb16ab863a3a1722cef553f",
+                "id": 115,
+                "type": "user",
+                "typeval": "150"
+            },
+            "linefeatures": {
+                "commented": False,
+                "config": "",
+                "configregistrar": "default",
+                "context": "default",
+                "description": "",
+                "device": "11",
+                "encryption": False,
+                "id": 150,
+                "iduserfeatures": 37,
+                "internal": False,
+                "ipfrom": "10.32.0.1",
+                "line_num": 0,
+                "name": "101",
+                "num": 1,
+                "number": "101",
+                "protocol": "sccp",
+                "protocolid": 3,
+                "provisioningid": 0,
+                "rules_group": "",
+                "rules_order": 1,
+                "rules_time": "30",
+                "rules_type": ""
+            },
+            "protocol": {
+                "cid_name": "User 1",
+                "cid_num": "101",
+                "commented": "0",
+                "context": "default",
+                "id": 3,
+                "name": "101",
+                "protocol": "sccp"
+            },
+            "usermacro": {
+                "app": "GoSub",
+                "appdata": "user,s,1(37,150,,)",
+                "commented": False,
+                "context": "default",
+                "exten": "101",
+                "id": "113",
+                "name": "",
+                "priority": "1"
+            }
+        }
+
+        line = Line.from_obj_dict(obj_dict)
+
+        self.assertEqual(150, line.id)
+        self.assertEqual(Line.PROTOCOL_SCCP, line.protocol)
+        self.assertEqual('101', line.name)
+
+    def test_from_list_obj_dict_sip(self):
         obj_dict = {
             "accountcode": None,
             "allow": None,
@@ -294,3 +411,77 @@ class TestLine(unittest.TestCase):
 
         self.assertEqual(4, line.id)
         self.assertEqual(Line.PROTOCOL_SIP, line.protocol)
+        self.assertEqual('iibybz', line.name)
+
+    def test_from_list_obj_dict_custom(self):
+        obj_dict = {
+            "commented": False,
+            "config": "",
+            "configregistrar": "default",
+            "context": "default",
+            "description": "",
+            "device": "",
+            "encryption": False,
+            "id": 331,
+            "identity": "dahdi/g22",
+            "iduserfeatures": 0,
+            "initialized": True,
+            "interface": "dahdi/g22",
+            "internal": False,
+            "ipfrom": "10.32.0.1",
+            "line_num": 0,
+            "name": "dahdi/g22",
+            "num": 0,
+            "number": "",
+            "protocol": "custom",
+            "protocolid": 92,
+            "provisioningid": 0,
+            "rules_group": "",
+            "rules_order": 0,
+            "rules_time": "",
+            "rules_type": "",
+            "useridentity": "-"
+        }
+
+        line = Line.from_list_obj_dict(obj_dict)
+
+        self.assertEqual(331, line.id)
+        self.assertEqual(Line.PROTOCOL_CUSTOM, line.protocol)
+        self.assertEqual('dahdi/g22', line.name)
+
+    def test_from_list_obj_dict_sccp(self):
+        obj_dict = {
+            "cid_name": "User 1",
+            "cid_num": "101",
+            "commented": False,
+            "config": "",
+            "configregistrar": "default",
+            "context": "default",
+            "description": "",
+            "device": "11",
+            "encryption": False,
+            "id": 150,
+            "identity": "SCCP/101",
+            "iduserfeatures": 37,
+            "initialized": True,
+            "internal": False,
+            "ipfrom": "10.32.0.1",
+            "line_num": 0,
+            "name": "101",
+            "num": 1,
+            "number": "101",
+            "protocol": "sccp",
+            "protocolid": 3,
+            "provisioningid": 0,
+            "rules_group": "",
+            "rules_order": 1,
+            "rules_time": "30",
+            "rules_type": "",
+            "useridentity": "User 1"
+        }
+
+        line = Line.from_list_obj_dict(obj_dict)
+
+        self.assertEqual(150, line.id)
+        self.assertEqual(Line.PROTOCOL_SCCP, line.protocol)
+        self.assertEqual('101', line.name)

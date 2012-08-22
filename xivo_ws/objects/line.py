@@ -23,6 +23,8 @@ from xivo_ws.registry import register_ws_class
 
 class Line(AbstractObject):
     PROTOCOL_SIP = 'sip'
+    PROTOCOL_CUSTOM = 'custom'
+    PROTOCOL_SCCP = 'sccp'
 
     _ATTRIBUTES = [
         Attribute('id'),
@@ -43,14 +45,23 @@ class Line(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_linefeatures(obj_dict['linefeatures'])
-        obj._from_protocol(obj_dict['protocol'])
+        protocol_name = obj.protocol
+        obj._from_protocol(protocol_name, obj_dict['protocol'])
         return obj
 
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
 
-    def _from_protocol(self, protocol):
+    def _from_protocol(self, protocol_name, protocol):
+        if protocol_name == self.PROTOCOL_SIP:
+            self._from_sip_protocol(protocol)
+        elif protocol_name == self.PROTOCOL_CUSTOM:
+            self._from_custom_protocol(protocol)
+        elif protocol_name == self.PROTOCOL_SCCP:
+            self._from_sccp_protocol(protocol)
+
+    def _from_sip_protocol(self, protocol):
         self.name = protocol['name']
         self.type = protocol['type']
         self.username = protocol['username']
@@ -62,10 +73,18 @@ class Line(AbstractObject):
         self.port = protocol['port']
         self.setvar = protocol['setvar']
 
+    def _from_custom_protocol(self, protocol):
+        self.name = protocol['name']
+
+    def _from_sccp_protocol(self, protocol):
+        self.name = protocol['name']
+
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_linefeatures(obj_dict)
+        obj.id = obj_dict['id']
+        obj.protocol = obj_dict['protocol']
+        obj.name = obj_dict['name']
         return obj
 
 
