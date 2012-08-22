@@ -29,17 +29,29 @@ class Line(AbstractObject):
     _ATTRIBUTES = [
         Attribute('id'),
         Attribute('protocol', required=True),
-        Attribute('name'),
+        Attribute('name', required=True),
         Attribute('type'),
         Attribute('username'),
-        Attribute('secret'),
-        Attribute('context'),
+        Attribute('secret', default='', required=True),
+        Attribute('context', default='default', required=True),
         Attribute('language'),
         Attribute('mailbox'),
         Attribute('host'),
         Attribute('port'),
         Attribute('setvar')
     ]
+
+    def _to_obj_dict(self, obj_dict):
+        self._add_protocol(obj_dict)
+
+    def _add_protocol(self, obj_dict):
+        protocol = {
+            'protocol': self.protocol,
+            'name': self.name,
+            'secret': self.secret,
+            'context': self.context,
+        }
+        obj_dict['protocol'] = protocol
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
@@ -94,7 +106,7 @@ class LineWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
-        Actions.EDIT,
+        Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
         Actions.VIEW,
