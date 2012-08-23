@@ -97,6 +97,8 @@ class Line(AbstractObject):
         obj.id = obj_dict['id']
         obj.protocol = obj_dict['protocol']
         obj.name = obj_dict['name']
+        if obj.protocol == cls.PROTOCOL_SIP:
+            obj.secret = obj_dict['secret']
         return obj
 
 
