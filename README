@@ -5,6 +5,11 @@ xivo-ws
 xivo-ws is a python library that enables programmatic access to a `XiVO server`_
 via the XiVO web services.
 
+Update Pypi
+===========
+
+python setup.py sdist register upload
+
 
 Configuration
 =============
