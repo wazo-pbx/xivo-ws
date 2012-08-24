@@ -83,9 +83,9 @@ def add_outcalls(xivo_server):
         outcall.name = '%s-out' % entity.name
         outcall.context = '%s-to-extern' % entity.name
         outcall.extens = [
-            OutcallExten('NXXNXXXXXX'),
-            OutcallExten('911'),
-            OutcallExten('9911'),
+            OutcallExten(exten='NXXNXXXXXX'),
+            OutcallExten(exten='911'),
+            OutcallExten(exten='9911'),
         ]
         outcall.trunks = [
             trunk_by_name['%s-call-manager' % entity.name],
