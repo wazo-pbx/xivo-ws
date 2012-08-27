@@ -30,6 +30,7 @@ class Line(AbstractObject):
         Attribute('id'),
         Attribute('protocol', required=True),
         Attribute('name', required=True),
+        Attribute('number'),
         Attribute('type'),
         Attribute('username'),
         Attribute('secret', default='', required=True),
@@ -53,14 +54,6 @@ class Line(AbstractObject):
         }
         obj_dict['protocol'] = protocol
 
-    @classmethod
-    def from_obj_dict(cls, obj_dict):
-        obj = cls()
-        obj._from_linefeatures(obj_dict['linefeatures'])
-        protocol_name = obj.protocol
-        obj._from_protocol(protocol_name, obj_dict['protocol'])
-        return obj
-
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
@@ -76,6 +69,7 @@ class Line(AbstractObject):
     def _from_sip_protocol(self, protocol):
         self.name = protocol['name']
         self.type = protocol['type']
+        self.number = protocol['number']
         self.username = protocol['username']
         self.secret = protocol['secret']
         self.context = protocol['context']
@@ -87,18 +81,31 @@ class Line(AbstractObject):
 
     def _from_custom_protocol(self, protocol):
         self.name = protocol['name']
+        self.interface = protocol['interface']
 
     def _from_sccp_protocol(self, protocol):
         self.name = protocol['name']
+        self.number = protocol['number']
+
+    @classmethod
+    def from_obj_dict(cls, obj_dict):
+        obj = cls()
+        obj._from_linefeatures(obj_dict['linefeatures'])
+        protocol_name = obj.protocol
+        obj._from_protocol(protocol_name, obj_dict['protocol'])
+        return obj
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
         obj.id = obj_dict['id']
         obj.protocol = obj_dict['protocol']
-        obj.name = obj_dict['name']
         if obj.protocol == cls.PROTOCOL_SIP:
-            obj.secret = obj_dict['secret']
+            obj._from_sip_protocol(obj_dict)
+        elif obj.protocol == cls.PROTOCOL_CUSTOM:
+            obj._from_custom_protocol(obj_dict)
+        elif obj.protocol == cls.PROTOCOL_SCCP:
+            obj._from_sccp_protocol(obj_dict)
         return obj
 
 
@@ -113,6 +120,11 @@ class LineWebService(AbstractWebService):
         Actions.SEARCH,
         Actions.VIEW,
     ]
+
+    def search_by_number(self, number):
+        number = str(number)
+        lines = self.search(number)
+        return [line for line in lines if line.number == number]
 
 
 register_ws_class(LineWebService, 'lines')
