@@ -174,6 +174,24 @@ class TestContext(unittest.TestCase):
                         "numberend": "1009",
                         "type": "user"
                     }
+                ],
+                "meetme": [
+                    {
+                        "context": "default",
+                        "didlength": "0",
+                        "numberbeg": "1040",
+                        "numberend": "0",
+                        "type": "meetme"
+                    }
+                ],
+                "incall": [
+                    {
+                        "context": "default",
+                        "didlength": "4",
+                        "numberbeg": "1050",
+                        "numberend": "1059",
+                        "type": "incall"
+                    }
                 ]
             },
             "contextnummember": {
@@ -256,6 +274,11 @@ class TestContext(unittest.TestCase):
         self.assertEqual('default', context.name)
         self.assertEqual('Default', context.display_name)
         self.assertEqual('entite', context.entity)
+        self.assertEqual([ContextRange(1000, 1009)], context.users)
+        self.assertEqual([ContextRange(1010, 1019)], context.groups)
+        self.assertEqual([ContextRange(1040, 0)], context.conf_rooms)
+        self.assertEqual([ContextRange(1020, 1029)], context.queues)
+        self.assertEqual([ContextRange(1050, 1059, did_length=4)], context.incalls)
 
     def test_from_list_obj_dict(self):
         obj_dict = {

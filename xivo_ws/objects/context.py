@@ -85,6 +85,7 @@ class Context(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_context(obj_dict['context'])
+        obj._from_contextnumbers(obj_dict['contextnumbers'])
         return obj
 
     def _from_context(self, context):
@@ -92,6 +93,33 @@ class Context(AbstractObject):
         self.name = context['name']
         self.display_name = context['displayname']
         self.entity = context['entity']
+        self.type = context['contexttype']
+
+    def _from_contextnumbers(self, contextnumbers):
+        if 'user' in contextnumbers:
+            self.users = self._from_contextnumbers_value(contextnumbers['user'])
+        if 'group' in contextnumbers:
+            self.groups = self._from_contextnumbers_value(contextnumbers['group'])
+        if 'queue' in contextnumbers:
+            self.queues = self._from_contextnumbers_value(contextnumbers['queue'])
+        if 'meetme' in contextnumbers:
+            self.conf_rooms = self._from_contextnumbers_value(contextnumbers['meetme'])
+        if 'incall' in contextnumbers:
+            self.incalls = self._from_contextnumbers_value(contextnumbers['incall'], include_didlength=True)
+
+    def _from_contextnumbers_value(self, list_, include_didlength=False):
+        if include_didlength:
+            return [ContextRange(self._to_int(entry['numberbeg']), self._to_int(entry['numberend']), self._to_int(entry['didlength'])) for
+                    entry in list_]
+        else:
+            return [ContextRange(self._to_int(entry['numberbeg']), self._to_int(entry['numberend'])) for
+                    entry in list_]
+
+    def _to_int(self, number):
+        try:
+            return int(number)
+        except ValueError:
+            return ''
 
     from_list_obj_dict = from_obj_dict
 
@@ -110,6 +138,9 @@ class ContextRange(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def __repr__(self):
+        return '<ContextRange (%s, %s, didlength=%s)>' % (self.start, self.end, self.did_length)
+
 
 class ContextWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/system_management/context/'
@@ -117,6 +148,7 @@ class ContextWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
