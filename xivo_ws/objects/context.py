@@ -107,7 +107,11 @@ class Context(AbstractObject):
     def _from_contextnumbers_value(self, obj_dicts):
         return [ContextRange.from_obj_dict(obj_dict) for obj_dict in obj_dicts]
 
-    from_list_obj_dict = from_obj_dict
+    @classmethod
+    def from_list_obj_dict(cls, obj_dict):
+        obj = cls()
+        obj._from_context(obj_dict['context'])
+        return obj
 
 
 class ContextRange(object):
