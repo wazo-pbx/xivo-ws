@@ -90,8 +90,7 @@ class Line(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_linefeatures(obj_dict['linefeatures'])
-        protocol_name = obj.protocol
-        obj._from_protocol(protocol_name, obj_dict['protocol'])
+        obj._from_protocol(obj.protocol, obj_dict['protocol'])
         return obj
 
     @classmethod
@@ -99,12 +98,8 @@ class Line(AbstractObject):
         obj = cls()
         obj.id = obj_dict['id']
         obj.protocol = obj_dict['protocol']
-        if obj.protocol == cls.PROTOCOL_SIP:
-            obj._from_sip_protocol(obj_dict)
-        elif obj.protocol == cls.PROTOCOL_CUSTOM:
-            obj._from_custom_protocol(obj_dict)
-        elif obj.protocol == cls.PROTOCOL_SCCP:
-            obj._from_sccp_protocol(obj_dict)
+        obj.number = obj_dict['number']
+        obj._from_protocol(obj.protocol, obj_dict)
         return obj
 
 
