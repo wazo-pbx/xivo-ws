@@ -73,13 +73,9 @@ class Context(AbstractObject):
         if contextnumbers:
             obj_dict['contextnumbers'] = contextnumbers
 
-    def _to_contextnumbers_value(self, list_, include_didlength=False):
-        if include_didlength:
-            return [{'numberbeg': context_range.start, 'numberend': context_range.end, 'didlength': context_range.did_length} for
-                    context_range in list_]
-        else:
-            return [{'numberbeg': context_range.start, 'numberend': context_range.end} for
-                    context_range in list_]
+    def _to_contextnumbers_value(self, context_ranges, include_didlength=False):
+        return [context_range.to_obj_dict(include_didlength=include_didlength) for
+                context_range in context_ranges]
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
@@ -106,21 +102,10 @@ class Context(AbstractObject):
             if 'meetme' in contextnumbers:
                 self.conf_rooms = self._from_contextnumbers_value(contextnumbers['meetme'])
             if 'incall' in contextnumbers:
-                self.incalls = self._from_contextnumbers_value(contextnumbers['incall'], include_didlength=True)
+                self.incalls = self._from_contextnumbers_value(contextnumbers['incall'])
 
-    def _from_contextnumbers_value(self, list_, include_didlength=False):
-        if include_didlength:
-            return [ContextRange(self._to_int(entry['numberbeg']), self._to_int(entry['numberend']), self._to_int(entry['didlength'])) for
-                    entry in list_]
-        else:
-            return [ContextRange(self._to_int(entry['numberbeg']), self._to_int(entry['numberend'])) for
-                    entry in list_]
-
-    def _to_int(self, number):
-        try:
-            return int(number)
-        except ValueError:
-            return ''
+    def _from_contextnumbers_value(self, obj_dicts):
+        return [ContextRange.from_obj_dict(obj_dict) for obj_dict in obj_dicts]
 
     from_list_obj_dict = from_obj_dict
 
@@ -139,8 +124,22 @@ class ContextRange(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def __repr__(self):
-        return '<ContextRange (%s, %s, didlength=%s)>' % (self.start, self.end, self.did_length)
+    def to_obj_dict(self, include_didlength=False):
+        obj_dict = {'numberbeg': self.start}
+        if self.end is not None:
+            obj_dict['numberend'] = self.end
+        if include_didlength:
+            obj_dict['didlength'] = self.did_length
+        return obj_dict
+
+    @classmethod
+    def from_obj_dict(cls, obj_dict):
+        obj = cls()
+        obj.start = int(obj_dict['numberbeg'])
+        if obj_dict['numberend']:
+            obj.end = int(obj_dict['numberend'])
+        obj.did_length = int(obj_dict['didlength'])
+        return obj
 
 
 class ContextWebService(AbstractWebService):
