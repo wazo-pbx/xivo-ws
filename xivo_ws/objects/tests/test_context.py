@@ -336,3 +336,34 @@ class TestContext(unittest.TestCase):
         self.assertEqual('default', context.name)
         self.assertEqual('Default', context.display_name)
         self.assertEqual('entite', context.entity)
+
+    def test_from_list_obj_dict_when_contextnumbers_is_false(self):
+        obj_dict = {
+            "context": {
+                "commented": False,
+                "contexttype": "internal",
+                "description": "",
+                "displayname": "Default",
+                "entity": "entite",
+                "entityid": "1",
+                "identity": "Default (default)",
+                "name": "default"
+            },
+            "contextinclude": False,
+            "contextnumbers": False,
+            "contexttype": {
+                "commented": False,
+                "deletable": False,
+                "description": "",
+                "id": 1,
+                "name": "internal"
+            },
+            "deletable": False
+        }
+
+        context = Context.from_list_obj_dict(obj_dict)
+
+        self.assertEqual('default', context.id)
+        self.assertEqual('default', context.name)
+        self.assertEqual('Default', context.display_name)
+        self.assertEqual('entite', context.entity)

@@ -96,16 +96,17 @@ class Context(AbstractObject):
         self.type = context['contexttype']
 
     def _from_contextnumbers(self, contextnumbers):
-        if 'user' in contextnumbers:
-            self.users = self._from_contextnumbers_value(contextnumbers['user'])
-        if 'group' in contextnumbers:
-            self.groups = self._from_contextnumbers_value(contextnumbers['group'])
-        if 'queue' in contextnumbers:
-            self.queues = self._from_contextnumbers_value(contextnumbers['queue'])
-        if 'meetme' in contextnumbers:
-            self.conf_rooms = self._from_contextnumbers_value(contextnumbers['meetme'])
-        if 'incall' in contextnumbers:
-            self.incalls = self._from_contextnumbers_value(contextnumbers['incall'], include_didlength=True)
+        if contextnumbers:
+            if 'user' in contextnumbers:
+                self.users = self._from_contextnumbers_value(contextnumbers['user'])
+            if 'group' in contextnumbers:
+                self.groups = self._from_contextnumbers_value(contextnumbers['group'])
+            if 'queue' in contextnumbers:
+                self.queues = self._from_contextnumbers_value(contextnumbers['queue'])
+            if 'meetme' in contextnumbers:
+                self.conf_rooms = self._from_contextnumbers_value(contextnumbers['meetme'])
+            if 'incall' in contextnumbers:
+                self.incalls = self._from_contextnumbers_value(contextnumbers['incall'], include_didlength=True)
 
     def _from_contextnumbers_value(self, list_, include_didlength=False):
         if include_didlength:
