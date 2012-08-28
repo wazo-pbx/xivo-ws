@@ -57,6 +57,7 @@ class Line(AbstractObject):
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
+        self.number = linefeatures['number']
 
     def _from_protocol(self, protocol_name, protocol):
         if protocol_name == self.PROTOCOL_SIP:
@@ -69,7 +70,6 @@ class Line(AbstractObject):
     def _from_sip_protocol(self, protocol):
         self.name = protocol['name']
         self.type = protocol['type']
-        self.number = protocol['number']
         self.username = protocol['username']
         self.secret = protocol['secret']
         self.context = protocol['context']
@@ -85,7 +85,6 @@ class Line(AbstractObject):
 
     def _from_sccp_protocol(self, protocol):
         self.name = protocol['name']
-        self.number = protocol['number']
 
     @classmethod
     def from_obj_dict(cls, obj_dict):

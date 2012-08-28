@@ -176,6 +176,7 @@ class TestLine(unittest.TestCase):
         self.assertEqual(4, line.id)
         self.assertEqual(Line.PROTOCOL_SIP, line.protocol)
         self.assertEqual('iibybz', line.name)
+        self.assertEqual('1001', line.number)
 
     def test_from_obj_dict_custom(self):
         obj_dict = {
@@ -292,6 +293,7 @@ class TestLine(unittest.TestCase):
         self.assertEqual(150, line.id)
         self.assertEqual(Line.PROTOCOL_SCCP, line.protocol)
         self.assertEqual('101', line.name)
+        self.assertEqual('101', line.number)
 
     def test_from_list_obj_dict_sip(self):
         obj_dict = {
