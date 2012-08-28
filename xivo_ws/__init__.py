@@ -30,3 +30,4 @@ from xivo_ws.objects.queue import Queue
 from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
 from xivo_ws.objects.user import User, UserLine, UserVoicemail
+from xivo_ws.objects.trunk_custom import TrunkCustom
