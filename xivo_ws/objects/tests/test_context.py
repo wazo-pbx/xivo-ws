@@ -280,6 +280,40 @@ class TestContext(unittest.TestCase):
         self.assertEqual([ContextRange(1020, 1029)], context.queues)
         self.assertEqual([ContextRange(1050, 1059, did_length=4)], context.incalls)
 
+    def test_from_obj_dict_when_contextnumbers_is_false(self):
+        obj_dict = {
+            "context": {
+                "commented": False,
+                "contexttype": "internal",
+                "description": "",
+                "displayname": "Blabla",
+                "entity": "entite",
+                "identity": "Blabla (blablabla)",
+                "name": "blablabla"
+            },
+            "contextinclude": False,
+            "contextmember": False,
+            "contextnumbers": False,
+            "contextnummember": False,
+            "contexttype": {
+                "commented": False,
+                "deletable": False,
+                "description": "",
+                "id": 1,
+                "name": "internal"
+            },
+            "deletable": True,
+            "deletablemember": True,
+            "deletablenumber": True
+        }
+
+        context = Context.from_obj_dict(obj_dict)
+
+        self.assertEqual('blablabla', context.id)
+        self.assertEqual('blablabla', context.name)
+        self.assertEqual('Blabla', context.display_name)
+        self.assertEqual('entite', context.entity)
+
     def test_from_list_obj_dict(self):
         obj_dict = {
             "context": {
@@ -320,37 +354,6 @@ class TestContext(unittest.TestCase):
                     "type": "queue"
                 }
             ],
-            "contexttype": {
-                "commented": False,
-                "deletable": False,
-                "description": "",
-                "id": 1,
-                "name": "internal"
-            },
-            "deletable": False
-        }
-
-        context = Context.from_list_obj_dict(obj_dict)
-
-        self.assertEqual('default', context.id)
-        self.assertEqual('default', context.name)
-        self.assertEqual('Default', context.display_name)
-        self.assertEqual('entite', context.entity)
-
-    def test_from_list_obj_dict_when_contextnumbers_is_false(self):
-        obj_dict = {
-            "context": {
-                "commented": False,
-                "contexttype": "internal",
-                "description": "",
-                "displayname": "Default",
-                "entity": "entite",
-                "entityid": "1",
-                "identity": "Default (default)",
-                "name": "default"
-            },
-            "contextinclude": False,
-            "contextnumbers": False,
             "contexttype": {
                 "commented": False,
                 "deletable": False,
