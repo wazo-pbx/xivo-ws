@@ -19,6 +19,9 @@ import json
 from urllib import quote_plus
 
 
+_CHECK_WS_PATH = u'/xivo/configuration/json.php/restricted/check/'
+
+
 class WebServiceClient(object):
     _JSON_POST_HEADERS = {u'Content-Type': u'application/json'}
 
@@ -54,7 +57,10 @@ class WebServiceClient(object):
         return response_content
 
     def _compute_path_and_query(self, path, query):
-        return u'%s?%s' % (path, query)
+        if query:
+            return u'%s?%s' % (path, query)
+        else:
+            return path
 
     def delete(self, path, obj_id):
         query = u'act=delete&id=%s' % quote_plus(unicode(obj_id))
@@ -97,3 +103,11 @@ class WebServiceClient(object):
             path_and_query = self._compute_path_and_query(path, query)
             response_content = self._http_client.post(path_and_query, data)
             return response_content
+
+    def check_ws(self):
+        try:
+            self._do_get_request(_CHECK_WS_PATH, '')
+        except:
+            return False
+        else:
+            return True

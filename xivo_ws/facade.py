@@ -22,6 +22,7 @@ from xivo_ws.registry import get_registered_ws_class
 
 class BaseXivoServer(object):
     def __init__(self, ws_client):
+        self.ws_client = ws_client
         for name, ws_class  in get_registered_ws_class().iteritems():
             ws = ws_class(ws_client)
             setattr(self, name, ws)
@@ -35,3 +36,6 @@ class XivoServer(BaseXivoServer):
         http_client = HTTPClient(host, username, password)
         ws_client = WebServiceClient(http_client)
         return ws_client
+
+    def check_ws(self):
+        self.ws_client.check_ws()

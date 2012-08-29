@@ -18,6 +18,7 @@
 import unittest
 from mock import Mock
 from xivo_ws.client.webservice import WebServiceClient
+from xivo_ws.exception import WebServiceRequestError
 
 
 class TestWebServiceClient(unittest.TestCase):
@@ -50,3 +51,20 @@ class TestWebServiceClient(unittest.TestCase):
         result = ws_client.add(u'/url/to/web/service/', {u'object_attribute': u'value'})
 
         self.assertEqual(result, 'object_id')
+
+    def test_check_ok(self):
+        ws_client = self._new_web_service_client()
+
+        result = ws_client.check_ws()
+
+        self._http_client.get.assert_called_once_with(u'/xivo/configuration/json.php/restricted/check/')
+        self.assertTrue(result)
+
+    def test_check_nok(self):
+        ws_client = self._new_web_service_client()
+        self._http_client.get.side_effect = WebServiceRequestError(500, '')
+
+        result = ws_client.check_ws()
+
+        self._http_client.get.assert_called_once_with(u'/xivo/configuration/json.php/restricted/check/')
+        self.assertFalse(result)
