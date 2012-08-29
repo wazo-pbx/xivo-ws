@@ -18,6 +18,8 @@
 import json
 from urllib import quote_plus
 
+from xivo_ws.exception import WebServiceRequestError
+
 
 _CHECK_WS_PATH = u'/xivo/configuration/json.php/restricted/check/'
 
@@ -107,7 +109,7 @@ class WebServiceClient(object):
     def check_ws(self):
         try:
             self._do_get_request(_CHECK_WS_PATH, '')
-        except:
+        except WebServiceRequestError:
             return False
         else:
             return True
