@@ -32,6 +32,8 @@ class TestQueue(unittest.TestCase):
                 'displayname': 'Foo bar',
                 'number': '555',
                 'context': 'default',
+                'waittime': 5,
+                'waitratio': 100,
             },
             'queue': {
                 'musicclass': 'default',
@@ -83,6 +85,8 @@ class TestQueue(unittest.TestCase):
                       leavewhenempty='unavailable, pause',
                       autopause=False,
                       reachability_timeout=30,
+                      waittime=5,
+                      waitratio=100,
                       agents=[1, 2])
 
         obj_dict = queue.to_obj_dict()
@@ -651,8 +655,8 @@ class TestQueue(unittest.TestCase):
                 "transfer_call": "0",
                 "transfer_user": "1",
                 "url": "",
-                "waitratio": None,
-                "waittime": None,
+                "waitratio": 100,
+                "waittime": 5,
                 "write_caller": "0",
                 "write_calling": "0"
             },
@@ -667,6 +671,8 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
         self.assertEqual(0, queue.maxlen)
+        self.assertEqual(100, queue.waitratio)
+        self.assertEqual(5, queue.waittime)
 
     def test_from_list_obj_dict(self):
         obj_dict = {
@@ -693,8 +699,8 @@ class TestQueue(unittest.TestCase):
             "transfer_call": "0",
             "transfer_user": "1",
             "url": "",
-            "waitratio": None,
-            "waittime": None,
+            "waitratio": 100,
+            "waittime": 5,
             "write_caller": "0",
             "write_calling": "0"
         }
@@ -706,3 +712,5 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('dn1022', queue.display_name)
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
+        self.assertEqual(100, queue.waitratio)
+        self.assertEqual(5, queue.waittime)

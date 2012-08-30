@@ -33,6 +33,8 @@ class Queue(AbstractObject):
         Attribute('agents', default_factory=list),
         Attribute('joinempty'),
         Attribute('leavewhenempty'),
+        Attribute('waittime'),
+        Attribute('waitratio'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -50,6 +52,8 @@ class Queue(AbstractObject):
             'displayname': self.display_name,
             'number': self.number,
             'context': self.context,
+            'waittime': self.waittime,
+            'waitratio': self.waitratio,
         }
         obj_dict['queuefeatures'] = queuefeatures
 
@@ -113,6 +117,8 @@ class Queue(AbstractObject):
         self.display_name = queuefeatures['displayname']
         self.number = queuefeatures['number']
         self.context = queuefeatures['context']
+        self.waittime = queuefeatures['waittime']
+        self.waitratio = queuefeatures['waitratio']
 
     def _from_queue(self, queue):
         self.maxlen = queue['maxlen']
