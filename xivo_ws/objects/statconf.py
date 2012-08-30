@@ -44,7 +44,7 @@ class Statconf(AbstractObject):
         Attribute('saturday'),
         Attribute('sunday'),
         Attribute('queue', default_factory=list),
-        Attribute('queue_qos', default_factory=list),
+        Attribute('queue_qos'),
         Attribute('agent', default_factory=list),
         Attribute('xivouser', default_factory=list),
     ]
@@ -83,7 +83,7 @@ class Statconf(AbstractObject):
             if not self.queue_qos:
                 raise ValueError('You must set queue_qos')
             obj_dict['queue'] = list(self.queue)
-            obj_dict['queue_qos'] = list(self.queue_qos)
+            obj_dict['queue_qos'] = self.queue_qos
 
     def _add_agent(self, obj_dict):
         if self.agent:
