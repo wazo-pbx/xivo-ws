@@ -38,4 +38,4 @@ class XivoServer(BaseXivoServer):
         return ws_client
 
     def check_ws(self):
-        self.ws_client.check_ws()
+        return self.ws_client.check_ws()
