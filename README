@@ -50,7 +50,17 @@ will delete user whose id is 32.
 ``-v`` option allows you to see what is sent and received to/from the WS.
 
 
-Update PyPI
------------
+Create new version
+------------------
 
-./setup.py sdist upload
+git commit
+
+Read version number in xivo_ws/version.py.
+git tag <version>
+
+make upload
+
+git push --tags
+
+Edit the version file and increase version number.
+git commit
