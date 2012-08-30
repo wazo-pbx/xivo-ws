@@ -69,7 +69,7 @@ class TestVoicemail(unittest.TestCase):
                         }
                     }
 
-        voicemail = Voicemail.from_obj_dict(obj_dict)
+        voicemail = Voicemail.from_list_obj_dict(obj_dict)
 
         self.assertEqual(1, voicemail.id)
         self.assertEqual('1200', voicemail.mailbox)

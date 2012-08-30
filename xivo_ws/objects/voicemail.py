@@ -61,7 +61,7 @@ class Voicemail(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_voicemail(obj_dict)
+        obj._from_voicemail(obj_dict['voicemail'])
         return obj
 
 
