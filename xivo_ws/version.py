@@ -15,4 +15,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-version = u'12.17.7'
+version = u'12.17.8'
+
