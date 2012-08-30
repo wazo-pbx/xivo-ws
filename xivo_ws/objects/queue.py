@@ -29,8 +29,10 @@ class Queue(AbstractObject):
         Attribute('ring_strategy', default='ringall'),
         Attribute('autopause', default=True),
         Attribute('reachability_timeout'),
-        Attribute('maxlen'),
+        Attribute('maxlen', default=0),
         Attribute('agents', default_factory=list),
+        Attribute('joinempty'),
+        Attribute('leavewhenempty'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -63,6 +65,8 @@ class Queue(AbstractObject):
             'setqueueentryvar': True,
             'setqueuevar': True,
             'maxlen': self.maxlen,
+            'joinempty': self.joinempty,
+            'leavewhenempty': self.leavewhenempty,
             'strategy': self.ring_strategy,
             'autopause': self.autopause,
         }
@@ -112,6 +116,8 @@ class Queue(AbstractObject):
 
     def _from_queue(self, queue):
         self.maxlen = queue['maxlen']
+        self.joinempty = queue['joinempty']
+        self.leavewhenempty = queue['leavewhenempty']
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
