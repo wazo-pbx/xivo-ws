@@ -4,7 +4,7 @@ build:
 
 .PHONY: upload
 upload: build
-	python setup.py register upload
+	python setup.py sdist -f register upload
 
 .PHONY: clean
 clean:
