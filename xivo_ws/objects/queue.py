@@ -107,7 +107,8 @@ class Queue(AbstractObject):
         obj_dict['agent'] = list(self.agents)
 
     def _to_schedule(self, obj_dict):
-        obj_dict['schedule_id'] = int(self.schedule_id)
+        if self.schedule_id is not None:
+            obj_dict['schedule_id'] = int(self.schedule_id)
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
