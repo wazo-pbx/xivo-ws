@@ -29,6 +29,7 @@ class Queue(AbstractObject):
         Attribute('ring_strategy', default='ringall'),
         Attribute('autopause', default=True),
         Attribute('reachability_timeout'),
+        Attribute('maxlen'),
         Attribute('agents', default_factory=list),
     ]
 
@@ -61,6 +62,7 @@ class Queue(AbstractObject):
             'autofill': True,
             'setqueueentryvar': True,
             'setqueuevar': True,
+            'maxlen': self.maxlen,
             'strategy': self.ring_strategy,
             'autopause': self.autopause,
         }
@@ -98,6 +100,7 @@ class Queue(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_queuefeatures(obj_dict['queuefeatures'])
+        obj._from_queue(obj_dict['queue'])
         return obj
 
     def _from_queuefeatures(self, queuefeatures):
@@ -106,6 +109,9 @@ class Queue(AbstractObject):
         self.display_name = queuefeatures['displayname']
         self.number = queuefeatures['number']
         self.context = queuefeatures['context']
+
+    def _from_queue(self, queue):
+        self.maxlen = queue['maxlen']
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):

@@ -44,6 +44,7 @@ class TestQueue(unittest.TestCase):
                 'setqueueentryvar': True,
                 'setqueuevar': True,
                 'strategy': 'linear',
+                'maxlen': 0,
                 'timeout': 30,
                 'autopause': False,
             },
@@ -75,6 +76,7 @@ class TestQueue(unittest.TestCase):
                       number='555',
                       context='default',
                       ring_strategy='linear',
+                      maxlen=0,
                       autopause=False,
                       reachability_timeout=30,
                       agents=[1, 2])
@@ -591,7 +593,7 @@ class TestQueue(unittest.TestCase):
                 "eventwhencalled": "1",
                 "joinempty": "",
                 "leavewhenempty": "",
-                "maxlen": "0",
+                "maxlen": 0,
                 "memberdelay": "0",
                 "membermacro": None,
                 "min-announce-frequency": "60",
@@ -660,6 +662,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('dn1022', queue.display_name)
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
+        self.assertEqual(0, queue.maxlen)
 
     def test_from_list_obj_dict(self):
         obj_dict = {
