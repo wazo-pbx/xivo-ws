@@ -73,6 +73,7 @@ class TestQueue(unittest.TestCase):
                 },
             },
             'agent': [1, 2],
+            'schedule_id': 1
         }
         queue = Queue(id=1,
                       name='foo',
@@ -87,7 +88,8 @@ class TestQueue(unittest.TestCase):
                       reachability_timeout=30,
                       waittime=5,
                       waitratio=100,
-                      agents=[1, 2])
+                      agents=[1, 2],
+                      schedule_id=1)
 
         obj_dict = queue.to_obj_dict()
 
@@ -660,7 +662,8 @@ class TestQueue(unittest.TestCase):
                 "write_caller": "0",
                 "write_calling": "0"
             },
-            "user": False
+            "user": False,
+            'schedule_id': 1
         }
 
         queue = Queue.from_obj_dict(obj_dict)
@@ -702,7 +705,7 @@ class TestQueue(unittest.TestCase):
             "waitratio": 100,
             "waittime": 5,
             "write_caller": "0",
-            "write_calling": "0"
+            "write_calling": "0",
         }
 
         queue = Queue.from_list_obj_dict(obj_dict)

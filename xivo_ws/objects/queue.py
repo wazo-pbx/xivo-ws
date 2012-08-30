@@ -35,6 +35,7 @@ class Queue(AbstractObject):
         Attribute('leavewhenempty'),
         Attribute('waittime'),
         Attribute('waitratio'),
+        Attribute('schedule_id'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -42,6 +43,7 @@ class Queue(AbstractObject):
         self._to_queue(obj_dict)
         self._to_dialaction(obj_dict)
         self._to_agent(obj_dict)
+        self._to_schedule(obj_dict)
 
     def _to_queuefeatures(self, obj_dict):
         queuefeatures = {
@@ -104,11 +106,16 @@ class Queue(AbstractObject):
     def _to_agent(self, obj_dict):
         obj_dict['agent'] = list(self.agents)
 
+    def _to_schedule(self, obj_dict):
+        obj_dict['schedule_id'] = int(self.schedule_id)
+
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_queuefeatures(obj_dict['queuefeatures'])
         obj._from_queue(obj_dict['queue'])
+        if 'schedule_id' in obj_dict:
+            obj._from_schedule_id(obj_dict['schedule_id'])
         return obj
 
     def _from_queuefeatures(self, queuefeatures):
@@ -124,6 +131,9 @@ class Queue(AbstractObject):
         self.maxlen = queue['maxlen']
         self.joinempty = queue['joinempty']
         self.leavewhenempty = queue['leavewhenempty']
+
+    def _from_schedule_id(self, schedule_id):
+        self.schedule_id = int(schedule_id)
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
