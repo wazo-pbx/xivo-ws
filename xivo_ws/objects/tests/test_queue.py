@@ -45,6 +45,8 @@ class TestQueue(unittest.TestCase):
                 'setqueuevar': True,
                 'strategy': 'linear',
                 'maxlen': 0,
+                'joinempty': 'unavailable',
+                'leavewhenempty': 'unavailable, pause',
                 'timeout': 30,
                 'autopause': False,
             },
@@ -77,6 +79,8 @@ class TestQueue(unittest.TestCase):
                       context='default',
                       ring_strategy='linear',
                       maxlen=0,
+                      joinempty='unavailable',
+                      leavewhenempty='unavailable, pause',
                       autopause=False,
                       reachability_timeout=30,
                       agents=[1, 2])
