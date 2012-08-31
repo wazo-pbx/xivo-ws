@@ -59,14 +59,12 @@ class TestVoicemail(unittest.TestCase):
         self.assertEqual('eu-fr', voicemail.tz)
 
     def test_from_list_obj_dict(self):
-        obj_dict = {'voicemail': {
-                        "uniqueid": "1",
-                        "mailbox": "1200",
-                        "fullname": "Mailbox Name",
-                        "password": "",
-                        "email": "toto@lol.com",
-                        "tz": "eu-fr",
-                        }
+        obj_dict = {"uniqueid": "1",
+                    "mailbox": "1200",
+                    "fullname": "Mailbox Name",
+                    "password": "",
+                    "email": "toto@lol.com",
+                    "tz": "eu-fr",
                     }
 
         voicemail = Voicemail.from_list_obj_dict(obj_dict)
