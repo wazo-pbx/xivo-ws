@@ -641,11 +641,13 @@ _QUEUE_OBJ_DICT_FROM_WS = {
             "user": False
         }
 
+
 class TestQueue(unittest.TestCase):
     def test_to_obj_dict_full(self):
         expected_obj_dict = copy.deepcopy(_QUEUE_OBJ_DICT_TO_WS)
         expected_obj_dict['queuefeatures']['waittime'] = 5
         expected_obj_dict['queuefeatures']['waitratio'] = 100
+        expected_obj_dict['queuefeatures']['timeout'] = '10'
         expected_obj_dict['queue']['autopause'] = False
         expected_obj_dict['queue']['leavewhenempty'] = 'unavailable, pause'
         expected_obj_dict['queue']['joinempty'] = 'unavailable'
@@ -660,6 +662,7 @@ class TestQueue(unittest.TestCase):
                       number='555',
                       context='default',
                       ring_strategy='linear',
+                      ringing_time=10,
                       maxlen=1,
                       joinempty='unavailable',
                       leavewhenempty='unavailable, pause',
@@ -697,6 +700,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
         self.assertEqual(0, queue.maxlen)
+        self.assertEqual(0, queue.ringing_time)
         self.assertEqual(100, queue.waitratio)
         self.assertEqual(5, queue.waittime)
         self.assertEqual(None, queue.schedule_id)
@@ -712,6 +716,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('dn1022', queue.display_name)
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
+        self.assertEqual(0, queue.ringing_time)
         self.assertEqual(0, queue.maxlen)
         self.assertEqual(100, queue.waitratio)
         self.assertEqual(5, queue.waittime)
@@ -738,7 +743,7 @@ class TestQueue(unittest.TestCase):
             "preprocess_subroutine": None,
             "retries": "0",
             "ring": "0",
-            "timeout": "0",
+            "timeout": "10",
             "transfer_call": "0",
             "transfer_user": "1",
             "url": "",
@@ -755,5 +760,6 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('dn1022', queue.display_name)
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
+        self.assertEqual(10, queue.ringing_time)
         self.assertEqual(100, queue.waitratio)
         self.assertEqual(5, queue.waittime)

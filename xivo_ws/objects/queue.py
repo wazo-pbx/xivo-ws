@@ -27,6 +27,7 @@ class Queue(AbstractObject):
         Attribute('number', required=True),
         Attribute('context', required=True),
         Attribute('ring_strategy', default='ringall'),
+        Attribute('ringing_time', default=0),
         Attribute('autopause', default=True),
         Attribute('reachability_timeout'),
         Attribute('maxlen', default=0),
@@ -47,7 +48,7 @@ class Queue(AbstractObject):
 
     def _to_queuefeatures(self, obj_dict):
         queuefeatures = {
-            'timeout': '0',
+            'timeout': str(self.ringing_time),
             'hitting_caller': True,
             'transfer_user': True,
             'name': self.name,
@@ -127,6 +128,7 @@ class Queue(AbstractObject):
         self.context = queuefeatures['context']
         self.waittime = queuefeatures['waittime']
         self.waitratio = queuefeatures['waitratio']
+        self.ringing_time = int(queuefeatures['timeout'])
 
     def _from_queue(self, queue):
         self.maxlen = queue['maxlen']
