@@ -27,10 +27,7 @@ class Schedule(AbstractObject):
         Attribute('name', required=True),
         Attribute('timezone', required=True),
         Attribute('fallback_action'),
-        Attribute('fallback_actionid'),
-        Attribute('fallback_actionargs'),
         Attribute('description'),
-        Attribute('commented'),
         Attribute('opened', default_factory=list),
         Attribute('closed', default_factory=list),
     ]
@@ -45,26 +42,24 @@ class Schedule(AbstractObject):
         schedule = {
             'name': self.name,
             'timezone': self.timezone,
-            'fallback_action': self.fallback_action,
-            'fallback_actionid': self.fallback_actionid,
-            'fallback_actionargs': self.fallback_actionargs,
             'description': self.description,
-            'commented': self.commented,
         }
         obj_dict['schedule'] = schedule
 
     def _to_dialaction(self, obj_dict):
-        dialaction = {
-            'schedule_fallback': {
-                    "actiontype": None,
-                    "action": None,
-                    "endcall": {
-                        "action": None,
-                        "actionarg1": None,
-                        "actionarg2": None
-                    },
-            },
-        }
+        if self.fallback_action is None:
+            dialaction = {
+                'schedule_fallback': {
+                        "actiontype": 'none'
+                }
+            }
+        else:
+            dialaction = {
+                'schedule_fallback': {
+                        "actiontype": self.fallback_action.split(':')[0],
+                        "action": self.fallback_action.split(':')[1]
+                }
+            }
         obj_dict['dialaction'] = dialaction
 
     def _to_opened(self, obj_dict):
@@ -86,10 +81,7 @@ class Schedule(AbstractObject):
         self.name = schedule['name']
         self.timezone = schedule['timezone']
         self.fallback_action = schedule['fallback_action']
-        self.fallback_actionid = schedule['fallback_actionid']
-        self.fallback_actionargs = schedule['fallback_actionargs']
         self.description = schedule['description']
-        self.commented = schedule['commented']
 
     def _from_closed(self, closed):
         self.closed = closed

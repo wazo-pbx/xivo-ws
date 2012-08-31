@@ -26,33 +26,76 @@ class TestSchedule(unittest.TestCase):
         expected_obj_dict = {'schedule': {
                                 'name': 'huit_a_midi',
                                 'timezone': 'America/Montreal',
-                                'fallback_action': 'endcall:hangup',
-                                'fallback_actionid': None,
-                                'fallback_actionargs': '',
-                                'description': '',
-                                'commented': 0,
+                                'description': ''
                               },
                              'dialaction': {
                                  'schedule_fallback': {
-                                        "actiontype": None,
-                                        "action": None,
-                                        "endcall": {
-                                            "action": None,
-                                            "actionarg1": None,
-                                            "actionarg2": None
-                                        },
+                                        "actiontype": 'endcall',
+                                        "action": 'hangup'
                                     }
                              },
-                             'opened': [],
+                             'opened': [
+                                        {'hours': '08:00-12:00',
+                                         'weekdays': '1-5',
+                                         'monthdays': '1-31',
+                                         'months': '1-12'
+                                        }
+                                    ],
                              'closed': []
                              }
+        opened = [
+                {
+                    "hours": "08:00-12:00",
+                    "weekdays": "1-5",
+                    "monthdays": "1-31",
+                    "months": "1-12",
+                }
+            ]
         schedule = Schedule(name='huit_a_midi',
                         timezone='America/Montreal',
                         fallback_action='endcall:hangup',
-                        fallback_actionid=None,
-                        fallback_actionargs='',
                         description='',
-                        commented=0)
+                        opened=opened,
+                        closed=[])
+
+        obj_dict = schedule.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
+
+    def test_to_obj_dict_with_no_dialaction(self):
+        expected_obj_dict = {'schedule': {
+                                'name': 'test',
+                                'timezone': 'America/Montreal',
+                                'description': ''
+                              },
+                             'dialaction': {
+                                 'schedule_fallback': {
+                                        "actiontype": 'none'
+                                    }
+                             },
+                             'opened': [
+                                        {'hours': '08:00-12:00',
+                                         'weekdays': '1-5',
+                                         'monthdays': '1-31',
+                                         'months': '1-12'
+                                        }
+                                    ],
+                             'closed': []
+                             }
+        opened = [
+                {
+                    "hours": "08:00-12:00",
+                    "weekdays": "1-5",
+                    "monthdays": "1-31",
+                    "months": "1-12",
+                }
+            ]
+        schedule = Schedule(name='test',
+                        timezone='America/Montreal',
+                        fallback_action=None,
+                        description='',
+                        opened=opened,
+                        closed=[])
 
         obj_dict = schedule.to_obj_dict()
 
@@ -80,9 +123,39 @@ class TestSchedule(unittest.TestCase):
                                 },
                             }
                      },
-                     'opened': False,
+                     'opened': [
+                                {
+                                "id": 1,
+                                "schedule_id": 1,
+                                "mode": "opened",
+                                "hours": "08:00-12:00",
+                                "weekdays": "1-5",
+                                "monthdays": "1-31",
+                                "months": "1-12",
+                                "action": None,
+                                "actionid": None,
+                                "actionargs": None,
+                                "commented": False
+
+                                }
+                     ],
                      'closed': False
                      }
+        expected_opened = [
+                {
+                    "id": 1,
+                    "schedule_id": 1,
+                    "mode": 'opened',
+                    "hours": "08:00-12:00",
+                    "weekdays": "1-5",
+                    "monthdays": "1-31",
+                    "months": "1-12",
+                    "action": None,
+                    "actionid": None,
+                    "actionargs": None,
+                    "commented": False
+                }
+            ]
 
         schedule = Schedule.from_obj_dict(obj_dict)
 
@@ -90,10 +163,8 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual('huit_a_midi', schedule.name)
         self.assertEqual('America/Montreal', schedule.timezone)
         self.assertEqual('endcall:hangup', schedule.fallback_action)
-        self.assertEqual(None, schedule.fallback_actionid)
-        self.assertEqual('', schedule.fallback_actionargs)
         self.assertEqual('', schedule.description)
-        self.assertEqual(0, schedule.commented)
+        self.assertEqual(expected_opened, schedule.opened)
 
     def test_from_list_obj_dict(self):
         obj_dict = {'id': '1',
@@ -112,7 +183,4 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual('huit_a_midi', schedule.name)
         self.assertEqual('America/Montreal', schedule.timezone)
         self.assertEqual('endcall:hangup', schedule.fallback_action)
-        self.assertEqual(None, schedule.fallback_actionid)
-        self.assertEqual('', schedule.fallback_actionargs)
         self.assertEqual('', schedule.description)
-        self.assertEqual(0, schedule.commented)
