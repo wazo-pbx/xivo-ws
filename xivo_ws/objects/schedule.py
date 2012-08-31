@@ -105,7 +105,7 @@ class Schedule(AbstractObject):
 
 
 class ScheduleWebService(AbstractWebService):
-    _PATH = '/service/ipbx/json.php/restricted/pbx_settings/schedule/'
+    _PATH = '/service/ipbx/json.php/restricted/call_management/schedule/'
     _OBJECT_CLASS = Schedule
 
     _ACTIONS = [
