@@ -36,6 +36,7 @@ class User(AbstractObject):
         Attribute('enable_hint', default=True),
         Attribute('line'),
         Attribute('voicemail'),
+        Attribute('agent_id'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -69,6 +70,8 @@ class User(AbstractObject):
             userfeatures['profileclient'] = self.client_profile
         if self.enable_hint is not None:
             userfeatures['enablehint'] = self.enable_hint
+        if self.agent_id is not None:
+            userfeatures['agentid'] = self.agent_id
         obj_dict['userfeatures'] = userfeatures
 
     def _add_line(self, obj_dict):
@@ -99,10 +102,12 @@ class User(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj.id = obj_dict['id']
+        obj.id = int(obj_dict['id'])
         obj.entity_id = obj_dict['entityid']
         obj.firstname = obj_dict['firstname']
         obj.lastname = obj_dict['lastname']
+        if obj_dict['agentid']:
+            obj.agent_id = int(obj_dict['agentid'])
         if obj_dict['voicemailid']:
             obj.voicemail = UserVoicemail()
             obj.voicemail.id = obj_dict['voicemailid']

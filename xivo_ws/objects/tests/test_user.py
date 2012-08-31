@@ -37,6 +37,7 @@ class TestUser(unittest.TestCase):
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
                 'profileclient': 'agent',
+                "agentid": 1,
             },
             'linefeatures': {
                 'protocol': ['sip'],
@@ -73,6 +74,7 @@ class TestUser(unittest.TestCase):
                     client_password='jack',
                     client_profile='agent',
                     entity_id=2,
+                    agent_id=1,
                     enable_hint=True,
                     line=UserLine(number=1000, context='default', device_id=42),
                     voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'))
@@ -87,7 +89,50 @@ class TestUser(unittest.TestCase):
             'entityid': 2,
             'firstname': 'Jack',
             'lastname': 'Johnson',
-            'voicemailid': 5,
+            "voicemailtype": 'asterisk',
+            "voicemailid": 5,
+            "agentid": 1,
+            "pictureid": None,
+            "callerid": "\"Jack Johnson\"",
+            "ringseconds": "30",
+            "simultcalls": "5",
+            "enableclient": False,
+            "loginclient": "",
+            "passwdclient": "",
+            "profileclient": "client",
+            "enablehint": True,
+            "enablevoicemail": False,
+            "enablexfer": True,
+            "enableautomon": False,
+            "callrecord": False,
+            "incallfilter": False,
+            "enablednd": False,
+            "enableunc": False,
+            "destunc": "",
+            "enablerna": False,
+            "destrna": "",
+            "enablebusy": False,
+            "destbusy": "",
+            "musiconhold": "default",
+            "outcallerid": "default",
+            "mobilephonenumber": "",
+            "userfield": "",
+            "bsfilter": "no",
+            "preprocess_subroutine": None,
+            "timezone": "",
+            "language": None,
+            "ringintern": "",
+            "ringextern": "",
+            "ringgroup": "",
+            "ringforward": "",
+            "rightcallcode": "",
+            "alarmclock": "",
+            "pitch": None,
+            "pitchdirection": None,
+            "commented": False,
+            "description": "",
+            "fullname": "Jack Johnson",
+            "identity": "Jack Johnson"
         }
 
         user = User.from_list_obj_dict(obj_dict)
@@ -96,6 +141,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.entity_id, 2)
         self.assertEqual(user.firstname, 'Jack')
         self.assertEqual(user.lastname, 'Johnson')
+        self.assertEqual(user.agent_id, 1)
         self.assertEqual(user.voicemail.id, 5)
 
 
