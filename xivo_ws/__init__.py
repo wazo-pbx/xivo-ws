@@ -32,3 +32,4 @@ from xivo_ws.objects.statconf import Statconf
 from xivo_ws.objects.user import User, UserLine, UserVoicemail
 from xivo_ws.objects.voicemail import Voicemail
 from xivo_ws.objects.schedule import Schedule
+from xivo_ws.objects.customtrunk import CustomTrunk
