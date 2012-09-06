@@ -41,7 +41,7 @@ class Incall(AbstractObject):
 
     def _add_dialaction(self, obj_dict):
         obj_dict['dialaction'] = {
-            'answer': self.destination
+            'answer': self.destination.to_obj_dict()
         }
 
     @classmethod
