@@ -52,6 +52,24 @@ class Group(AbstractObject):
         obj_dict['user'] = list(self.user_ids)
 
     @classmethod
+    def from_obj_dict(cls, obj_dict):
+        obj = cls()
+        obj._from_groupfeatures(obj_dict['groupfeatures'])
+        obj._from_user_ids(obj_dict['user'])
+        return obj
+
+    def _from_groupfeatures(self, groupfeatures):
+        self.id = int(groupfeatures['id'])
+        self.name = groupfeatures['name']
+        self.number = groupfeatures['number']
+        self.context = groupfeatures['context']
+
+    def _from_user_ids(self, user_ids):
+        if user_ids:
+            for user_id in user_ids:
+                self.user_ids.append(user_id['userid'])
+
+    @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
         obj.id = int(obj_dict['id'])
@@ -66,6 +84,7 @@ class GroupWebService(AbstractWebService):
     _OBJECT_CLASS = Group
 
     _ACTIONS = [
+        Actions.VIEW,
         Actions.ADD,
         Actions.DELETE,
         Actions.DELETE_ALL,

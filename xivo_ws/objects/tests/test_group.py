@@ -44,6 +44,42 @@ class TestGroup(unittest.TestCase):
 
         self.assertEqual(expected_obj_dict, obj_dict)
 
+    def test_from_obj_dict(self):
+        obj_dict = {
+            'groupfeatures': {
+                'id': '1',
+                'name': 'huge',
+                'number': '2034',
+                'context': 'default',
+                'timeout': '0'
+                },
+            'queue': {},
+            'user': [
+                     {
+                        "queue_name": "huge",
+                        "interface": "SIP/imm1zf",
+                        "penalty": "0",
+                        "call-limit": "0",
+                        "paused": None,
+                        "commented": False,
+                        "usertype": "user",
+                        "userid": 6733,
+                        "channel": "SIP",
+                        "category": "group",
+                        "skills": "user-6733",
+                        "state_interface": ""
+                    }
+            ]
+        }
+
+        group = Group.from_obj_dict(obj_dict)
+
+        self.assertEqual(1, group.id)
+        self.assertEqual('huge', group.name)
+        self.assertEqual('2034', group.number)
+        self.assertEqual('default', group.context)
+        self.assertEqual([6733], group.user_ids)
+
     def test_from_list_obj_dict(self):
         obj_dict = {
             "category": "group",
