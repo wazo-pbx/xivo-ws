@@ -160,6 +160,7 @@ class _ImportContentGenerator(object):
         ('entity_id', 'entityid', None),
         ('firstname', 'firstname', None),
         ('lastname', 'lastname', None),
+        ('language', 'language', None),
         ('enable_client', 'enableclient', int),
         ('client_username', 'username', None),
         ('client_password', 'password', None),
@@ -171,13 +172,20 @@ class _ImportContentGenerator(object):
         ('context', 'context'),
         ('protocol', 'protocol'),
     ]
+    _VOICEMAIL_COLUMNS = [
+        ('name', 'voicemailname'),
+        ('number', 'voicemailmailbox'),
+        ('password', 'voicemailpassword'),
+    ]
 
     def __init__(self):
         self._rows = []
         self._add_header()
 
     def _add_header(self):
-        header = '|'.join(column[1] for column in chain(self._COLUMNS, self._LINE_COLUMNS))
+        header = '|'.join(column[1] for column in chain(self._COLUMNS,
+                                                        self._LINE_COLUMNS,
+                                                        self._VOICEMAIL_COLUMNS))
         self._rows.append(header)
 
     def add_users(self, users):
@@ -200,6 +208,16 @@ class _ImportContentGenerator(object):
                 elements.append('')
             else:
                 attribute = getattr(line, attribute_name)
+                if attribute is None:
+                    elements.append('')
+                else:
+                    elements.append(unicode(attribute))
+        voicemail = user.voicemail
+        for attribute_name, _ in self._VOICEMAIL_COLUMNS:
+            if voicemail is None:
+                elements.append('')
+            else:
+                attribute = getattr(voicemail, attribute_name)
                 if attribute is None:
                     elements.append('')
                 else:

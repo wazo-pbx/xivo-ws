@@ -147,10 +147,10 @@ class TestUser(unittest.TestCase):
 
 class TestImportContentGenerator(unittest.TestCase):
     def test_header(self):
+        expected_result = 'entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol|voicemailname|voicemailmailbox|voicemailpassword'
         generator = _ImportContentGenerator()
 
-        self.assertEqual('entityid|firstname|lastname|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol',
-                         generator._rows[0])
+        self.assertEqual(expected_result, generator._rows[0])
 
     def test_one_minimal_user(self):
         generator = _ImportContentGenerator()
@@ -158,23 +158,25 @@ class TestImportContentGenerator(unittest.TestCase):
 
         generator.add_users([user])
 
-        self.assertEqual('1|John||||||1|||', generator._rows[1])
+        self.assertEqual('1|John|||||||1||||||', generator._rows[1])
 
     def test_one_full_user(self):
         generator = _ImportContentGenerator()
         user = User(firstname='John F',
                     lastname='Jackson',
+                    language='fr_FR',
                     enable_client=True,
                     client_username='user',
                     client_password='pass',
                     client_profile='client',
                     entity_id=2,
                     enable_hint=True,
-                    line=UserLine(number=123, context='default', protocol='sip'))
+                    line=UserLine(number=123, context='default', protocol='sip'),
+                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty'))
 
         generator.add_users([user])
 
-        self.assertEqual('2|John F|Jackson|1|user|pass|client|1|123|default|sip', generator._rows[1])
+        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|123|default|sip|John F Jackson|1000|qwerty', generator._rows[1])
 
 
 class TestUserWebService(unittest.TestCase):
