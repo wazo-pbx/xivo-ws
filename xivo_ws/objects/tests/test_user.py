@@ -193,7 +193,7 @@ class TestUserWebService(unittest.TestCase):
     def test_import(self):
         expected_content = b"""\
 entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol|voicemailname|voicemailmailbox|voicemailpassword|incallexten|incallcontext|incallringseconds
-1|John||||||1|||||||||
+1|John|||||||1|||||||||
 1|Jack|Johnson||||||1|||||||||
 """
         users = [User(firstname='John'), User(firstname='Jack', lastname='Johnson')]
