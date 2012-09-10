@@ -25,18 +25,19 @@ from xivo_ws.registry import register_ws_class
 class User(AbstractObject):
     _ATTRIBUTES = [
         Attribute('id'),
+        Attribute('entity_id', required=True, default=1),
         Attribute('firstname', required=True),
         Attribute('lastname'),
         Attribute('language'),
+        Attribute('agent_id'),
         Attribute('enable_client'),
         Attribute('client_username'),
         Attribute('client_password'),
         Attribute('client_profile'),
-        Attribute('entity_id', required=True, default=1),
         Attribute('enable_hint', default=True),
         Attribute('line'),
         Attribute('voicemail'),
-        Attribute('agent_id'),
+        Attribute('incall'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -154,6 +155,14 @@ class UserVoicemail(AbstractObject):
         obj_dict['voicemail-option'] = 'add'
 
 
+class UserIncall(AbstractObject):
+    _ATTRIBUTES = [
+        Attribute('exten', required=True),
+        Attribute('context', required=True),
+        Attribute('ringseconds'),
+    ]
+
+
 class _ImportContentGenerator(object):
     _COLUMNS = [
         # (attr_name, column_name, map function)
@@ -177,6 +186,11 @@ class _ImportContentGenerator(object):
         ('number', 'voicemailmailbox'),
         ('password', 'voicemailpassword'),
     ]
+    _INCALL_COLUMNS = [
+        ('exten', 'incallexten'),
+        ('context', 'incallcontext'),
+        ('ringseconds', 'incallringseconds'),
+    ]
 
     def __init__(self):
         self._rows = []
@@ -185,7 +199,8 @@ class _ImportContentGenerator(object):
     def _add_header(self):
         header = '|'.join(column[1] for column in chain(self._COLUMNS,
                                                         self._LINE_COLUMNS,
-                                                        self._VOICEMAIL_COLUMNS))
+                                                        self._VOICEMAIL_COLUMNS,
+                                                        self._INCALL_COLUMNS))
         self._rows.append(header)
 
     def add_users(self, users):
@@ -218,6 +233,16 @@ class _ImportContentGenerator(object):
                 elements.append('')
             else:
                 attribute = getattr(voicemail, attribute_name)
+                if attribute is None:
+                    elements.append('')
+                else:
+                    elements.append(unicode(attribute))
+        incall = user.incall
+        for attribute_name, _ in self._INCALL_COLUMNS:
+            if incall is None:
+                elements.append('')
+            else:
+                attribute = getattr(incall, attribute_name)
                 if attribute is None:
                     elements.append('')
                 else:

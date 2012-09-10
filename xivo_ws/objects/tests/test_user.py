@@ -19,7 +19,8 @@ from __future__ import unicode_literals
 
 import unittest
 from mock import Mock
-from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService, _ImportContentGenerator
+from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService, _ImportContentGenerator, \
+    UserIncall
 
 
 class TestUser(unittest.TestCase):
@@ -147,7 +148,11 @@ class TestUser(unittest.TestCase):
 
 class TestImportContentGenerator(unittest.TestCase):
     def test_header(self):
-        expected_result = 'entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|phonenumber|context|protocol|voicemailname|voicemailmailbox|voicemailpassword'
+        user_columns = 'entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint'
+        line_columns = 'phonenumber|context|protocol'
+        voicemail_columns = 'voicemailname|voicemailmailbox|voicemailpassword'
+        incall_columns = 'incallexten|incallcontext|incallringseconds'
+        expected_result = '%s|%s|%s|%s' % (user_columns, line_columns, voicemail_columns, incall_columns)
         generator = _ImportContentGenerator()
 
         self.assertEqual(expected_result, generator._rows[0])
@@ -158,7 +163,7 @@ class TestImportContentGenerator(unittest.TestCase):
 
         generator.add_users([user])
 
-        self.assertEqual('1|John|||||||1||||||', generator._rows[1])
+        self.assertEqual('1|John|||||||1|||||||||', generator._rows[1])
 
     def test_one_full_user(self):
         generator = _ImportContentGenerator()
@@ -172,11 +177,12 @@ class TestImportContentGenerator(unittest.TestCase):
                     entity_id=2,
                     enable_hint=True,
                     line=UserLine(number=123, context='default', protocol='sip'),
-                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty'))
+                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty'),
+                    incall=UserIncall(exten=1000, context='from-extern', ringseconds=10))
 
         generator.add_users([user])
 
-        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|123|default|sip|John F Jackson|1000|qwerty', generator._rows[1])
+        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|123|default|sip|John F Jackson|1000|qwerty|1000|from-extern|10', generator._rows[1])
 
 
 class TestUserWebService(unittest.TestCase):
