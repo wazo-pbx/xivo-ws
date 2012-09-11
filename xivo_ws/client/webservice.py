@@ -89,7 +89,7 @@ class WebServiceClient(object):
         return obj_dict_list
 
     def search(self, path, search_pattern):
-        query = u'act=search&search=%s' % quote_plus(unicode(search_pattern))
+        query = u'act=search&search=%s' % quote_plus(search_pattern.encode('utf8'))
         return self._do_list_or_search_request(path, query)
 
     def view(self, path, obj_id):
