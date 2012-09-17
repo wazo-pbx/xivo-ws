@@ -107,6 +107,8 @@ class User(AbstractObject):
         obj.entity_id = obj_dict['entityid']
         obj.firstname = obj_dict['firstname']
         obj.lastname = obj_dict['lastname']
+        obj.enable_client = obj_dict['enableclient']
+        obj.client_profile = obj_dict['profileclient']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
         if obj_dict['voicemailid']:

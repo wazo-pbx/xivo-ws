@@ -142,6 +142,8 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.entity_id, 2)
         self.assertEqual(user.firstname, 'Jack')
         self.assertEqual(user.lastname, 'Johnson')
+        self.assertEqual(user.enable_client, False)
+        self.assertEqual(user.client_profile, 'client')
         self.assertEqual(user.agent_id, 1)
         self.assertEqual(user.voicemail.id, 5)
 
