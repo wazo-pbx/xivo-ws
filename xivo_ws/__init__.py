@@ -20,17 +20,18 @@ from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.facade import XivoServer
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.context import Context, ContextRange
+from xivo_ws.objects.customtrunk import CustomTrunk
 from xivo_ws.objects.device import Device
 from xivo_ws.objects.entity import Entity
 from xivo_ws.objects.group import Group
+from xivo_ws.objects.iaxtrunk import IAXTrunk
 from xivo_ws.objects.incall import Incall
 from xivo_ws.objects.line import Line
 from xivo_ws.objects.outcall import Outcall, OutcallExten
 from xivo_ws.objects.queue import Queue
+from xivo_ws.objects.sccp_general import SCCPGeneral
+from xivo_ws.objects.schedule import Schedule
 from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
 from xivo_ws.objects.user import User, UserLine, UserVoicemail
 from xivo_ws.objects.voicemail import Voicemail
-from xivo_ws.objects.schedule import Schedule
-from xivo_ws.objects.customtrunk import CustomTrunk
-from xivo_ws.objects.iaxtrunk import IAXTrunk

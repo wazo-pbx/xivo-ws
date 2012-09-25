@@ -116,9 +116,9 @@ class AbstractWebService(object):
         return self._ws_client.search(self._PATH, search_pattern)
 
     @_action(Actions.VIEW)
-    def view(self, obj_id):
+    def view(self, obj_id=None):
         obj_dict = self._ws_client.view(self._PATH, obj_id)
         return self._OBJECT_CLASS.from_obj_dict(obj_dict)
 
-    def raw_view(self, obj_id):
+    def raw_view(self, obj_id=None):
         return self._ws_client.view(self._PATH, obj_id)

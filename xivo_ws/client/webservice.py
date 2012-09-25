@@ -92,8 +92,10 @@ class WebServiceClient(object):
         query = u'act=search&search=%s' % quote_plus(search_pattern.encode('utf8'))
         return self._do_list_or_search_request(path, query)
 
-    def view(self, path, obj_id):
-        query = u'act=view&id=%s' % quote_plus(unicode(obj_id))
+    def view(self, path, obj_id=None):
+        query = u'act=view'
+        if obj_id is not None:
+            query += "&id=%s" % quote_plus(unicode(obj_id))
         response_content = self._do_get_request(path, query)
         obj_dict = json.loads(response_content)
         return obj_dict
