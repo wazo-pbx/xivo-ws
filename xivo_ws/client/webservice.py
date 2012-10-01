@@ -73,6 +73,16 @@ class WebServiceClient(object):
         self._do_get_request(path, query)
 
     def edit(self, path, obj_id, obj_dict):
+        if obj_id is None:
+            self._edit(path, obj_dict)
+        else:
+            self._edit_with_id(path, obj_id, obj_dict)
+
+    def _edit(self, path, obj_dict):
+        query = u'act=edit'
+        self._do_post_request(path, query, obj_dict)
+
+    def _edit_with_id(self, path, obj_id, obj_dict):
         query = u'act=edit&id=%s' % quote_plus(unicode(obj_id))
         self._do_post_request(path, query, obj_dict)
 

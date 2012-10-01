@@ -29,7 +29,7 @@ from xivo_ws.objects.incall import Incall
 from xivo_ws.objects.line import Line
 from xivo_ws.objects.outcall import Outcall, OutcallExten
 from xivo_ws.objects.queue import Queue
-from xivo_ws.objects.sccp_general import SCCPGeneral
+from xivo_ws.objects.sccp_general_settings import SCCPGeneralSettings
 from xivo_ws.objects.schedule import Schedule
 from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
