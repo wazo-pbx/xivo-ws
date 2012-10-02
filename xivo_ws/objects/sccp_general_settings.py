@@ -22,8 +22,8 @@ from xivo_ws.registry import register_ws_class
 
 
 def convert_directmedia(value):
-    if value.isdigit():
-        return bool(int(value))
+    if isinstance(value, int):
+        return bool(value)
     elif value in ["yes", "no"]:
         return value == "yes"
 
