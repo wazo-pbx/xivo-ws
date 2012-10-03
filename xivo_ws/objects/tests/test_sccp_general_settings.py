@@ -1,13 +1,12 @@
 from __future__ import unicode_literals
 
 import unittest
-import sys
 
 from xivo_ws.objects.sccp_general_settings import SCCPGeneralSettings
 
 class TestSCCPGeneralSettings(unittest.TestCase):
 
-    def test_to_obj_dict_directmedia(self):
+    def test_to_obj_dict(self):
 
         expected_obj_dict = {
             'directmedia' : 1,
@@ -16,21 +15,23 @@ class TestSCCPGeneralSettings(unittest.TestCase):
         }
 
         settings = SCCPGeneralSettings(
-            directmedia = True,
-            dialtimeout = 5,
-            language = 'en_US'
+            directmedia=True,
+            dialtimeout=5,
+            language='en_US'
         )
 
         obj_dict = settings.to_obj_dict()
 
         self.assertEqual(expected_obj_dict, obj_dict)
 
-    def test_from_obj_dict_directmedia(self):
+    def test_from_obj_dict(self):
 
         obj_dict = {
-            'directmedia' : 0,
-            'dialtimeout' : 6,
-            'language'    : 'fr_FR'
+            'sccpgeneralsettings': {
+                'directmedia' : 0,
+                'dialtimeout' : 6,
+                'language'    : 'fr_FR'
+            }
         }
 
         obj = SCCPGeneralSettings.from_obj_dict(obj_dict)

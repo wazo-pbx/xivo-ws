@@ -43,11 +43,13 @@ class SCCPGeneralSettings(AbstractObject):
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj.directmedia = convert_directmedia(obj_dict['directmedia'])
-        obj.dialtimeout = int(obj_dict['dialtimeout'])
-        obj.language = unicode(obj_dict['language'])
+        obj._from_sccpgeneralsettings(obj_dict['sccpgeneralsettings'])
         return obj
 
+    def _from_sccpgeneralsettings(self, sccpgeneralsettings):
+        self.directmedia = convert_directmedia(sccpgeneralsettings['directmedia'])
+        self.dialtimeout = int(sccpgeneralsettings['dialtimeout'])
+        self.language = unicode(sccpgeneralsettings['language'])
 
 class SCCPGeneralSettingsWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/general_settings/sccp/'
