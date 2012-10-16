@@ -43,12 +43,12 @@ class TestLine(unittest.TestCase):
                 "commented": False,
                 "config": "",
                 "configregistrar": "default",
-                "context": "default",
+                "context": "custom_context",
                 "description": "",
                 "device": "1",
                 "encryption": False,
                 "id": 4,
-                "iduserfeatures": 4,
+                "iduserfeatures": 5,
                 "internal": False,
                 "ipfrom": "192.168.11.106",
                 "line_num": 0,
@@ -84,7 +84,7 @@ class TestLine(unittest.TestCase):
                 "commented": False,
                 "contactdeny": None,
                 "contactpermit": None,
-                "context": "default",
+                "context": "custom_context",
                 "defaultip": None,
                 "deny": None,
                 "directmedia": None,
@@ -177,6 +177,8 @@ class TestLine(unittest.TestCase):
         self.assertEqual(Line.PROTOCOL_SIP, line.protocol)
         self.assertEqual('iibybz', line.name)
         self.assertEqual('1001', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(5, line.user_id)
 
     def test_from_obj_dict_custom(self):
         obj_dict = {
@@ -186,7 +188,7 @@ class TestLine(unittest.TestCase):
                 "commented": False,
                 "config": "",
                 "configregistrar": "default",
-                "context": "default",
+                "context": "custom_context",
                 "description": "",
                 "device": "",
                 "encryption": False,
@@ -209,7 +211,7 @@ class TestLine(unittest.TestCase):
             "protocol": {
                 "category": "user",
                 "commented": False,
-                "context": "default",
+                "context": "custom_context",
                 "id": 66,
                 "identity": "CUSTOM/",
                 "initialized": True,
@@ -225,6 +227,9 @@ class TestLine(unittest.TestCase):
 
         self.assertEqual(270, line.id)
         self.assertEqual(Line.PROTOCOL_CUSTOM, line.protocol)
+        self.assertEqual('', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(None, line.user_id)
 
     def test_from_obj_dict_sccp(self):
         obj_dict = {
@@ -247,7 +252,7 @@ class TestLine(unittest.TestCase):
                 "commented": False,
                 "config": "",
                 "configregistrar": "default",
-                "context": "default",
+                "context": "custom_context",
                 "description": "",
                 "device": "11",
                 "encryption": False,
@@ -271,7 +276,7 @@ class TestLine(unittest.TestCase):
                 "cid_name": "User 1",
                 "cid_num": "101",
                 "commented": "0",
-                "context": "default",
+                "context": "custom_context",
                 "id": 3,
                 "name": "101",
                 "protocol": "sccp"
@@ -294,6 +299,8 @@ class TestLine(unittest.TestCase):
         self.assertEqual(Line.PROTOCOL_SCCP, line.protocol)
         self.assertEqual('101', line.name)
         self.assertEqual('101', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(37, line.user_id)
 
     def test_from_list_obj_dict_sip(self):
         obj_dict = {
@@ -319,7 +326,7 @@ class TestLine(unittest.TestCase):
             "configregistrar": "default",
             "contactdeny": None,
             "contactpermit": None,
-            "context": "default",
+            "context": "custom_context",
             "defaultip": None,
             "deny": None,
             "description": "",
@@ -336,7 +343,7 @@ class TestLine(unittest.TestCase):
             "host": "dynamic",
             "id": 4,
             "identity": "SIP/iibybz",
-            "iduserfeatures": 4,
+            "iduserfeatures": 5,
             "ignoresdpversion": None,
             "initialized": False,
             "insecure": None,
@@ -415,13 +422,15 @@ class TestLine(unittest.TestCase):
         self.assertEqual(Line.PROTOCOL_SIP, line.protocol)
         self.assertEqual('iibybz', line.name)
         self.assertEqual('1001', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(5, line.user_id)
 
     def test_from_list_obj_dict_custom(self):
         obj_dict = {
             "commented": False,
             "config": "",
             "configregistrar": "default",
-            "context": "default",
+            "context": "custom_context",
             "description": "",
             "device": "",
             "encryption": False,
@@ -452,6 +461,8 @@ class TestLine(unittest.TestCase):
         self.assertEqual(Line.PROTOCOL_CUSTOM, line.protocol)
         self.assertEqual('dahdi/g22', line.name)
         self.assertEqual('', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(None, line.user_id)
 
     def test_from_list_obj_dict_sccp(self):
         obj_dict = {
@@ -460,7 +471,7 @@ class TestLine(unittest.TestCase):
             "commented": False,
             "config": "",
             "configregistrar": "default",
-            "context": "default",
+            "context": "custom_context",
             "description": "",
             "device": "11",
             "encryption": False,
@@ -490,3 +501,5 @@ class TestLine(unittest.TestCase):
         self.assertEqual(Line.PROTOCOL_SCCP, line.protocol)
         self.assertEqual('101', line.name)
         self.assertEqual('101', line.number)
+        self.assertEqual('custom_context', line.context)
+        self.assertEqual(37, line.user_id)

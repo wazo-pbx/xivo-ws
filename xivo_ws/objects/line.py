@@ -31,15 +31,16 @@ class Line(AbstractObject):
         Attribute('protocol', required=True),
         Attribute('name', required=True),
         Attribute('number'),
+        Attribute('context', default='default', required=True),
+        Attribute('user_id'),
         Attribute('type'),
         Attribute('username'),
         Attribute('secret', default='', required=True),
-        Attribute('context', default='default', required=True),
         Attribute('language'),
         Attribute('mailbox'),
         Attribute('host'),
         Attribute('port'),
-        Attribute('setvar')
+        Attribute('setvar'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -58,6 +59,9 @@ class Line(AbstractObject):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
         self.number = linefeatures['number']
+        self.context = linefeatures['context']
+        if linefeatures['iduserfeatures'] != 0:
+            self.user_id = linefeatures['iduserfeatures']
 
     def _from_protocol(self, protocol_name, protocol):
         if protocol_name == self.PROTOCOL_SIP:
@@ -72,7 +76,6 @@ class Line(AbstractObject):
         self.type = protocol['type']
         self.username = protocol['username']
         self.secret = protocol['secret']
-        self.context = protocol['context']
         self.language = protocol['language']
         self.mailbox = protocol['mailbox']
         self.host = protocol['host']
@@ -96,9 +99,7 @@ class Line(AbstractObject):
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
-        obj.id = obj_dict['id']
-        obj.protocol = obj_dict['protocol']
-        obj.number = obj_dict['number']
+        obj._from_linefeatures(obj_dict)
         obj._from_protocol(obj.protocol, obj_dict)
         return obj
 
