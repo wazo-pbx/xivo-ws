@@ -83,12 +83,12 @@ class ConfRoomWebService(AbstractWebService):
     ]
 
     def search_by_name(self, name):
-        name = str(name)
+        name = unicode(name)
         confrooms = self.search(name)
         return [confroom for confroom in confrooms if confroom.name == name]
 
     def search_by_number(self, number):
-        number = str(number)
+        number = unicode(number)
         confrooms = self.search(number)
         return [confroom for confroom in confrooms if confroom.number == number]
 

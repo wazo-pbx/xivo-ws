@@ -98,7 +98,7 @@ class AgentWebService(AbstractWebService):
     ]
 
     def search_by_number(self, number):
-        number = str(number)
+        number = unicode(number)
         agents = self.search(number)
         return [agent for agent in agents if agent.number == number]
 

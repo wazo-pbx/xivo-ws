@@ -75,12 +75,18 @@ class CustomTrunkWebService(AbstractWebService):
     _OBJECT_CLASS = CustomTrunk
 
     _ACTIONS = [
-        Actions.VIEW,
         Actions.ADD,
         Actions.DELETE,
-        Actions.SEARCH,
         Actions.LIST,
+        Actions.SEARCH,
+        Actions.VIEW,
     ]
+
+    def search_by_name(self, name):
+        name = unicode(name)
+        custom_trunks = self.search(name)
+        return [custom_trunk for custom_trunk in custom_trunks if
+                custom_trunk.name == name]
 
 
 register_ws_class(CustomTrunkWebService, 'custom_trunks')

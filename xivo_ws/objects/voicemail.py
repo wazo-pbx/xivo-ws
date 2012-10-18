@@ -77,6 +77,11 @@ class VoicemailWebService(AbstractWebService):
         Actions.VIEW,
     ]
 
+    def search_by_number(self, number):
+        number = unicode(number)
+        voicemails = self.search(number)
+        return [voicemail for voicemail in voicemails if voicemail.mailbox == number]
+
 
 register_ws_class(VoicemailWebService, 'voicemails')
 # deprecated name

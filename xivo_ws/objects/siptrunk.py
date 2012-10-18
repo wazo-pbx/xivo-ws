@@ -82,6 +82,11 @@ class SIPTrunkWebService(AbstractWebService):
         Actions.SEARCH,
     ]
 
+    def search_by_name(self, name):
+        name = unicode(name)
+        sip_trunks = self.search(name)
+        return [sip_trunk for sip_trunk in sip_trunks if sip_trunk.name == name]
+
 
 register_ws_class(SIPTrunkWebService, 'sip_trunks')
 # deprecated name

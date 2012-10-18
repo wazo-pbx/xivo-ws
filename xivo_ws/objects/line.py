@@ -117,7 +117,7 @@ class LineWebService(AbstractWebService):
     ]
 
     def search_by_number(self, number):
-        number = str(number)
+        number = unicode(number)
         lines = self.search(number)
         return [line for line in lines if line.number == number]
 

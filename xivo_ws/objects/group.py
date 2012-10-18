@@ -84,21 +84,21 @@ class GroupWebService(AbstractWebService):
     _OBJECT_CLASS = Group
 
     _ACTIONS = [
-        Actions.VIEW,
         Actions.ADD,
         Actions.DELETE,
         Actions.DELETE_ALL,
         Actions.LIST,
         Actions.SEARCH,
+        Actions.VIEW,
     ]
 
     def search_by_number(self, number):
-        number = str(number)
+        number = unicode(number)
         groups = self.search(number)
         return [group for group in groups if group.number == number]
 
     def search_by_name(self, name):
-        name = str(name)
+        name = unicode(name)
         groups = self.search(name)
         return [group for group in groups if group.name == name]
 

@@ -66,7 +66,7 @@ class IncallWebService(AbstractWebService):
     ]
 
     def search_by_number(self, number):
-        number = str(number)
+        number = unicode(number)
         incalls = self.search(number)
         return [incall for incall in incalls if incall.number == number]
 

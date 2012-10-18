@@ -84,9 +84,14 @@ class IAXTrunkWebService(AbstractWebService):
     _ACTIONS = [
         Actions.ADD,
         Actions.DELETE,
-        Actions.SEARCH,
         Actions.LIST,
+        Actions.SEARCH,
     ]
+
+    def search_by_name(self, name):
+        name = unicode(name)
+        iax_trunks = self.search(name)
+        return [iax_trunk for iax_trunk in iax_trunks if iax_trunk.name == name]
 
 
 register_ws_class(IAXTrunkWebService, 'iax_trunks')
