@@ -188,8 +188,6 @@ class TestAgent(unittest.TestCase):
                     "outcallerid": "default",
                     "passwdclient": "user2",
                     "pictureid": None,
-                    "pitch": None,
-                    "pitchdirection": None,
                     "preprocess_subroutine": None,
                     "profileclient": "client",
                     "rightcallcode": "",
