@@ -19,6 +19,7 @@ from xivo_ws.destination import GroupDestination, QueueDestination
 from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.facade import XivoServer
 from xivo_ws.objects.agent import Agent
+from xivo_ws.objects.confroom import ConfRoom
 from xivo_ws.objects.context import Context, ContextRange
 from xivo_ws.objects.customtrunk import CustomTrunk
 from xivo_ws.objects.device import Device
@@ -33,5 +34,5 @@ from xivo_ws.objects.sccp_general_settings import SCCPGeneralSettings
 from xivo_ws.objects.schedule import Schedule
 from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
-from xivo_ws.objects.user import User, UserLine, UserVoicemail
+from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserIncall
 from xivo_ws.objects.voicemail import Voicemail

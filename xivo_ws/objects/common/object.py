@@ -42,5 +42,5 @@ class AbstractObject(object):
         raise NotImplementedError()
 
     @classmethod
-    def from_list_obj_dict(self, obj_dict):
+    def from_list_obj_dict(cls, obj_dict):
         raise NotImplementedError()
