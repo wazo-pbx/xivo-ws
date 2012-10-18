@@ -95,5 +95,3 @@ class OutcallWebService(AbstractWebService):
 
 
 register_ws_class(OutcallWebService, 'outcalls')
-# deprecated name
-register_ws_class(OutcallWebService, 'outcall')

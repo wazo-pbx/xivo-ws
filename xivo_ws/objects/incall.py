@@ -72,5 +72,3 @@ class IncallWebService(AbstractWebService):
 
 
 register_ws_class(IncallWebService, 'incalls')
-# deprecated name
-register_ws_class(IncallWebService, 'incall')

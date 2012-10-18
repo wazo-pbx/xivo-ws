@@ -90,5 +90,3 @@ class CustomTrunkWebService(AbstractWebService):
 
 
 register_ws_class(CustomTrunkWebService, 'custom_trunks')
-# deprecated name
-register_ws_class(CustomTrunkWebService, 'custom_trunk')

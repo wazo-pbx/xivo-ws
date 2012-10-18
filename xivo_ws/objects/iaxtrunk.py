@@ -95,5 +95,3 @@ class IAXTrunkWebService(AbstractWebService):
 
 
 register_ws_class(IAXTrunkWebService, 'iax_trunks')
-# deprecated name
-register_ws_class(IAXTrunkWebService, 'iax_trunk')

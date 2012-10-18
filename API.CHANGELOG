@@ -1,6 +1,12 @@
 This file describes the changes to the xivo-ws API that break backward compatibility.
 
 
+12.20.2
+=======
+
+* Changed: deprecated attributes of XivoServer using the singular form have been removed.
+
+
 1.1
 ===
 

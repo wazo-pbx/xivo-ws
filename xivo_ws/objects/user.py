@@ -279,5 +279,3 @@ class UserWebService(AbstractWebService):
 
 
 register_ws_class(UserWebService, 'users')
-# deprecated name
-register_ws_class(UserWebService, 'user')

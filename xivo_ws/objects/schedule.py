@@ -110,5 +110,3 @@ class ScheduleWebService(AbstractWebService):
 
 
 register_ws_class(ScheduleWebService, 'schedules')
-# deprecated name
-register_ws_class(ScheduleWebService, 'schedule')

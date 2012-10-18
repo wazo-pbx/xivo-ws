@@ -114,5 +114,3 @@ class AgentWebService(AbstractWebService):
 
 
 register_ws_class(AgentWebService, 'agents')
-# deprecated name
-register_ws_class(AgentWebService, 'agent')

@@ -84,5 +84,3 @@ class VoicemailWebService(AbstractWebService):
 
 
 register_ws_class(VoicemailWebService, 'voicemails')
-# deprecated name
-register_ws_class(VoicemailWebService, 'voicemail')
