@@ -73,7 +73,36 @@ _QUEUE_OBJ_DICT_TO_WS = {
 }
 
 _QUEUE_OBJ_DICT_FROM_WS = {
-    "agent": False,
+    "agent": [
+        {
+            "call-limit": "0",
+            "category": "queue",
+            "channel": "Agent",
+            "commented": False,
+            "interface": "Agent/101",
+            "paused": None,
+            "penalty": "2",
+            "queue_name": "n1022",
+            "skills": "agent-50",
+            "state_interface": "",
+            "userid": 50,
+            "usertype": "agent"
+        },
+        {
+            "call-limit": "0",
+            "category": "queue",
+            "channel": "Agent",
+            "commented": False,
+            "interface": "Agent/102",
+            "paused": None,
+            "penalty": "6",
+            "queue_name": "n1022",
+            "skills": "agent-95",
+            "state_interface": "",
+            "userid": 95,
+            "usertype": "agent"
+        }
+    ],
     "callerid": {
         "callerdisplay": "",
         "mode": None,
@@ -704,6 +733,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(100, queue.waitratio)
         self.assertEqual(5, queue.waittime)
         self.assertEqual(None, queue.schedule_id)
+        self.assertEqual([50, 95], queue.agents)
 
     def test_from_obj_dict_with_schedule_id(self):
         obj_dict = copy.deepcopy(_QUEUE_OBJ_DICT_FROM_WS)
@@ -721,6 +751,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(100, queue.waitratio)
         self.assertEqual(5, queue.waittime)
         self.assertEqual(1, queue.schedule_id)
+        self.assertEqual([50, 95], queue.agents)
 
     def test_from_list_obj_dict(self):
         obj_dict = {

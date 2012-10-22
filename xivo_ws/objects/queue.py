@@ -118,6 +118,7 @@ class Queue(AbstractObject):
         obj._from_queue(obj_dict['queue'])
         if 'schedule_id' in obj_dict:
             obj._from_schedule_id(obj_dict['schedule_id'])
+        obj._from_agent(obj_dict['agent'])
         return obj
 
     def _from_queuefeatures(self, queuefeatures):
@@ -137,6 +138,10 @@ class Queue(AbstractObject):
 
     def _from_schedule_id(self, schedule_id):
         self.schedule_id = int(schedule_id)
+
+    def _from_agent(self, agents):
+        for agent in agents:
+            self.agents.append(agent['userid'])
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
