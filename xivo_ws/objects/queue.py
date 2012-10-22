@@ -156,6 +156,7 @@ class QueueWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
