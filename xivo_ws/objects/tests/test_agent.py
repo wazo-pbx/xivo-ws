@@ -30,6 +30,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(None, agent.lastname)
         self.assertEqual(None, agent.number)
         self.assertEqual(None, agent.context)
+        self.assertEqual(None, agent.wrapuptime)
         self.assertEqual([], agent.users)
 
     def test_new_agent_with_all_attributes(self):
@@ -38,6 +39,7 @@ class TestAgent(unittest.TestCase):
                       lastname='Last',
                       number='555',
                       context='default',
+                      wrapuptime='15',
                       users=[1, 2])
 
         self.assertEqual(1, agent.id)
@@ -45,6 +47,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual('Last', agent.lastname)
         self.assertEqual('555', agent.number)
         self.assertEqual('default', agent.context)
+        self.assertEqual('15', agent.wrapuptime)
         self.assertEqual([1, 2], agent.users)
 
     def test_to_obj_dict_with_minimum(self):
@@ -56,7 +59,7 @@ class TestAgent(unittest.TestCase):
                 'acceptdtmf': '#',
                 'enddtmf': '*',
                 'autologoff': '0',
-                'wrapuptime': '0',
+                'wrapuptime': '15',
                 'firstname': 'First',
                 'number': '555',
                 'context': 'default',
@@ -65,7 +68,8 @@ class TestAgent(unittest.TestCase):
         }
         agent = Agent(firstname='First',
                       number='555',
-                      context='default')
+                      context='default',
+                      wrapuptime='15')
 
         obj_dict = agent.to_obj_dict()
 
@@ -80,7 +84,7 @@ class TestAgent(unittest.TestCase):
                 'acceptdtmf': '#',
                 'enddtmf': '*',
                 'autologoff': '0',
-                'wrapuptime': '0',
+                'wrapuptime': '15',
                 'firstname': 'First',
                 'number': '555',
                 'context': 'default',
@@ -95,6 +99,7 @@ class TestAgent(unittest.TestCase):
                       password='password123',
                       number='555',
                       context='default',
+                      wrapuptime='15',
                       users=[1, 2])
 
         obj_dict = agent.to_obj_dict()
@@ -123,7 +128,7 @@ class TestAgent(unittest.TestCase):
                 "numgroup": "1",
                 "passwd": "",
                 "silent": False,
-                "wrapuptime": "0"
+                "wrapuptime": "15"
             },
             "agentgroup": {
                 "commented": False,
@@ -212,6 +217,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual('2', agent.lastname)
         self.assertEqual('2', agent.number)
         self.assertEqual('default', agent.context)
+        self.assertEqual('15', agent.wrapuptime)
         self.assertEqual([5], agent.users)
 
     def test_from_list_obj_dict(self):
@@ -224,6 +230,7 @@ class TestAgent(unittest.TestCase):
             'language': '',
             'lastname': '1',
             'number': '*1',
+            'wrapuptime': '15',
             'passwd': 'password123',
             'silent': False,
         }
@@ -236,3 +243,4 @@ class TestAgent(unittest.TestCase):
         self.assertEqual('password123', agent.password)
         self.assertEqual('*1', agent.number)
         self.assertEqual('default', agent.context)
+        self.assertEqual('15', agent.wrapuptime)

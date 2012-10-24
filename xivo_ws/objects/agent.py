@@ -29,6 +29,7 @@ class Agent(AbstractObject):
         Attribute('password'),
         Attribute('number', required=True),
         Attribute('context', required=True),
+        Attribute('wrapuptime'),
         Attribute('users', default_factory=list),
     ]
 
@@ -44,7 +45,6 @@ class Agent(AbstractObject):
             'acceptdtmf': '#',
             'enddtmf': '*',
             'autologoff': '0',
-            'wrapuptime': '0',
             'firstname': self.firstname,
             'number': self.number,
             'context': self.context,
@@ -53,6 +53,8 @@ class Agent(AbstractObject):
             agentfeatures['lastname'] = self.lastname
         if self.password is not None:
             agentfeatures['passwd'] = self.password
+        if self.wrapuptime is not None:
+            agentfeatures['wrapuptime'] = self.wrapuptime
         obj_dict['agentfeatures'] = agentfeatures
 
     def _to_userselect(self, obj_dict):
@@ -72,6 +74,8 @@ class Agent(AbstractObject):
         self.password = agentfeatures['passwd']
         self.number = agentfeatures['number']
         self.context = agentfeatures['context']
+        if 'wrapuptime' in agentfeatures:
+            self.wrapuptime = agentfeatures['wrapuptime']
 
     def _from_usermember(self, usermember):
         if usermember:
