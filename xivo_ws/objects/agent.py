@@ -29,7 +29,7 @@ class Agent(AbstractObject):
         Attribute('password'),
         Attribute('number', required=True),
         Attribute('context', required=True),
-        Attribute('wrapuptime', default='0'),
+        Attribute('wrapuptime', required=True, default='0'),
         Attribute('users', default_factory=list),
     ]
 
