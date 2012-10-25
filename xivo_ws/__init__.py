@@ -15,9 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import logging
+import os
 from xivo_ws.destination import GroupDestination, QueueDestination
 from xivo_ws.exception import WebServiceError, WebServiceRequestError
-from xivo_ws.facade import XivoServer
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.confroom import ConfRoom
 from xivo_ws.objects.context import Context, ContextRange
@@ -36,3 +37,13 @@ from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
 from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserIncall
 from xivo_ws.objects.voicemail import Voicemail
+
+
+if os.environ.get('XIVO_WS_DEBUG'):
+    from xivo_ws.facade import DebugXivoServer as XivoServer
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(logging.StreamHandler())
+else:
+    from xivo_ws.facade import XivoServer

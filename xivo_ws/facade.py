@@ -46,15 +46,9 @@ class XivoServer(BaseXivoServer):
 class DebugXivoServer(BaseXivoServer):
     def __init__(self, host, username=None, password=None):
         BaseXivoServer.__init__(self, self._new_ws_client(host, username, password))
-        self._setup_logging()
 
     def _new_ws_client(self, host, username, password):
         http_client = HTTPClient(host, username, password)
         http_client = DebugHTTPClientDecorator(http_client)
         ws_client = WebServiceClient(http_client)
         return ws_client
-
-    def _setup_logging(self):
-        logger = logging.getLogger()
-        logger.setLevel(logging.DEBUG)
-        logger.addHandler(logging.StreamHandler())
