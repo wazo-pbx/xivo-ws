@@ -23,10 +23,10 @@ from xivo_ws import WebServiceRequestError
 from xivo_ws.facade import BaseXivoServer
 from xivo_ws.client.http import HTTPClient
 from xivo_ws.client.webservice import WebServiceClient
-from xivo_ws_debug.editor import read_content_from_editor
-from xivo_ws_debug.formatter import JSONFormatter, PprintFormatter, \
+from xivo_ws.debug.editor import read_content_from_editor
+from xivo_ws.debug.formatter import JSONFormatter, PprintFormatter, \
     PythonFormatter
-from xivo_ws_debug.client.http import TimingHTTPClientDecorator, \
+from xivo_ws.debug.client.http import TimingHTTPClientDecorator, \
     DebugHTTPClientDecorator
 
 
