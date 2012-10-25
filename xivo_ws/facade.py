@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import logging
 from xivo_ws.client.http import HTTPClient
 from xivo_ws.client.webservice import WebServiceClient
 from xivo_ws.registry import get_registered_ws_class
@@ -25,7 +24,7 @@ from xivo_ws.debug.client.http import DebugHTTPClientDecorator
 class BaseXivoServer(object):
     def __init__(self, ws_client):
         self.ws_client = ws_client
-        for name, ws_class  in get_registered_ws_class().iteritems():
+        for name, ws_class in get_registered_ws_class().iteritems():
             ws = ws_class(ws_client)
             setattr(self, name, ws)
 
