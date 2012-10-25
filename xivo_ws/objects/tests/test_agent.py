@@ -30,7 +30,7 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(None, agent.lastname)
         self.assertEqual(None, agent.number)
         self.assertEqual(None, agent.context)
-        self.assertEqual(None, agent.wrapuptime)
+        self.assertEqual('0', agent.wrapuptime)
         self.assertEqual([], agent.users)
 
     def test_new_agent_with_all_attributes(self):
@@ -59,7 +59,7 @@ class TestAgent(unittest.TestCase):
                 'acceptdtmf': '#',
                 'enddtmf': '*',
                 'autologoff': '0',
-                'wrapuptime': '15',
+                'wrapuptime': '0',
                 'firstname': 'First',
                 'number': '555',
                 'context': 'default',
@@ -68,8 +68,7 @@ class TestAgent(unittest.TestCase):
         }
         agent = Agent(firstname='First',
                       number='555',
-                      context='default',
-                      wrapuptime='15')
+                      context='default')
 
         obj_dict = agent.to_obj_dict()
 
