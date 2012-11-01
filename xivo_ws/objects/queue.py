@@ -32,6 +32,7 @@ class Queue(AbstractObject):
         Attribute('reachability_timeout'),
         Attribute('maxlen', default=0),
         Attribute('agents', default_factory=list),
+        Attribute('users', default_factory=list),
         Attribute('joinempty'),
         Attribute('leavewhenempty'),
         Attribute('waittime'),
@@ -44,6 +45,7 @@ class Queue(AbstractObject):
         self._to_queue(obj_dict)
         self._to_dialaction(obj_dict)
         self._to_agent(obj_dict)
+        self._to_user(obj_dict)
         self._to_schedule(obj_dict)
 
     def _to_queuefeatures(self, obj_dict):
@@ -107,6 +109,9 @@ class Queue(AbstractObject):
     def _to_agent(self, obj_dict):
         obj_dict['agent'] = list(self.agents)
 
+    def _to_user(self, obj_dict):
+        obj_dict['user'] = list(self.users)
+
     def _to_schedule(self, obj_dict):
         if self.schedule_id is not None:
             obj_dict['schedule_id'] = int(self.schedule_id)
@@ -119,6 +124,7 @@ class Queue(AbstractObject):
         if 'schedule_id' in obj_dict:
             obj._from_schedule_id(obj_dict['schedule_id'])
         obj._from_agent(obj_dict['agent'])
+        obj._from_user(obj_dict['user'])
         return obj
 
     def _from_queuefeatures(self, queuefeatures):
@@ -142,6 +148,10 @@ class Queue(AbstractObject):
     def _from_agent(self, agents):
         for agent in agents:
             self.agents.append(agent['userid'])
+
+    def _from_user(self, users):
+        for user in users:
+            self.users.append(user['id'])
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
