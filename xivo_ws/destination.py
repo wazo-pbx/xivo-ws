@@ -18,19 +18,6 @@
 from __future__ import unicode_literals
 
 
-class UserDestination(object):
-    def __init__(self, user_id):
-        self.user_id = user_id
-
-    def to_obj_dict(self):
-        obj_dict = {
-            'actiontype': 'user',
-            'actionarg1': self.user_id,
-            'actionarg2': '',
-        }
-        return obj_dict
-
-
 class GroupDestination(object):
     def __init__(self, group_id):
         self.group_id = group_id
@@ -52,6 +39,19 @@ class QueueDestination(object):
         obj_dict = {
             'actiontype': 'queue',
             'actionarg1': self.queue_id,
+            'actionarg2': '',
+        }
+        return obj_dict
+
+
+class UserDestination(object):
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+    def to_obj_dict(self):
+        obj_dict = {
+            'actiontype': 'user',
+            'actionarg1': self.user_id,
             'actionarg2': '',
         }
         return obj_dict
