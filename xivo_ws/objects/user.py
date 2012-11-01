@@ -108,6 +108,8 @@ class User(AbstractObject):
         obj.firstname = obj_dict['firstname']
         obj.lastname = obj_dict['lastname']
         obj.enable_client = obj_dict['enableclient']
+        obj.client_username = obj_dict['loginclient']
+        obj.client_password = obj_dict['passwdclient']
         obj.client_profile = obj_dict['profileclient']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
@@ -262,6 +264,7 @@ class UserWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.DELETE_ALL,
         Actions.LIST,

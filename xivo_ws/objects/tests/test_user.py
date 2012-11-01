@@ -98,8 +98,8 @@ class TestUser(unittest.TestCase):
             "ringseconds": "30",
             "simultcalls": "5",
             "enableclient": False,
-            "loginclient": "",
-            "passwdclient": "",
+            "loginclient": "jack",
+            "passwdclient": "johnson",
             "profileclient": "client",
             "enablehint": True,
             "enablevoicemail": False,
@@ -143,6 +143,8 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.firstname, 'Jack')
         self.assertEqual(user.lastname, 'Johnson')
         self.assertEqual(user.enable_client, False)
+        self.assertEqual(user.client_username, 'jack')
+        self.assertEqual(user.client_password, 'johnson')
         self.assertEqual(user.client_profile, 'client')
         self.assertEqual(user.agent_id, 1)
         self.assertEqual(user.voicemail.id, 5)
@@ -202,5 +204,6 @@ entityid|firstname|lastname|language|enableclient|username|password|profileclien
 
         self._ws.import_(users)
 
-        self._ws._ws_client.custom_request.assert_called_once_with(
-                    self._ws._PATH, 'act=import', expected_content)
+        self._ws._ws_client.custom_request.assert_called_once_with(self._ws._PATH,
+                                                                   'act=import',
+                                                                   expected_content)
