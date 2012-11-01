@@ -70,6 +70,7 @@ _QUEUE_OBJ_DICT_TO_WS = {
         },
     },
     'agent': [],
+    'user': [],
 }
 
 _QUEUE_OBJ_DICT_FROM_WS = {
@@ -667,7 +668,7 @@ _QUEUE_OBJ_DICT_FROM_WS = {
         "write_caller": "0",
         "write_calling": "0"
     },
-    "user": False
+    "user": False,
 }
 
 

@@ -146,12 +146,12 @@ class Queue(AbstractObject):
         self.schedule_id = int(schedule_id)
 
     def _from_agent(self, agents):
-        for agent in agents:
-            self.agents.append(agent['userid'])
+        if agents:
+            self.agents = [agent['userid'] for agent in agents]
 
     def _from_user(self, users):
-        for user in users:
-            self.users.append(user['id'])
+        if users:
+            self.users = [user['id'] for user in users]
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):
