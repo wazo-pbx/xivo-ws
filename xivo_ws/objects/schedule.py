@@ -104,7 +104,6 @@ class ScheduleWebService(AbstractWebService):
         Actions.ADD,
         Actions.DELETE,
         Actions.LIST,
-        Actions.SEARCH,
         Actions.VIEW,
     ]
 
