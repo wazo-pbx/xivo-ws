@@ -25,6 +25,7 @@ _CHECK_WS_PATH = u'/xivo/configuration/json.php/restricted/check/'
 
 
 class WebServiceClient(object):
+
     _JSON_POST_HEADERS = {u'Content-Type': u'application/json'}
 
     def __init__(self, http_client):

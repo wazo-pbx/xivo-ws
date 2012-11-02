@@ -19,6 +19,7 @@ from __future__ import unicode_literals
 
 
 class GroupDestination(object):
+
     def __init__(self, group_id):
         self.group_id = group_id
 
@@ -32,6 +33,7 @@ class GroupDestination(object):
 
 
 class QueueDestination(object):
+
     def __init__(self, queue_id):
         self.queue_id = queue_id
 
@@ -45,6 +47,7 @@ class QueueDestination(object):
 
 
 class UserDestination(object):
+
     def __init__(self, user_id):
         self.user_id = user_id
 

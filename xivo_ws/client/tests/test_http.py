@@ -23,6 +23,7 @@ from xivo_ws.exception import WebServiceRequestError
 
 
 class TestHTTPClient(unittest.TestCase):
+
     def _new_http_client_with_mocked_opener(self, host):
         http_client = HTTPClient(host)
         http_client._opener = MagicMock()

@@ -22,6 +22,7 @@ from xivo_ws.exception import WebServiceRequestError
 
 
 class TestWebServiceClient(unittest.TestCase):
+
     def setUp(self):
         self._http_client = Mock()
 

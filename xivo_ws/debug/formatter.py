@@ -21,16 +21,19 @@ import re
 
 
 class JSONFormatter(object):
+
     def format(self, obj_dict):
         return json.dumps(obj_dict, indent=4, sort_keys=True)
 
 
 class PprintFormatter(object):
+
     def format(self, obj_dict):
         return pprint.pformat(obj_dict)
 
 
 class PythonFormatter(object):
+
     _REGEX_FALSE = re.compile(ur'\bfalse\b')
     _REGEX_TRUE = re.compile(ur'\btrue\b')
     _REGEX_NULL = re.compile(ur'\bnull\b')

@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 class DebugHTTPClientDecorator(object):
+
     def __init__(self, http_client):
         self._http_client = http_client
 
@@ -50,6 +51,7 @@ class DebugHTTPClientDecorator(object):
 
 
 class TimingHTTPClientDecorator(object):
+
     def __init__(self, http_client):
         self._http_client = http_client
 

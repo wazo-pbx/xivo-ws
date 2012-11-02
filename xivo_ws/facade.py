@@ -22,6 +22,7 @@ from xivo_ws.debug.client.http import DebugHTTPClientDecorator
 
 
 class BaseXivoServer(object):
+
     def __init__(self, ws_client):
         self.ws_client = ws_client
         for name, ws_class in get_registered_ws_class().iteritems():
@@ -30,6 +31,7 @@ class BaseXivoServer(object):
 
 
 class XivoServer(BaseXivoServer):
+
     def __init__(self, host, username=None, password=None):
         BaseXivoServer.__init__(self, self._new_ws_client(host, username, password))
 
@@ -43,6 +45,7 @@ class XivoServer(BaseXivoServer):
 
 
 class DebugXivoServer(BaseXivoServer):
+
     def __init__(self, host, username=None, password=None):
         BaseXivoServer.__init__(self, self._new_ws_client(host, username, password))
 

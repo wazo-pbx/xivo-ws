@@ -51,6 +51,7 @@ class SCCPGeneralSettings(AbstractObject):
         self.dialtimeout = int(sccpgeneralsettings['dialtimeout'])
         self.language = unicode(sccpgeneralsettings['language'])
 
+
 class SCCPGeneralSettingsWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/general_settings/sccp/'
     _OBJECT_CLASS = SCCPGeneralSettings
@@ -59,5 +60,6 @@ class SCCPGeneralSettingsWebService(AbstractWebService):
         Actions.EDIT,
         Actions.VIEW,
     ]
+
 
 register_ws_class(SCCPGeneralSettingsWebService, 'sccp_general_settings')

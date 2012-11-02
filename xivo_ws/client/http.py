@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 class HTTPClient(object):
+
     _USER_AGENT = u'xivo-ws/%s' % version
 
     def __init__(self, host, username=None, password=None,
@@ -90,6 +91,7 @@ class HTTPClient(object):
 
 
 class _PreemptiveHTTPBasicAuthHandler(urllib2.BaseHandler):
+
     def __init__(self, password_mgr):
         self._password_mgr = password_mgr
 
