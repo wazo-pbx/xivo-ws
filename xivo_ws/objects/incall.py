@@ -27,11 +27,13 @@ class Incall(AbstractObject):
         Attribute('number', required=True),
         Attribute('context', required=True),
         Attribute('destination', required=True),
+        Attribute('caller_id_mode'),
     ]
 
     def _to_obj_dict(self, obj_dict):
         self._add_incall(obj_dict)
         self._add_dialaction(obj_dict)
+        self._add_caller_id_mode(obj_dict)
 
     def _add_incall(self, obj_dict):
         obj_dict['incall'] = {
@@ -43,6 +45,10 @@ class Incall(AbstractObject):
         obj_dict['dialaction'] = {
             'answer': self.destination.to_obj_dict()
         }
+
+    def _add_caller_id_mode(self, obj_dict):
+        if self.caller_id_mode:
+            obj_dict['callerid'] = self.caller_id_mode.to_obj_dict()
 
     @classmethod
     def from_list_obj_dict(cls, obj_dict):

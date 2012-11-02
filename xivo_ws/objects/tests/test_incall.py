@@ -18,11 +18,13 @@
 from __future__ import unicode_literals
 
 import unittest
+from xivo_ws import OverwriteCallerIDMode
 from xivo_ws.destination import QueueDestination
 from xivo_ws.objects.incall import Incall
 
 
 class TestIncall(unittest.TestCase):
+
     def test_to_obj_dict(self):
         expected_obj_dict = {
             'incall': {
@@ -35,12 +37,16 @@ class TestIncall(unittest.TestCase):
                     'actionarg1': '8',
                     'actionarg2': '',
                 }
+            },
+            'callerid': {
+                'mode': 'overwrite',
+                'callerdisplay': 'foobar',
             }
         }
         incall = Incall(number='502',
                         context='from-extern',
-                        destination=QueueDestination(
-                            queue_id='8'))
+                        destination=QueueDestination(queue_id='8'),
+                        caller_id_mode=OverwriteCallerIDMode('foobar'))
 
         obj_dict = incall.to_obj_dict()
 
