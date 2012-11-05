@@ -54,7 +54,6 @@ class TestAgent(unittest.TestCase):
         expected_obj_dict = {
             'agentfeatures': {
                 'numgroup': '1',
-                'musiconhold': 'default',
                 'autologoff': '0',
                 'wrapuptime': '0',
                 'firstname': 'First',
@@ -75,7 +74,6 @@ class TestAgent(unittest.TestCase):
         expected_obj_dict = {
             'agentfeatures': {
                 'numgroup': '1',
-                'musiconhold': 'default',
                 'autologoff': '0',
                 'wrapuptime': '15',
                 'firstname': 'First',
@@ -113,7 +111,6 @@ class TestAgent(unittest.TestCase):
                 "identity": "Agent 2 (2@default)",
                 "language": "",
                 "lastname": "2",
-                "musiconhold": "default",
                 "number": "2",
                 "numgroup": "1",
                 "passwd": "",

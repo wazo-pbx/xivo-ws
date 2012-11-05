@@ -40,7 +40,6 @@ class Agent(AbstractObject):
     def _to_agentfeatures(self, obj_dict):
         agentfeatures = {
             'numgroup': '1',
-            'musiconhold': 'default',
             'autologoff': '0',
             'firstname': self.firstname,
             'number': self.number,
