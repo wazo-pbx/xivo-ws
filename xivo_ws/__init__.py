@@ -38,6 +38,7 @@ from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
 from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserIncall
 from xivo_ws.objects.voicemail import Voicemail
+from xivo_ws.objects.queueskillrules import QueueSkillRules
 
 
 if os.environ.get('XIVO_WS_DEBUG'):
