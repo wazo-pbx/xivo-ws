@@ -24,7 +24,12 @@ from xivo_ws.registry import register_ws_class
 class Device(AbstractObject):
     _ATTRIBUTES = [
         Attribute('id'),
+        Attribute('ip'),
         Attribute('mac'),
+        Attribute('plugin'),
+        Attribute('vendor'),
+        Attribute('model'),
+        Attribute('version'),
     ]
 
     @classmethod
@@ -35,7 +40,12 @@ class Device(AbstractObject):
 
     def _from_devicefeatures(self, devicefeatures):
         self.id = int(devicefeatures['id'])
+        self.ip = devicefeatures['ip']
         self.mac = devicefeatures['mac']
+        self.plugin = devicefeatures['plugin']
+        self.vendor = devicefeatures['vendor']
+        self.model = devicefeatures['model']
+        self.version = devicefeatures['version']
 
     from_list_obj_dict = from_obj_dict
 

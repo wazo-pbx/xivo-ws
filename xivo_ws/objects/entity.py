@@ -49,11 +49,17 @@ class EntityWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
         Actions.VIEW,
     ]
+
+    def search_by_name(self, name):
+        name = unicode(name)
+        entities = self.search(name)
+        return [entity for entity in entities if entity.name == name]
 
 
 register_ws_class(EntityWebService, 'entities')

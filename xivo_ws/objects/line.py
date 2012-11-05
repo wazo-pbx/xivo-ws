@@ -41,19 +41,26 @@ class Line(AbstractObject):
         Attribute('host'),
         Attribute('port'),
         Attribute('setvar'),
+        Attribute('interface'),
     ]
 
     def _to_obj_dict(self, obj_dict):
-        self._add_protocol(obj_dict)
-
-    def _add_protocol(self, obj_dict):
         protocol = {
-            'protocol': self.protocol,
             'name': self.name,
-            'secret': self.secret,
-            'context': self.context,
+            'protocol': self.protocol,
+            'context': self.context
         }
+        if self.protocol == self.PROTOCOL_SIP:
+            self._to_sip_protocol(protocol)
+        elif self.protocol == self.PROTOCOL_CUSTOM:
+            self._to_custom_protocol(protocol)
         obj_dict['protocol'] = protocol
+
+    def _to_sip_protocol(self, protocol):
+        protocol['secret'] = self.secret
+
+    def _to_custom_protocol(self, protocol):
+        protocol['interface'] = self.interface
 
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
@@ -110,6 +117,7 @@ class LineWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
@@ -120,6 +128,11 @@ class LineWebService(AbstractWebService):
         number = unicode(number)
         lines = self.search(number)
         return [line for line in lines if line.number == number]
+
+    def search_by_name(self, name):
+        name = unicode(name)
+        lines = self.search(name)
+        return [line for line in lines if line.name == name]
 
 
 register_ws_class(LineWebService, 'lines')
