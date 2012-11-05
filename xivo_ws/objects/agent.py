@@ -41,9 +41,6 @@ class Agent(AbstractObject):
         agentfeatures = {
             'numgroup': '1',
             'musiconhold': 'default',
-            'ackcall': 'no',
-            'acceptdtmf': '#',
-            'enddtmf': '*',
             'autologoff': '0',
             'firstname': self.firstname,
             'number': self.number,

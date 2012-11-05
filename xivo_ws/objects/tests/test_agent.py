@@ -55,9 +55,6 @@ class TestAgent(unittest.TestCase):
             'agentfeatures': {
                 'numgroup': '1',
                 'musiconhold': 'default',
-                'ackcall': 'no',
-                'acceptdtmf': '#',
-                'enddtmf': '*',
                 'autologoff': '0',
                 'wrapuptime': '0',
                 'firstname': 'First',
@@ -79,9 +76,6 @@ class TestAgent(unittest.TestCase):
             'agentfeatures': {
                 'numgroup': '1',
                 'musiconhold': 'default',
-                'ackcall': 'no',
-                'acceptdtmf': '#',
-                'enddtmf': '*',
                 'autologoff': '0',
                 'wrapuptime': '15',
                 'firstname': 'First',
@@ -108,13 +102,10 @@ class TestAgent(unittest.TestCase):
     def test_from_obj_dict(self):
         obj_dict = {
             "agentfeatures": {
-                "acceptdtmf": "#",
-                "ackcall": "no",
                 "autologoff": "0",
                 "commented": False,
                 "context": "default",
                 "description": "",
-                "enddtmf": "*",
                 "firstname": "Agent",
                 "fullname": "Agent 2",
                 "group": None,
@@ -220,7 +211,6 @@ class TestAgent(unittest.TestCase):
 
     def test_from_list_obj_dict(self):
         obj_dict = {
-            'ackcall': 'no',
             'commented': None,
             'context': 'default',
             'firstname': 'Agent',
