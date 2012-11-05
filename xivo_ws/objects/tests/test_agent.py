@@ -126,7 +126,6 @@ class TestAgent(unittest.TestCase):
                 "number": "2",
                 "numgroup": "1",
                 "passwd": "",
-                "silent": False,
                 "wrapuptime": "15"
             },
             "agentgroup": {
@@ -231,7 +230,6 @@ class TestAgent(unittest.TestCase):
             'number': '*1',
             'wrapuptime': '15',
             'passwd': 'password123',
-            'silent': False,
         }
 
         agent = Agent.from_list_obj_dict(obj_dict)
