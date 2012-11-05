@@ -14,14 +14,14 @@ Lines and group will be in context CONTEXT
 
 FIRSTNAME_PREFIX = 'ZZZZZ '
 CONTEXT = 'default'
-NB_USER = 10
+NB_USER = 1000
 NUMBER_START = 11000
 GROUP_NAME = 'huge'
 GROUP_NUMBER = 2034
 
 
 def add():
-    xivo_server = XivoServer('skaro-rc', 'admin', 'superpass')
+    xivo_server = XivoServer('skarodev', 'admin', 'proformatique')
     for i in range(NB_USER):
         print('Creating user %s...' % i)
         u = User(firstname='%s%s' % (FIRSTNAME_PREFIX, i))

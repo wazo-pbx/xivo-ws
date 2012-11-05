@@ -85,6 +85,7 @@ class GroupWebService(AbstractWebService):
 
     _ACTIONS = [
         Actions.ADD,
+        Actions.EDIT,
         Actions.DELETE,
         Actions.DELETE_ALL,
         Actions.LIST,
