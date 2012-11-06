@@ -127,7 +127,6 @@ class TestUser(unittest.TestCase):
             "ringgroup": "",
             "ringforward": "",
             "rightcallcode": "",
-            "alarmclock": "",
             "pitch": None,
             "pitchdirection": None,
             "commented": False,

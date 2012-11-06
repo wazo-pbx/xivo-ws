@@ -147,7 +147,6 @@ class TestAgent(unittest.TestCase):
             "usermember": [
                 {
                     "agentid": "3",
-                    "alarmclock": "",
                     "bsfilter": "no",
                     "callerid": "\"User 2\"",
                     "callrecord": False,
