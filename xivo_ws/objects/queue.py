@@ -38,6 +38,7 @@ class Queue(AbstractObject):
         Attribute('waittime'),
         Attribute('waitratio'),
         Attribute('schedule_id'),
+        Attribute('wrapuptime', default=0),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -78,6 +79,7 @@ class Queue(AbstractObject):
             'leavewhenempty': self.leavewhenempty,
             'strategy': self.ring_strategy,
             'autopause': self.autopause,
+            'wrapuptime': self.wrapuptime,
         }
         if self.reachability_timeout is not None:
             queue['timeout'] = self.reachability_timeout
@@ -141,6 +143,7 @@ class Queue(AbstractObject):
         self.maxlen = queue['maxlen']
         self.joinempty = queue['joinempty']
         self.leavewhenempty = queue['leavewhenempty']
+        self.wrapuptime = queue['wrapuptime']
 
     def _from_schedule_id(self, schedule_id):
         self.schedule_id = int(schedule_id)

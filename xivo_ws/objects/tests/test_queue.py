@@ -48,6 +48,7 @@ _QUEUE_OBJ_DICT_TO_WS = {
         'joinempty': None,
         'leavewhenempty': None,
         'autopause': True,
+        'wrapuptime': 0,
     },
     'dialaction': {
         'noanswer': {
@@ -684,6 +685,7 @@ class TestQueue(unittest.TestCase):
         expected_obj_dict['queue']['maxlen'] = 1
         expected_obj_dict['queue']['strategy'] = 'linear'
         expected_obj_dict['queue']['timeout'] = 30
+        expected_obj_dict['queue']['wrapuptime'] = 15
         expected_obj_dict['schedule_id'] = 1
         expected_obj_dict['agent'] = [1, 2]
         queue = Queue(id=1,
@@ -701,7 +703,8 @@ class TestQueue(unittest.TestCase):
                       waittime=5,
                       waitratio=100,
                       agents=[1, 2],
-                      schedule_id=1)
+                      schedule_id=1,
+                      wrapuptime=15,)
 
         obj_dict = queue.to_obj_dict()
 
@@ -713,7 +716,7 @@ class TestQueue(unittest.TestCase):
                       name='foo',
                       display_name='Foo bar',
                       number='555',
-                      context='default')
+                      context='default',)
 
         obj_dict = queue.to_obj_dict()
 
