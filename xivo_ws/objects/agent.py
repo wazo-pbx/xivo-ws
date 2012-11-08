@@ -29,7 +29,6 @@ class Agent(AbstractObject):
         Attribute('password'),
         Attribute('number', required=True),
         Attribute('context', required=True),
-        Attribute('wrapuptime', required=True, default='0'),
         Attribute('users', default_factory=list),
     ]
 
@@ -44,7 +43,6 @@ class Agent(AbstractObject):
             'firstname': self.firstname,
             'number': self.number,
             'context': self.context,
-            'wrapuptime': self.wrapuptime
         }
         if self.lastname is not None:
             agentfeatures['lastname'] = self.lastname
@@ -69,8 +67,6 @@ class Agent(AbstractObject):
         self.password = agentfeatures['passwd']
         self.number = agentfeatures['number']
         self.context = agentfeatures['context']
-        if 'wrapuptime' in agentfeatures:
-            self.wrapuptime = agentfeatures['wrapuptime']
 
     def _from_usermember(self, usermember):
         if usermember:
