@@ -24,6 +24,7 @@ from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService, 
 
 
 class TestUser(unittest.TestCase):
+
     def test_to_obj_dict(self):
         expected_obj_dict = {
             'userfeatures': {
@@ -79,6 +80,56 @@ class TestUser(unittest.TestCase):
                     enable_hint=True,
                     line=UserLine(number=1000, context='default', device_id=42),
                     voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'))
+
+        obj_dict = user.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
+
+    def test_to_obj_dict_with_existant_line(self):
+        expected_obj_dict = {
+            'userfeatures': {
+                'musiconhold': 'default',
+                'entityid': 2,
+                'enablehint': True,
+                'enablexfer': True,
+                'firstname': 'Jack',
+                'lastname': 'Johnson',
+                'language': 'en_US',
+                'enableclient': True,
+                'loginclient': 'jack',
+                'passwdclient': 'jack',
+                'profileclient': 'agent',
+                "agentid": 1
+            },
+            'linefeatures': {
+                'id': ['23']
+            },
+            'dialaction': {
+                'noanswer': {
+                    'actiontype': 'none',
+                },
+                'busy': {
+                    'actiontype': 'none',
+                },
+                'congestion': {
+                    'actiontype': 'none',
+                },
+                'chanunavail': {
+                    'actiontype': 'none',
+                }
+            }
+        }
+        user = User(firstname='Jack',
+                    lastname='Johnson',
+                    language='en_US',
+                    enable_client=True,
+                    client_username='jack',
+                    client_password='jack',
+                    client_profile='agent',
+                    entity_id=2,
+                    agent_id=1,
+                    enable_hint=True,
+                    line=UserLine(id='23'))
 
         obj_dict = user.to_obj_dict()
 

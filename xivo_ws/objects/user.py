@@ -121,6 +121,7 @@ class User(AbstractObject):
 
 class UserLine(AbstractObject):
     _ATTRIBUTES = [
+        Attribute('id'),
         Attribute('protocol', default='sip', required=True),
         Attribute('context', required=True),
         Attribute('number'),
@@ -128,12 +129,17 @@ class UserLine(AbstractObject):
     ]
 
     def _add_line(self, obj_dict):
-        self._check_required_attributes()
-        linefeatures = {
-            'protocol': [self.protocol],
-            'context': [self.context],
-            'number': [self.number],
-        }
+        if self.id is not None:
+            linefeatures = {
+                'id': [self.id]
+            }
+        else:
+            self._check_required_attributes()
+            linefeatures = {
+                'protocol': [self.protocol],
+                'context': [self.context],
+                'number': [self.number],
+            }
         if self.device_id is not None:
             linefeatures['device'] = [self.device_id]
         obj_dict['linefeatures'] = linefeatures
