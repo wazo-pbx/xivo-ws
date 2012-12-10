@@ -151,7 +151,7 @@ class TestUser(unittest.TestCase):
             "enableclient": False,
             "loginclient": "jack",
             "passwdclient": "johnson",
-            "profileclient": "client",
+            "cti_profile_id": "5",
             "enablehint": True,
             "enablevoicemail": False,
             "enablexfer": True,
@@ -195,7 +195,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.enable_client, False)
         self.assertEqual(user.client_username, 'jack')
         self.assertEqual(user.client_password, 'johnson')
-        self.assertEqual(user.client_profile, 'client')
+        self.assertEqual(user.client_profile_id, '5')
         self.assertEqual(user.agent_id, 1)
         self.assertEqual(user.voicemail.id, 5)
 
