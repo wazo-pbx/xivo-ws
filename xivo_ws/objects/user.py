@@ -34,6 +34,7 @@ class User(AbstractObject):
         Attribute('client_username'),
         Attribute('client_password'),
         Attribute('client_profile'),
+        Attribute('client_profile_id'),
         Attribute('enable_hint', default=True),
         Attribute('line'),
         Attribute('voicemail'),
@@ -69,6 +70,8 @@ class User(AbstractObject):
             userfeatures['passwdclient'] = self.client_password
         if self.client_profile is not None:
             userfeatures['profileclient'] = self.client_profile
+        elif self.client_profile_id is not None:
+            userfeatures['cti_profile_id'] = self.client_profile_id
         if self.enable_hint is not None:
             userfeatures['enablehint'] = self.enable_hint
         if self.agent_id is not None:
@@ -110,7 +113,7 @@ class User(AbstractObject):
         obj.enable_client = obj_dict['enableclient']
         obj.client_username = obj_dict['loginclient']
         obj.client_password = obj_dict['passwdclient']
-        obj.client_profile = obj_dict['profileclient']
+        obj.client_profile_id = obj_dict['cti_profile_id']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
         if obj_dict['voicemailid']:

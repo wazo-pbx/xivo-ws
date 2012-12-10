@@ -23,6 +23,7 @@ from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.confroom import ConfRoom
 from xivo_ws.objects.context import Context, ContextRange
+from xivo_ws.objects.cti_profile import CTIProfile
 from xivo_ws.objects.customtrunk import CustomTrunk
 from xivo_ws.objects.device import Device
 from xivo_ws.objects.entity import Entity
