@@ -38,7 +38,7 @@ class TestUser(unittest.TestCase):
                 'enableclient': True,
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
-                'profileclient': 'agent',
+                'profileclient': 'Agent',
                 "agentid": 1,
             },
             'linefeatures': {
@@ -74,7 +74,7 @@ class TestUser(unittest.TestCase):
                     enable_client=True,
                     client_username='jack',
                     client_password='jack',
-                    client_profile='agent',
+                    client_profile='Agent',
                     entity_id=2,
                     agent_id=1,
                     enable_hint=True,
@@ -85,7 +85,7 @@ class TestUser(unittest.TestCase):
 
         self.assertEqual(expected_obj_dict, obj_dict)
 
-    def test_to_obj_dict_with_existant_line(self):
+    def test_to_obj_dict_with_existing_line(self):
         expected_obj_dict = {
             'userfeatures': {
                 'musiconhold': 'default',
@@ -98,7 +98,7 @@ class TestUser(unittest.TestCase):
                 'enableclient': True,
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
-                'profileclient': 'agent',
+                'profileclient': 'Agent',
                 "agentid": 1
             },
             'linefeatures': {
@@ -125,7 +125,57 @@ class TestUser(unittest.TestCase):
                     enable_client=True,
                     client_username='jack',
                     client_password='jack',
-                    client_profile='agent',
+                    client_profile='Agent',
+                    entity_id=2,
+                    agent_id=1,
+                    enable_hint=True,
+                    line=UserLine(id='23'))
+
+        obj_dict = user.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
+
+    def test_to_obj_dict_with_profile_id(self):
+        expected_obj_dict = {
+            'userfeatures': {
+                'musiconhold': 'default',
+                'entityid': 2,
+                'enablehint': True,
+                'enablexfer': True,
+                'firstname': 'Jack',
+                'lastname': 'Johnson',
+                'language': 'en_US',
+                'enableclient': True,
+                'loginclient': 'jack',
+                'passwdclient': 'jack',
+                'cti_profile_id': 5,
+                "agentid": 1
+            },
+            'linefeatures': {
+                'id': ['23']
+            },
+            'dialaction': {
+                'noanswer': {
+                    'actiontype': 'none',
+                },
+                'busy': {
+                    'actiontype': 'none',
+                },
+                'congestion': {
+                    'actiontype': 'none',
+                },
+                'chanunavail': {
+                    'actiontype': 'none',
+                }
+            }
+        }
+        user = User(firstname='Jack',
+                    lastname='Johnson',
+                    language='en_US',
+                    enable_client=True,
+                    client_username='jack',
+                    client_password='jack',
+                    client_profile_id=5,
                     entity_id=2,
                     agent_id=1,
                     enable_hint=True,
