@@ -39,6 +39,7 @@ class User(AbstractObject):
         Attribute('line'),
         Attribute('voicemail'),
         Attribute('incall'),
+        Attribute('mobile_number'),
     ]
 
     def _to_obj_dict(self, obj_dict):
@@ -76,6 +77,8 @@ class User(AbstractObject):
             userfeatures['enablehint'] = self.enable_hint
         if self.agent_id is not None:
             userfeatures['agentid'] = self.agent_id
+        if self.mobile_number is not None:
+            userfeatures['mobilephonenumber'] = self.mobile_number
         obj_dict['userfeatures'] = userfeatures
 
     def _add_line(self, obj_dict):
@@ -119,6 +122,7 @@ class User(AbstractObject):
         if obj_dict['voicemailid']:
             obj.voicemail = UserVoicemail()
             obj.voicemail.id = obj_dict['voicemailid']
+        obj.mobile_number = obj_dict['mobilephonenumber']
         return obj
 
 

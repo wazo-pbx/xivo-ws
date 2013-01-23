@@ -39,7 +39,8 @@ class TestUser(unittest.TestCase):
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
                 'profileclient': 'Agent',
-                "agentid": 1,
+                'agentid': 1,
+                'mobilephonenumber': '5555555555',
             },
             'linefeatures': {
                 'protocol': ['sip'],
@@ -79,7 +80,8 @@ class TestUser(unittest.TestCase):
                     agent_id=1,
                     enable_hint=True,
                     line=UserLine(number=1000, context='default', device_id=42),
-                    voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'))
+                    voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'),
+                    mobile_number='5555555555')
 
         obj_dict = user.to_obj_dict()
 
@@ -99,7 +101,8 @@ class TestUser(unittest.TestCase):
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
                 'profileclient': 'Agent',
-                "agentid": 1
+                'agentid': 1,
+                'mobilephonenumber': '5555555555',
             },
             'linefeatures': {
                 'id': ['23']
@@ -129,7 +132,8 @@ class TestUser(unittest.TestCase):
                     entity_id=2,
                     agent_id=1,
                     enable_hint=True,
-                    line=UserLine(id='23'))
+                    line=UserLine(id='23'),
+                    mobile_number='5555555555')
 
         obj_dict = user.to_obj_dict()
 
@@ -149,7 +153,9 @@ class TestUser(unittest.TestCase):
                 'loginclient': 'jack',
                 'passwdclient': 'jack',
                 'cti_profile_id': 5,
-                "agentid": 1
+                'agentid': 1,
+                'mobilephonenumber': '5555555555',
+
             },
             'linefeatures': {
                 'id': ['23']
@@ -179,7 +185,8 @@ class TestUser(unittest.TestCase):
                     entity_id=2,
                     agent_id=1,
                     enable_hint=True,
-                    line=UserLine(id='23'))
+                    line=UserLine(id='23'),
+                    mobile_number='5555555555')
 
         obj_dict = user.to_obj_dict()
 
@@ -217,7 +224,7 @@ class TestUser(unittest.TestCase):
             "destbusy": "",
             "musiconhold": "default",
             "outcallerid": "default",
-            "mobilephonenumber": "",
+            "mobilephonenumber": "5555555555",
             "userfield": "",
             "bsfilter": "no",
             "preprocess_subroutine": None,
@@ -248,6 +255,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.client_profile_id, '5')
         self.assertEqual(user.agent_id, 1)
         self.assertEqual(user.voicemail.id, 5)
+        self.assertEqual(user.mobile_number, '5555555555')
 
 
 class TestImportContentGenerator(unittest.TestCase):
