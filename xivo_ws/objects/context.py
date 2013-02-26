@@ -55,8 +55,11 @@ class Context(AbstractObject):
         obj_dict['context'] = context
 
     def _to_contextinclude(self, obj_dict):
+        obj_dict['contextinclude'] = []
         if self.context_include:
-            obj_dict['contextinclude'] = list(self.context_include)
+            for context_include in self.context_include:
+                obj_dict['contextinclude'].append(context_include['include'])
+        print obj_dict
 
     def _to_contextnumbers(self, obj_dict):
         contextnumbers = {}
@@ -81,6 +84,7 @@ class Context(AbstractObject):
     def from_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_context(obj_dict['context'])
+        obj._from_contextinclude(obj_dict['contextinclude'])
         obj._from_contextnumbers(obj_dict['contextnumbers'])
         return obj
 
@@ -90,6 +94,9 @@ class Context(AbstractObject):
         self.display_name = context['displayname']
         self.entity = context['entity']
         self.type = context['contexttype']
+
+    def _from_contextinclude(self, contextinclude):
+        self.context_include = contextinclude
 
     def _from_contextnumbers(self, contextnumbers):
         if contextnumbers:
