@@ -59,7 +59,6 @@ class Context(AbstractObject):
         if self.context_include:
             for context_include in self.context_include:
                 obj_dict['contextinclude'].append(context_include['include'])
-        print obj_dict
 
     def _to_contextnumbers(self, obj_dict):
         contextnumbers = {}

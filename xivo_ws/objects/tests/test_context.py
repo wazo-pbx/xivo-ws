@@ -70,6 +70,7 @@ class TestContext(unittest.TestCase):
                 'entity': 'entity',
                 'contexttype': 'internal',
             },
+           'contextinclude': []
         }
         context = Context(name='default',
                           display_name='Default',
@@ -86,7 +87,7 @@ class TestContext(unittest.TestCase):
                 'name': 'default',
                 'displayname': 'Default',
                 'entity': 'entity',
-                'contexttype': 'internal',
+                'contexttype': 'internal'
             },
             'contextinclude': ['to-extern'],
             'contextnumbers': {
@@ -94,15 +95,20 @@ class TestContext(unittest.TestCase):
                 'group': [{'numberbeg': 200, 'numberend': 209}],
                 'queue': [{'numberbeg': 210, 'numberend': 219}],
                 'meetme': [{'numberbeg': 220, 'numberend': 229}],
-                'incall': [{'numberbeg': 230, 'numberend': 239, 'didlength': 3}],
-            },
+                'incall': [{'numberbeg': 230, 'numberend': 239, 'didlength': 3}]
+            }
         }
+        context_include = [{
+                'context': 'default',
+                'include': 'to-extern',
+                'priority': '0'
+            }]
         context = Context(id='default',
                           name='default',
                           display_name='Default',
                           entity='entity',
                           type=Context.TYPE_INTERNAL,
-                          context_include=['to-extern'],
+                          context_include=context_include,
                           users=[ContextRange(100, 199)],
                           groups=[ContextRange(200, 209)],
                           queues=[ContextRange(210, 219)],
@@ -115,157 +121,157 @@ class TestContext(unittest.TestCase):
 
     def test_from_obj_dict(self):
         obj_dict = {
-            "context": {
-                "commented": False,
-                "contexttype": "internal",
-                "description": "",
-                "displayname": "Default",
-                "entity": "entite",
-                "identity": "Default (default)",
-                "name": "default"
+            'context': {
+                'commented': False,
+                'contexttype': 'internal',
+                'description': '',
+                'displayname': 'Default',
+                'entity': 'entite',
+                'identity': 'Default (default)',
+                'name': 'default'
             },
-            "contextinclude": [
+            'contextinclude': [
                 {
-                    "context": "default",
-                    "include": "to-extern",
-                    "priority": "0"
+                    'context': 'default',
+                    'include': 'to-extern',
+                    'priority': '0'
                 }
             ],
-            "contextmember": {
-                "agent": [
+            'contextmember': {
+                'agent': [
                     {
-                        "context": "default",
-                        "type": "agent",
-                        "typeval": "1",
-                        "varname": "context"
+                        'context': 'default',
+                        'type': 'agent',
+                        'typeval': '1',
+                        'varname': 'context'
                     },
                     {
-                        "context": "default",
-                        "type": "agent",
-                        "typeval": "3",
-                        "varname": "context"
+                        'context': 'default',
+                        'type': 'agent',
+                        'typeval': '3',
+                        'varname': 'context'
                     }
                 ]
             },
-            "contextnumbers": {
-                "group": [
+            'contextnumbers': {
+                'group': [
                     {
-                        "context": "default",
-                        "didlength": "0",
-                        "numberbeg": "1010",
-                        "numberend": "1019",
-                        "type": "group"
+                        'context': 'default',
+                        'didlength': '0',
+                        'numberbeg': '1010',
+                        'numberend': '1019',
+                        'type': 'group'
                     }
                 ],
-                "queue": [
+                'queue': [
                     {
-                        "context": "default",
-                        "didlength": "0",
-                        "numberbeg": "1020",
-                        "numberend": "1029",
-                        "type": "queue"
+                        'context': 'default',
+                        'didlength': '0',
+                        'numberbeg': '1020',
+                        'numberend': '1029',
+                        'type': 'queue'
                     }
                 ],
-                "user": [
+                'user': [
                     {
-                        "context": "default",
-                        "didlength": "0",
-                        "numberbeg": "1000",
-                        "numberend": "1009",
-                        "type": "user"
+                        'context': 'default',
+                        'didlength': '0',
+                        'numberbeg': '1000',
+                        'numberend': '1009',
+                        'type': 'user'
                     }
                 ],
-                "meetme": [
+                'meetme': [
                     {
-                        "context": "default",
-                        "didlength": "0",
-                        "numberbeg": "1040",
-                        "numberend": "",
-                        "type": "meetme"
+                        'context': 'default',
+                        'didlength': '0',
+                        'numberbeg': '1040',
+                        'numberend': '',
+                        'type': 'meetme'
                     }
                 ],
-                "incall": [
+                'incall': [
                     {
-                        "context": "default",
-                        "didlength": "4",
-                        "numberbeg": "1050",
-                        "numberend": "1059",
-                        "type": "incall"
+                        'context': 'default',
+                        'didlength': '4',
+                        'numberbeg': '1050',
+                        'numberend': '1059',
+                        'type': 'incall'
                     }
                 ]
             },
-            "contextnummember": {
-                "group": [
+            'contextnummember': {
+                'group': [
                     {
-                        "context": "default",
-                        "number": "1010",
-                        "type": "group",
-                        "typeval": "3"
+                        'context': 'default',
+                        'number': '1010',
+                        'type': 'group',
+                        'typeval': '3'
                     },
                     {
-                        "context": "default",
-                        "number": "1012",
-                        "type": "group",
-                        "typeval": "4"
+                        'context': 'default',
+                        'number': '1012',
+                        'type': 'group',
+                        'typeval': '4'
                     }
                 ],
-                "queue": [
+                'queue': [
                     {
-                        "context": "default",
-                        "number": "1020",
-                        "type": "queue",
-                        "typeval": "1"
+                        'context': 'default',
+                        'number': '1020',
+                        'type': 'queue',
+                        'typeval': '1'
                     },
                     {
-                        "context": "default",
-                        "number": "1021",
-                        "type": "queue",
-                        "typeval": "2"
+                        'context': 'default',
+                        'number': '1021',
+                        'type': 'queue',
+                        'typeval': '2'
                     },
                     {
-                        "context": "default",
-                        "number": "1022",
-                        "type": "queue",
-                        "typeval": "35"
+                        'context': 'default',
+                        'number': '1022',
+                        'type': 'queue',
+                        'typeval': '35'
                     },
                     {
-                        "context": "default",
-                        "number": "1023",
-                        "type": "queue",
-                        "typeval": "44"
+                        'context': 'default',
+                        'number': '1023',
+                        'type': 'queue',
+                        'typeval': '44'
                     }
                 ],
-                "user": [
+                'user': [
                     {
-                        "context": "default",
-                        "number": "1001",
-                        "type": "user",
-                        "typeval": "4"
+                        'context': 'default',
+                        'number': '1001',
+                        'type': 'user',
+                        'typeval': '4'
                     },
                     {
-                        "context": "default",
-                        "number": "1002",
-                        "type": "user",
-                        "typeval": "5"
+                        'context': 'default',
+                        'number': '1002',
+                        'type': 'user',
+                        'typeval': '5'
                     },
                     {
-                        "context": "default",
-                        "number": "1003",
-                        "type": "user",
-                        "typeval": "14"
+                        'context': 'default',
+                        'number': '1003',
+                        'type': 'user',
+                        'typeval': '14'
                     }
                 ]
             },
-            "contexttype": {
-                "commented": False,
-                "deletable": False,
-                "description": "",
-                "id": 1,
-                "name": "internal"
+            'contexttype': {
+                'commented': False,
+                'deletable': False,
+                'description': '',
+                'id': 1,
+                'name': 'internal'
             },
-            "deletable": False,
-            "deletablemember": False,
-            "deletablenumber": False
+            'deletable': False,
+            'deletablemember': False,
+            'deletablenumber': False
         }
 
         context = Context.from_obj_dict(obj_dict)
@@ -282,29 +288,29 @@ class TestContext(unittest.TestCase):
 
     def test_from_obj_dict_when_contextnumbers_is_false(self):
         obj_dict = {
-            "context": {
-                "commented": False,
-                "contexttype": "internal",
-                "description": "",
-                "displayname": "Blabla",
-                "entity": "entite",
-                "identity": "Blabla (blablabla)",
-                "name": "blablabla"
+            'context': {
+                'commented': False,
+                'contexttype': 'internal',
+                'description': '',
+                'displayname': 'Blabla',
+                'entity': 'entite',
+                'identity': 'Blabla (blablabla)',
+                'name': 'blablabla'
             },
-            "contextinclude": False,
-            "contextmember": False,
-            "contextnumbers": False,
-            "contextnummember": False,
-            "contexttype": {
-                "commented": False,
-                "deletable": False,
-                "description": "",
-                "id": 1,
-                "name": "internal"
+            'contextinclude': False,
+            'contextmember': False,
+            'contextnumbers': False,
+            'contextnummember': False,
+            'contexttype': {
+                'commented': False,
+                'deletable': False,
+                'description': '',
+                'id': 1,
+                'name': 'internal'
             },
-            "deletable": True,
-            "deletablemember": True,
-            "deletablenumber": True
+            'deletable': True,
+            'deletablemember': True,
+            'deletablenumber': True
         }
 
         context = Context.from_obj_dict(obj_dict)
@@ -316,52 +322,52 @@ class TestContext(unittest.TestCase):
 
     def test_from_list_obj_dict(self):
         obj_dict = {
-            "context": {
-                "commented": False,
-                "contexttype": "internal",
-                "description": "",
-                "displayname": "Default",
-                "entity": "entite",
-                "entityid": "1",
-                "identity": "Default (default)",
-                "name": "default"
+            'context': {
+                'commented': False,
+                'contexttype': 'internal',
+                'description': '',
+                'displayname': 'Default',
+                'entity': 'entite',
+                'entityid': '1',
+                'identity': 'Default (default)',
+                'name': 'default'
             },
-            "contextinclude": {
-                "context": "default",
-                "include": "to-extern",
-                "priority": "0"
+            'contextinclude': {
+                'context': 'default',
+                'include': 'to-extern',
+                'priority': '0'
             },
-            "contextnumbers": [
+            'contextnumbers': [
                 {
-                    "context": "default",
-                    "didlength": "0",
-                    "numberbeg": "1000",
-                    "numberend": "1009",
-                    "type": "user"
+                    'context': 'default',
+                    'didlength': '0',
+                    'numberbeg': '1000',
+                    'numberend': '1009',
+                    'type': 'user'
                 },
                 {
-                    "context": "default",
-                    "didlength": "0",
-                    "numberbeg": "1010",
-                    "numberend": "1019",
-                    "type": "group"
+                    'context': 'default',
+                    'didlength': '0',
+                    'numberbeg': '1010',
+                    'numberend': '1019',
+                    'type': 'group'
                 },
                 {
-                    "context": "default",
-                    "didlength": "0",
-                    "numberbeg": "1020",
-                    "numberend": "1029",
-                    "type": "queue"
+                    'context': 'default',
+                    'didlength': '0',
+                    'numberbeg': '1020',
+                    'numberend': '1029',
+                    'type': 'queue'
                 }
             ],
-            "contexttype": {
-                "commented": False,
-                "deletable": False,
-                "description": "",
-                "id": 1,
-                "name": "internal"
+            'contexttype': {
+                'commented': False,
+                'deletable': False,
+                'description': '',
+                'id': 1,
+                'name': 'internal'
             },
-            "deletable": False
+            'deletable': False
         }
 
         context = Context.from_list_obj_dict(obj_dict)
