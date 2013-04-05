@@ -36,6 +36,7 @@ class User(AbstractObject):
         Attribute('client_profile'),
         Attribute('client_profile_id'),
         Attribute('enable_hint', default=True),
+        Attribute('bsfilter', default='no'),
         Attribute('line'),
         Attribute('voicemail'),
         Attribute('incall'),
@@ -77,6 +78,8 @@ class User(AbstractObject):
             userfeatures['enablehint'] = self.enable_hint
         if self.agent_id is not None:
             userfeatures['agentid'] = self.agent_id
+        if self.bsfilter is not None:
+            userfeatures['bsfilter'] = self.bsfilter
         if self.mobile_number is not None:
             userfeatures['mobilephonenumber'] = self.mobile_number
         obj_dict['userfeatures'] = userfeatures
@@ -117,6 +120,7 @@ class User(AbstractObject):
         obj.client_username = obj_dict['loginclient']
         obj.client_password = obj_dict['passwdclient']
         obj.client_profile_id = obj_dict['cti_profile_id']
+        obj.bsfilter = obj_dict['bsfilter']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
         if obj_dict['voicemailid']:
