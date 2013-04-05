@@ -32,6 +32,12 @@ class Schedule(AbstractObject):
         Attribute('closed', default_factory=list),
     ]
 
+    def __eq__(self, other):
+        if self.name != other.name or self.timezone != other.timezone:
+            return False
+
+        return _same_hours(self.opened, other.opened) and _same_hours(self.closed, other.closed)
+
     def _to_obj_dict(self, obj_dict):
         self._to_schedule(obj_dict)
         self._to_dialaction(obj_dict)
@@ -106,6 +112,19 @@ class ScheduleWebService(AbstractWebService):
         Actions.LIST,
         Actions.VIEW,
     ]
+
+
+def _same_hours(lefts, rights):
+    if len(lefts) != len(rights):
+        return False
+
+    fields = ['hours', 'months', 'monthdays', 'weekdays']
+    for i in xrange(len(lefts)):
+        left, right = lefts[i], rights[i]
+        for field in fields:
+            if left[field] != right[field]:
+                return False
+    return True
 
 
 register_ws_class(ScheduleWebService, 'schedules')
