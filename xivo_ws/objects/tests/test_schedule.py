@@ -217,3 +217,35 @@ class TestSchedule(unittest.TestCase):
                               'schedule_id': '123'}]
 
         self.assertEqual(schedule_1, schedule_2)
+
+    def test_equal_no_closed(self):
+        obj_dict = {'id': '1',
+                    'name': 'huit_a_midi',
+                    'timezone': 'America/Montreal',
+                    'fallback_action': 'endcall:hangup',
+                    'fallback_actionid': None,
+                    'fallback_actionargs': '',
+                    'description': '',
+                    'commented': 0,
+                    }
+
+        schedule_1 = Schedule.from_list_obj_dict(obj_dict)
+        schedule_2 = Schedule.from_list_obj_dict(obj_dict)
+
+        self.assertEqual(schedule_1, schedule_2)
+
+        schedule_2.opened = [{'hours': '01:00-12:00',
+                              'months': '1',
+                              'weekdays': '1-5',
+                              'monthdays': '1'}]
+
+        self.assertFalse(schedule_1 == schedule_2)
+
+        schedule_1.opened = [{'hours': '01:00-12:00',
+                              'months': '1',
+                              'monthdays': '1',
+                              'weekdays': '1-5',
+                              'id': '1',
+                              'schedule_id': '123'}]
+
+        self.assertEqual(schedule_1, schedule_2)

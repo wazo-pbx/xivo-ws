@@ -115,6 +115,9 @@ class ScheduleWebService(AbstractWebService):
 
 
 def _same_hours(lefts, rights):
+    if not lefts and not rights:
+        return True
+
     if len(lefts) != len(rights):
         return False
 
