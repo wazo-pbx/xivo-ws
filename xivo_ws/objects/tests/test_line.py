@@ -60,8 +60,7 @@ class TestLine(unittest.TestCase):
                 "provisioningid": 111011,
                 "rules_group": "",
                 "rules_order": 1,
-                "rules_time": "30",
-                "rules_type": ""
+                "rules_time": "30"
             },
             "protocol": {
                 "accountcode": None,
@@ -205,8 +204,7 @@ class TestLine(unittest.TestCase):
                 "provisioningid": 0,
                 "rules_group": "",
                 "rules_order": 0,
-                "rules_time": "",
-                "rules_type": ""
+                "rules_time": ""
             },
             "protocol": {
                 "category": "user",
@@ -269,8 +267,7 @@ class TestLine(unittest.TestCase):
                 "provisioningid": 0,
                 "rules_group": "",
                 "rules_order": 1,
-                "rules_time": "30",
-                "rules_type": ""
+                "rules_time": "30"
             },
             "protocol": {
                 "cid_name": "User 1",
@@ -387,7 +384,6 @@ class TestLine(unittest.TestCase):
             "rules_group": "",
             "rules_order": 1,
             "rules_time": "30",
-            "rules_type": "",
             "secret": "KL5LKY",
             "sendrpid": None,
             "session-expires": None,
@@ -451,7 +447,6 @@ class TestLine(unittest.TestCase):
             "rules_group": "",
             "rules_order": 0,
             "rules_time": "",
-            "rules_type": "",
             "useridentity": "-"
         }
 
@@ -491,7 +486,6 @@ class TestLine(unittest.TestCase):
             "rules_group": "",
             "rules_order": 1,
             "rules_time": "30",
-            "rules_type": "",
             "useridentity": "User 1"
         }
 
