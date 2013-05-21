@@ -57,8 +57,7 @@ class TestLine(unittest.TestCase):
                 "number": "1001",
                 "protocol": "sip",
                 "protocolid": 4,
-                "provisioningid": 111011,
-                "rules_group": ""
+                "provisioningid": 111011
             },
             "protocol": {
                 "accountcode": None,
@@ -199,8 +198,7 @@ class TestLine(unittest.TestCase):
                 "number": "",
                 "protocol": "custom",
                 "protocolid": 66,
-                "provisioningid": 0,
-                "rules_group": ""
+                "provisioningid": 0
             },
             "protocol": {
                 "category": "user",
@@ -260,8 +258,7 @@ class TestLine(unittest.TestCase):
                 "number": "101",
                 "protocol": "sccp",
                 "protocolid": 3,
-                "provisioningid": 0,
-                "rules_group": ""
+                "provisioningid": 0
             },
             "protocol": {
                 "cid_name": "User 1",
@@ -375,7 +372,6 @@ class TestLine(unittest.TestCase):
             "rtpholdtimeout": None,
             "rtpkeepalive": None,
             "rtptimeout": None,
-            "rules_group": "",
             "secret": "KL5LKY",
             "sendrpid": None,
             "session-expires": None,
@@ -436,7 +432,6 @@ class TestLine(unittest.TestCase):
             "protocol": "custom",
             "protocolid": 92,
             "provisioningid": 0,
-            "rules_group": "",
             "useridentity": "-"
         }
 
@@ -473,7 +468,6 @@ class TestLine(unittest.TestCase):
             "protocol": "sccp",
             "protocolid": 3,
             "provisioningid": 0,
-            "rules_group": "",
             "useridentity": "User 1"
         }
 
