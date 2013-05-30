@@ -51,17 +51,12 @@ class TestLine(unittest.TestCase):
                 "iduserfeatures": 5,
                 "internal": False,
                 "ipfrom": "192.168.11.106",
-                "line_num": 0,
                 "name": "iibybz",
                 "num": 1,
                 "number": "1001",
                 "protocol": "sip",
                 "protocolid": 4,
-                "provisioningid": 111011,
-                "rules_group": "",
-                "rules_order": 1,
-                "rules_time": "30",
-                "rules_type": ""
+                "provisioningid": 111011
             },
             "protocol": {
                 "accountcode": None,
@@ -196,17 +191,12 @@ class TestLine(unittest.TestCase):
                 "iduserfeatures": 0,
                 "internal": False,
                 "ipfrom": "10.32.0.1",
-                "line_num": 0,
                 "name": "dahdi/g0",
                 "num": 0,
                 "number": "",
                 "protocol": "custom",
                 "protocolid": 66,
-                "provisioningid": 0,
-                "rules_group": "",
-                "rules_order": 0,
-                "rules_time": "",
-                "rules_type": ""
+                "provisioningid": 0
             },
             "protocol": {
                 "category": "user",
@@ -260,17 +250,12 @@ class TestLine(unittest.TestCase):
                 "iduserfeatures": 37,
                 "internal": False,
                 "ipfrom": "10.32.0.1",
-                "line_num": 0,
                 "name": "101",
                 "num": 1,
                 "number": "101",
                 "protocol": "sccp",
                 "protocolid": 3,
-                "provisioningid": 0,
-                "rules_group": "",
-                "rules_order": 1,
-                "rules_time": "30",
-                "rules_type": ""
+                "provisioningid": 0
             },
             "protocol": {
                 "cid_name": "User 1",
@@ -352,7 +337,6 @@ class TestLine(unittest.TestCase):
             "ipfrom": "192.168.11.106",
             "language": None,
             "lastms": "",
-            "line_num": 0,
             "mailbox": None,
             "maxcallbitrate": None,
             "maxforwards": None,
@@ -384,10 +368,6 @@ class TestLine(unittest.TestCase):
             "rtpholdtimeout": None,
             "rtpkeepalive": None,
             "rtptimeout": None,
-            "rules_group": "",
-            "rules_order": 1,
-            "rules_time": "30",
-            "rules_type": "",
             "secret": "KL5LKY",
             "sendrpid": None,
             "session-expires": None,
@@ -441,17 +421,12 @@ class TestLine(unittest.TestCase):
             "interface": "dahdi/g22",
             "internal": False,
             "ipfrom": "10.32.0.1",
-            "line_num": 0,
             "name": "dahdi/g22",
             "num": 0,
             "number": "",
             "protocol": "custom",
             "protocolid": 92,
             "provisioningid": 0,
-            "rules_group": "",
-            "rules_order": 0,
-            "rules_time": "",
-            "rules_type": "",
             "useridentity": "-"
         }
 
@@ -481,17 +456,12 @@ class TestLine(unittest.TestCase):
             "initialized": True,
             "internal": False,
             "ipfrom": "10.32.0.1",
-            "line_num": 0,
             "name": "101",
             "num": 1,
             "number": "101",
             "protocol": "sccp",
             "protocolid": 3,
             "provisioningid": 0,
-            "rules_group": "",
-            "rules_order": 1,
-            "rules_time": "30",
-            "rules_type": "",
             "useridentity": "User 1"
         }
 
