@@ -67,3 +67,4 @@ class TestOutcall(unittest.TestCase):
 
         self.assertEqual(outcall.id, 2)
         self.assertEqual(outcall.name, 'out-testload')
+        self.assertEqual(outcall.context, 'to-extern')

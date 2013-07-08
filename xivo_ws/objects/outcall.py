@@ -61,6 +61,7 @@ class Outcall(AbstractObject):
         obj = cls()
         obj.id = int(obj_dict['id'])
         obj.name = obj_dict['name']
+        obj.context = obj_dict['context']
         return obj
 
 
