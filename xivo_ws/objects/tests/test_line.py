@@ -24,12 +24,6 @@ from xivo_ws.objects.line import Line
 class TestLine(unittest.TestCase):
     def test_from_obj_dict_sip(self):
         obj_dict = {
-            "contextnummember": {
-                "context": "default",
-                "number": "1001",
-                "type": "user",
-                "typeval": "4"
-            },
             "extenumbers": {
                 "context": "default",
                 "exten": "1001",
@@ -177,7 +171,6 @@ class TestLine(unittest.TestCase):
 
     def test_from_obj_dict_custom(self):
         obj_dict = {
-            "contextnummember": False,
             "extenumbers": False,
             "linefeatures": {
                 "commented": False,
@@ -223,12 +216,6 @@ class TestLine(unittest.TestCase):
 
     def test_from_obj_dict_sccp(self):
         obj_dict = {
-            "contextnummember": {
-                "context": "default",
-                "number": "101",
-                "type": "user",
-                "typeval": "150"
-            },
             "extenumbers": {
                 "context": "default",
                 "exten": "101",

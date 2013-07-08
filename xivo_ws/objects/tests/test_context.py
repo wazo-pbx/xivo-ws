@@ -200,68 +200,6 @@ class TestContext(unittest.TestCase):
                     }
                 ]
             },
-            'contextnummember': {
-                'group': [
-                    {
-                        'context': 'default',
-                        'number': '1010',
-                        'type': 'group',
-                        'typeval': '3'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1012',
-                        'type': 'group',
-                        'typeval': '4'
-                    }
-                ],
-                'queue': [
-                    {
-                        'context': 'default',
-                        'number': '1020',
-                        'type': 'queue',
-                        'typeval': '1'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1021',
-                        'type': 'queue',
-                        'typeval': '2'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1022',
-                        'type': 'queue',
-                        'typeval': '35'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1023',
-                        'type': 'queue',
-                        'typeval': '44'
-                    }
-                ],
-                'user': [
-                    {
-                        'context': 'default',
-                        'number': '1001',
-                        'type': 'user',
-                        'typeval': '4'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1002',
-                        'type': 'user',
-                        'typeval': '5'
-                    },
-                    {
-                        'context': 'default',
-                        'number': '1003',
-                        'type': 'user',
-                        'typeval': '14'
-                    }
-                ]
-            },
             'contexttype': {
                 'commented': False,
                 'deletable': False,
@@ -300,7 +238,6 @@ class TestContext(unittest.TestCase):
             'contextinclude': False,
             'contextmember': False,
             'contextnumbers': False,
-            'contextnummember': False,
             'contexttype': {
                 'commented': False,
                 'deletable': False,
