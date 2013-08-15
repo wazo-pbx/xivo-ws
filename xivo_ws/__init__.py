@@ -45,7 +45,7 @@ from xivo_ws.objects.queueskillrules import QueueSkillRules
 if os.environ.get('XIVO_WS_DEBUG'):
     from xivo_ws.facade import DebugXivoServer as XivoServer
 
-    logger = logging.getLogger()
+    logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
 else:
