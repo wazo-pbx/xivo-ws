@@ -57,7 +57,7 @@ class HTTPClient(object):
 
     def _do_request(self, path_and_query, data, headers):
         request = self._new_request(path_and_query, data, headers)
-        logger.debug(u'HTTP %s %s', request.get_method(), request.get_full_url())
+        logger.debug(u'HTTP %s %s %s', request.get_method(), request.get_full_url(), data)
         try:
             fobj = self._opener.open(request)
         except urllib2.HTTPError as e:
