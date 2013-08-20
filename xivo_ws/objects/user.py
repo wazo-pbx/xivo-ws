@@ -36,6 +36,7 @@ class User(AbstractObject):
         Attribute('client_profile'),
         Attribute('client_profile_id'),
         Attribute('enable_hint', default=True),
+        Attribute('enable_transfer', required=False, default=True),
         Attribute('bsfilter', default='no'),
         Attribute('line'),
         Attribute('voicemail'),
@@ -121,6 +122,7 @@ class User(AbstractObject):
         obj.client_password = obj_dict['passwdclient']
         obj.client_profile_id = obj_dict['cti_profile_id']
         obj.bsfilter = obj_dict['bsfilter']
+        obj.enable_transfer = obj_dict['enablexfer']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
         if obj_dict['voicemailid']:
@@ -196,6 +198,7 @@ class _ImportContentGenerator(object):
         ('client_password', 'password', None),
         ('client_profile', 'profileclient', None),
         ('enable_hint', 'enablehint', int),
+        ('enable_transfer', 'enablexfer', None),
     ]
     _LINE_COLUMNS = [
         ('number', 'phonenumber'),
