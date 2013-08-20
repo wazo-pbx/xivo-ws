@@ -36,7 +36,7 @@ class User(AbstractObject):
         Attribute('client_profile'),
         Attribute('client_profile_id'),
         Attribute('enable_hint', default=True),
-        Attribute('enable_transfer', required=False, default=True),
+        Attribute('enable_transfer', default=True),
         Attribute('bsfilter', default='no'),
         Attribute('line'),
         Attribute('voicemail'),
@@ -198,7 +198,7 @@ class _ImportContentGenerator(object):
         ('client_password', 'password', None),
         ('client_profile', 'profileclient', None),
         ('enable_hint', 'enablehint', int),
-        ('enable_transfer', 'enablexfer', None),
+        ('enable_transfer', 'enablexfer', int),
     ]
     _LINE_COLUMNS = [
         ('number', 'phonenumber'),
