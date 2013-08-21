@@ -186,6 +186,12 @@ class UserIncall(AbstractObject):
     ]
 
 
+def _int_or_empty_string(value):
+    if value == '':
+        return value
+    return int(value)
+
+
 class _ImportContentGenerator(object):
     _COLUMNS = [
         # (attr_name, column_name, map function)
@@ -198,7 +204,7 @@ class _ImportContentGenerator(object):
         ('client_password', 'password', None),
         ('client_profile', 'profileclient', None),
         ('enable_hint', 'enablehint', int),
-        ('enable_transfer', 'enablexfer', int),
+        ('enable_transfer', 'enablexfer', _int_or_empty_string),
     ]
     _LINE_COLUMNS = [
         ('number', 'phonenumber'),

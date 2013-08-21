@@ -283,6 +283,14 @@ class TestImportContentGenerator(unittest.TestCase):
 
         self.assertEqual('1|John|||||||1|1|||||||||', generator._rows[1])
 
+    def test_empty_string_enable_transfer(self):
+        generator = _ImportContentGenerator()
+        user = User(firstname='John', enable_transfer='')
+
+        generator.add_users([user])
+
+        self.assertEqual('1|John|||||||1||||||||||', generator._rows[1])
+
     def test_one_full_user(self):
         generator = _ImportContentGenerator()
         user = User(firstname='John F',
