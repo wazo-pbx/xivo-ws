@@ -22,73 +22,56 @@ from xivo_ws.objects.device import Device
 
 
 class TestDevice(unittest.TestCase):
+
     def test_from_obj_dict(self):
         obj_dict = {
-            'capabilities': {
-                'sip.lines': 6
-            },
-            'config': False,
-            'deviceconfig': False,
-            'devicefeatures': {
-                'commented': False,
-                'config': 'autoprov1341318128',
-                'configured': True,
-                'description': '',
-                'deviceid': 'b986267beb494f88a8882cfe2e82f68f',
-                'id': 62,
-                'internal': '0',
-                'ip': '10.34.1.28',
-                'mac': '00:08:5d:23:74:29',
-                'model': '6731i',
-                'plugin': 'xivo-aastra-3.2.2.1136',
-                'proto': '',
-                'sn': '',
-                'vendor': 'Aastra',
-                'version': '3.2.2.1136'
-            },
-            'deviceprovd': {
-                'added': 'auto',
-                'config': 'autoprov1341318128',
-                'configured': True,
-                'id': 'b986267beb494f88a8882cfe2e82f68f',
-                'ip': '10.34.1.28',
-                'mac': '00:08:5d:23:74:29',
-                'model': '6731i',
-                'plugin': 'xivo-aastra-3.2.2.1136',
-                'vendor': 'Aastra',
-                'version': '3.2.2.1136'
-            }
+            'id': 'b986267beb494f88a8882cfe2e82f68f',
+            'ip': '10.34.1.28',
+            'mac': '00:08:5d:23:74:29',
+            'model': '6731i',
+            'plugin': 'xivo-aastra-3.2.2.1136',
+            'vendor': 'Aastra',
+            'version': '3.2.2.1136',
+            'status': 'not_configured',
+            'template_id': 'defaultconfigdevice'
         }
 
         device = Device.from_obj_dict(obj_dict)
 
-        self.assertEqual(62, device.id)
-        self.assertEqual('00:08:5d:23:74:29', device.mac)
+        self.assertEqual(obj_dict['id'], device.id)
+        self.assertEqual(obj_dict['status'], device.status)
+        self.assertEqual(obj_dict['template_id'], device.template_id)
+        self.assertEqual(obj_dict['mac'], device.mac)
+        self.assertEqual(obj_dict['ip'], device.ip)
+        self.assertEqual(obj_dict['plugin'], device.plugin)
+        self.assertEqual(obj_dict['model'], device.model)
+        self.assertEqual(obj_dict['version'], device.version)
+        self.assertEqual(obj_dict['vendor'], device.vendor)
 
     def test_from_list_obj_dict(self):
         obj_dict = {
-            'devicefeatures': {
-                'commented': False,
-                'config': 'autoprov1341318128',
-                'configured': True,
-                'description': '',
-                'deviceid': 'b986267beb494f88a8882cfe2e82f68f',
-                'id': 62,
-                'internal': '0',
-                'ip': '10.34.1.28',
-                'mac': '00:08:5d:23:74:29',
-                'model': '6731i',
-                'plugin': 'xivo-aastra-3.2.2.1136',
-                'proto': '',
-                'sn': '',
-                'vendor': 'Aastra',
-                'version': '3.2.2.1136'
-            },
-            'linefeatures': False,
-            'provdexist': True
+            'description': '',
+            'id': 'b986267beb494f88a8882cfe2e82f68f',
+            'ip': '10.34.1.28',
+            'mac': '00:08:5d:23:74:29',
+            'model': '6731i',
+            'plugin': 'xivo-aastra-3.2.2.1136',
+            'proto': '',
+            'sn': '',
+            'vendor': 'Aastra',
+            'version': '3.2.2.1136',
+            'status': 'not_configured',
+            'template_id': 'defaultconfigdevice'
         }
 
         device = Device.from_list_obj_dict(obj_dict)
 
-        self.assertEqual(62, device.id)
-        self.assertEqual('00:08:5d:23:74:29', device.mac)
+        self.assertEqual(obj_dict['id'], device.id)
+        self.assertEqual(obj_dict['status'], device.status)
+        self.assertEqual(obj_dict['template_id'], device.template_id)
+        self.assertEqual(obj_dict['mac'], device.mac)
+        self.assertEqual(obj_dict['ip'], device.ip)
+        self.assertEqual(obj_dict['plugin'], device.plugin)
+        self.assertEqual(obj_dict['model'], device.model)
+        self.assertEqual(obj_dict['version'], device.version)
+        self.assertEqual(obj_dict['vendor'], device.vendor)

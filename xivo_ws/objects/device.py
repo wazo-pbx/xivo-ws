@@ -30,22 +30,26 @@ class Device(AbstractObject):
         Attribute('vendor'),
         Attribute('model'),
         Attribute('version'),
+        Attribute('status'),
+        Attribute('template_id')
     ]
 
     @classmethod
     def from_obj_dict(cls, obj_dict):
         obj = cls()
-        obj._from_devicefeatures(obj_dict['devicefeatures'])
+        obj._from_device(obj_dict)
         return obj
 
-    def _from_devicefeatures(self, devicefeatures):
-        self.id = int(devicefeatures['id'])
-        self.ip = devicefeatures['ip']
-        self.mac = devicefeatures['mac']
-        self.plugin = devicefeatures['plugin']
-        self.vendor = devicefeatures['vendor']
-        self.model = devicefeatures['model']
-        self.version = devicefeatures['version']
+    def _from_device(self, device):
+        self.id = device.get('id')
+        self.ip = device.get('ip')
+        self.mac = device.get('mac')
+        self.plugin = device.get('plugin')
+        self.vendor = device.get('vendor')
+        self.model = device.get('model')
+        self.version = device.get('version')
+        self.status = device.get('status')
+        self.template_id = device.get('template_id')
 
     from_list_obj_dict = from_obj_dict
 
