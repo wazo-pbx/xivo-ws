@@ -8,7 +8,7 @@ setup(
     name='xivo-ws',
     version=version,
     description='A library for the XiVO web services.',
-    url='https://gitorious.org/xivo/xivo-ws',
+    url='https://github.com/xivo-pbx/xivo-ws.git',
     packages=['xivo_ws',
               'xivo_ws.bin',
               'xivo_ws.client',
