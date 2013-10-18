@@ -49,6 +49,20 @@ class TestQueueDestination(unittest.TestCase):
         self.assertEqual(expected_obj_dict, obj_dict)
 
 
+class TestUserDestination(unittest.TestCase):
+    def test_to_obj_dict(self):
+        expected_obj_dict = {
+            'actiontype': 'user',
+            'actionarg1': '1',
+            'actionarg2': '',
+        }
+        dest = UserDestination(user_id='1')
+
+        obj_dict = dest.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
+
+
 class TestVoicemailDestination(unittest.TestCase):
     def test_to_obj_dict(self):
         expected_obj_dict = {
