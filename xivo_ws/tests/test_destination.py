@@ -18,7 +18,7 @@
 from __future__ import unicode_literals
 
 import unittest
-from xivo_ws.destination import QueueDestination, GroupDestination
+from xivo_ws.destination import QueueDestination, GroupDestination, UserDestination, VoicemailDestination
 
 
 class TestGroupDestination(unittest.TestCase):
@@ -43,6 +43,20 @@ class TestQueueDestination(unittest.TestCase):
             'actionarg2': '',
         }
         dest = QueueDestination(queue_id='1')
+
+        obj_dict = dest.to_obj_dict()
+
+        self.assertEqual(expected_obj_dict, obj_dict)
+
+
+class TestVoicemailDestination(unittest.TestCase):
+    def test_to_obj_dict(self):
+        expected_obj_dict = {
+            'actiontype': 'voicemail',
+            'actionarg1': '1',
+            'actionarg2': '',
+        }
+        dest = VoicemailDestination(voicemail_id='1')
 
         obj_dict = dest.to_obj_dict()
 

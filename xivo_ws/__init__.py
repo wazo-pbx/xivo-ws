@@ -18,7 +18,7 @@
 import logging
 import os
 from xivo_ws.calleridmode import PrependCallerIDMode, OverwriteCallerIDMode, AppendCallerIDMode
-from xivo_ws.destination import GroupDestination, QueueDestination, UserDestination
+from xivo_ws.destination import GroupDestination, QueueDestination, UserDestination, VoicemailDestination
 from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.objects.agent import Agent
 from xivo_ws.objects.confroom import ConfRoom

@@ -58,3 +58,18 @@ class UserDestination(object):
             'actionarg2': '',
         }
         return obj_dict
+
+
+class VoicemailDestination(object):
+
+    def __init__(self, voicemail_id):
+        self.voicemail_id = voicemail_id
+
+    def to_obj_dict(self):
+        obj_dict = {
+            'actiontype': 'voicemail',
+            'actionarg1': self.voicemail_id,
+            'actionarg2': '',
+        }
+
+        return obj_dict
