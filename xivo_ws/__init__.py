@@ -21,6 +21,7 @@ from xivo_ws.calleridmode import PrependCallerIDMode, OverwriteCallerIDMode, App
 from xivo_ws.destination import GroupDestination, QueueDestination, UserDestination
 from xivo_ws.exception import WebServiceError, WebServiceRequestError
 from xivo_ws.objects.agent import Agent
+from xivo_ws.objects.cel import CEL
 from xivo_ws.objects.confroom import ConfRoom
 from xivo_ws.objects.context import Context, ContextRange
 from xivo_ws.objects.cti_profile import CTIProfile
