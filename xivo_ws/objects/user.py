@@ -137,6 +137,7 @@ class UserLine(AbstractObject):
         Attribute('id'),
         Attribute('protocol', default='sip', required=True),
         Attribute('context', required=True),
+        Attribute('secret'),
         Attribute('number'),
         Attribute('device_id'),
     ]
@@ -152,6 +153,7 @@ class UserLine(AbstractObject):
                 'protocol': [self.protocol],
                 'context': [self.context],
                 'number': [self.number],
+                'secret': [self.secret]
             }
         if self.device_id is not None:
             linefeatures['device'] = [self.device_id]
@@ -210,6 +212,7 @@ class _ImportContentGenerator(object):
         ('number', 'phonenumber'),
         ('context', 'context'),
         ('protocol', 'protocol'),
+        ('secret', 'linesecret'),
     ]
     _VOICEMAIL_COLUMNS = [
         ('name', 'voicemailname'),
