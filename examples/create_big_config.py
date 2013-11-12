@@ -119,7 +119,7 @@ def create_users(xivo_server):
         user.enable_client = True
         user.client_username = 'agent%s' % agent_no
         user.client_password = user.client_username
-        user.client_profile = 'agent'
+        user.client_profile = 'Agent'
         user.line = UserLine()
         user.line.context = INTERNAL_CONTEXT_NAME
         user.line.number = USER_START_NO + current_user_no
@@ -133,7 +133,7 @@ def create_users(xivo_server):
         user.enable_client = True
         user.client_username = 'super%s' % supervisor_no
         user.client_password = user.client_username
-        user.client_profile = 'agentsup'
+        user.client_profile = 'Supervisor'
         user.line = UserLine()
         user.line.context = INTERNAL_CONTEXT_NAME
         user.line.number = USER_START_NO + current_user_no
