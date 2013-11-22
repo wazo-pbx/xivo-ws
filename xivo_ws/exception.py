@@ -15,15 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+
 class WebServiceError(Exception):
     pass
 
 
 class WebServiceRequestError(WebServiceError):
 
-    def __init__(self, code, msg):
+    def __init__(self, code, msg, url=''):
         self.code = code
         self.msg = msg
+        self.url = url
 
     def __str__(self):
-        return 'HTTP Error %s: %s' % (self.code, self.msg)
+        return 'HTTP Error %s: %s %s' % (self.code, self.msg, self.url)

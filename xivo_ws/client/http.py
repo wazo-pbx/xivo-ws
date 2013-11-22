@@ -62,7 +62,7 @@ class HTTPClient(object):
             fobj = self._opener.open(request)
         except urllib2.HTTPError as e:
             logger.debug(u'HTTP %s %s', e.code, e.msg)
-            raise WebServiceRequestError(e.code, e.msg)
+            raise WebServiceRequestError(e.code, e.msg, request.get_full_url())
         except urllib2.URLError as e:
             logger.debug(u'Error while requesting: %s', e)
             raise WebServiceError(e)
