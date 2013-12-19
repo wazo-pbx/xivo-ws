@@ -49,7 +49,7 @@ def add():
 
 
 def delete():
-    xivo_server = XivoServer('skaro-rc', 'admin', 'superpass')
+    xivo_server = XivoServer('xivo-test', 'admin', 'superpass')
     user_ids = [user.id for user in xivo_server.users.search(FIRSTNAME_PREFIX)]
     for user_id in user_ids:
         print('deleting user %s...' % user_id)
