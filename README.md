@@ -14,16 +14,18 @@ On your XiVO, you must create a web service user. Please refer to the [documenta
 Example
 -------
 
-   from xivo_ws import XivoServer, User, UserLine
+~~~
+from xivo_ws import XivoServer, User, UserLine
 
-   xivo_server = XivoServer('skaro', 'my_username', 'my_password')
+xivo_server = XivoServer('skaro', 'my_username', 'my_password')
 
-   user = User()
-   user.firstname = 'Jack'
-   user.lastname = 'Johnson'
-   user.line = UserLine(context='default', number=1001)
+user = User()
+user.firstname = 'Jack'
+user.lastname = 'Johnson'
+user.line = UserLine(context='default', number=1001)
 
-   xivo_server.users.add(user)
+xivo_server.users.add(user)
+~~~
 
 More examples are available in the ```examples``` directory.
 
