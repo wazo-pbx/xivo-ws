@@ -124,10 +124,13 @@ class LineWebService(AbstractWebService):
         Actions.VIEW,
     ]
 
-    def search_by_number(self, number):
+    def search_by_number_context(self, number, context):
+        def match(line):
+            return line.number == number and context == line.context
+
         number = unicode(number)
         lines = self.search(number)
-        return [line for line in lines if line.number == number]
+        return [line for line in lines if match(line)]
 
     def search_by_name(self, name):
         name = unicode(name)
