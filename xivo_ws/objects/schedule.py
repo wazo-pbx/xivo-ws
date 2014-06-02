@@ -24,6 +24,7 @@ from xivo_ws.registry import register_ws_class
 class Schedule(AbstractObject):
     _ATTRIBUTES = [
         Attribute('id'),
+        Attribute('entity_id'),
         Attribute('name', required=True),
         Attribute('timezone', required=True),
         Attribute('fallback_action'),
@@ -46,6 +47,7 @@ class Schedule(AbstractObject):
 
     def _to_schedule(self, obj_dict):
         schedule = {
+            'entity_id': self.entity_id,
             'name': self.name,
             'timezone': self.timezone,
             'description': self.description,
@@ -84,6 +86,7 @@ class Schedule(AbstractObject):
 
     def _from_schedule(self, schedule):
         self.id = int(schedule['id'])
+        self.entity_id = int(schedule['entity_id'])
         self.name = schedule['name']
         self.timezone = schedule['timezone']
         self.fallback_action = schedule['fallback_action']

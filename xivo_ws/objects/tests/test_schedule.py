@@ -25,6 +25,7 @@ class TestSchedule(unittest.TestCase):
     def test_to_obj_dict(self):
         expected_obj_dict = {
             'schedule': {
+                'entity_id': 1,
                 'name': 'huit_a_midi',
                 'timezone': 'America/Montreal',
                 'description': ''
@@ -52,6 +53,7 @@ class TestSchedule(unittest.TestCase):
             }
         ]
         schedule = Schedule(name='huit_a_midi',
+                            entity_id=1,
                             timezone='America/Montreal',
                             fallback_action='endcall:hangup',
                             description='',
@@ -65,6 +67,7 @@ class TestSchedule(unittest.TestCase):
     def test_to_obj_dict_with_no_dialaction(self):
         expected_obj_dict = {
             'schedule': {
+                'entity_id': 1,
                 'name': 'test',
                 'timezone': 'America/Montreal',
                 'description': ''
@@ -91,6 +94,7 @@ class TestSchedule(unittest.TestCase):
             }
         ]
         schedule = Schedule(name='test',
+                            entity_id=1,
                             timezone='America/Montreal',
                             fallback_action=None,
                             description='',
@@ -105,6 +109,7 @@ class TestSchedule(unittest.TestCase):
         obj_dict = {
             'schedule': {
                 'id': '1',
+                'entity_id': 1,
                 'name': 'huit_a_midi',
                 'timezone': 'America/Montreal',
                 'fallback_action': 'endcall:hangup',
@@ -169,6 +174,7 @@ class TestSchedule(unittest.TestCase):
 
     def test_from_list_obj_dict(self):
         obj_dict = {'id': '1',
+                    'entity_id': 1,
                     'name': 'huit_a_midi',
                     'timezone': 'America/Montreal',
                     'fallback_action': 'endcall:hangup',
@@ -188,6 +194,7 @@ class TestSchedule(unittest.TestCase):
 
     def test_equal(self):
         obj_dict = {'id': '1',
+                    'entity_id': 1,
                     'name': 'huit_a_midi',
                     'timezone': 'America/Montreal',
                     'fallback_action': 'endcall:hangup',
@@ -220,6 +227,7 @@ class TestSchedule(unittest.TestCase):
 
     def test_equal_no_closed(self):
         obj_dict = {'id': '1',
+                    'entity_id': 1,
                     'name': 'huit_a_midi',
                     'timezone': 'America/Montreal',
                     'fallback_action': 'endcall:hangup',
