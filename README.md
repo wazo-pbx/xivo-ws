@@ -8,7 +8,7 @@ xivo-ws is a python library for accessing XiVO web services.
 Configuration
 -------------
 
-On your XiVO, you must create a web service user. Please refer to the [documentation](http://documentation.xivo.fr/production/api_sdk/web_services.html) for more details.
+On your XiVO, you must create a web service user. Please refer to the [documentation](http://documentation.xivo.io/production/api_sdk/web_services.html) for more details.
 
 
 Example
@@ -33,8 +33,8 @@ Further documentation
 ---------------------
 
 
-* XiVO server: http://documentation.xivo.fr/production/
-* Creating a web service user: http://documentation.xivo.fr/production/api_sdk/web_services.html#configuration
+* XiVO server: http://documentation.xivo.io/production/
+* Creating a web service user: http://documentation.xivo.io/production/api_sdk/web_services.html#configuration
 
 
 xivo-ws-debug
