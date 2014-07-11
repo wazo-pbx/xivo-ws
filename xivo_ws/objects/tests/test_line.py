@@ -33,7 +33,6 @@ class TestLine(unittest.TestCase):
                 "device": "1",
                 "encryption": False,
                 "id": 4,
-                "iduserfeatures": 5,
                 "internal": False,
                 "ipfrom": "192.168.11.106",
                 "name": "iibybz",
@@ -157,7 +156,6 @@ class TestLine(unittest.TestCase):
         self.assertEqual('iibybz', line.name)
         self.assertEqual('1001', line.number)
         self.assertEqual('custom_context', line.context)
-        self.assertEqual(5, line.user_id)
 
     def test_from_obj_dict_custom(self):
         obj_dict = {
@@ -170,7 +168,6 @@ class TestLine(unittest.TestCase):
                 "device": "",
                 "encryption": False,
                 "id": 270,
-                "iduserfeatures": 0,
                 "internal": False,
                 "ipfrom": "10.32.0.1",
                 "name": "dahdi/g0",
@@ -214,7 +211,6 @@ class TestLine(unittest.TestCase):
                 "device": "11",
                 "encryption": False,
                 "id": 150,
-                "iduserfeatures": 37,
                 "internal": False,
                 "ipfrom": "10.32.0.1",
                 "name": "101",
@@ -252,7 +248,6 @@ class TestLine(unittest.TestCase):
         self.assertEqual('101', line.name)
         self.assertEqual('101', line.number)
         self.assertEqual('custom_context', line.context)
-        self.assertEqual(37, line.user_id)
 
     def test_from_list_obj_dict_sip(self):
         obj_dict = {
@@ -295,7 +290,6 @@ class TestLine(unittest.TestCase):
             "host": "dynamic",
             "id": 4,
             "identity": "SIP/iibybz",
-            "iduserfeatures": 5,
             "ignoresdpversion": None,
             "initialized": False,
             "insecure": None,
@@ -369,7 +363,6 @@ class TestLine(unittest.TestCase):
         self.assertEqual('iibybz', line.name)
         self.assertEqual('1001', line.number)
         self.assertEqual('custom_context', line.context)
-        self.assertEqual(5, line.user_id)
 
     def test_from_list_obj_dict_custom(self):
         obj_dict = {
@@ -382,7 +375,6 @@ class TestLine(unittest.TestCase):
             "encryption": False,
             "id": 331,
             "identity": "dahdi/g22",
-            "iduserfeatures": 0,
             "initialized": True,
             "interface": "dahdi/g22",
             "internal": False,
@@ -418,7 +410,6 @@ class TestLine(unittest.TestCase):
             "encryption": False,
             "id": 150,
             "identity": "SCCP/101",
-            "iduserfeatures": 37,
             "initialized": True,
             "internal": False,
             "ipfrom": "10.32.0.1",
@@ -438,4 +429,3 @@ class TestLine(unittest.TestCase):
         self.assertEqual('101', line.name)
         self.assertEqual('101', line.number)
         self.assertEqual('custom_context', line.context)
-        self.assertEqual(37, line.user_id)
