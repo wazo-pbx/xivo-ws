@@ -67,8 +67,6 @@ class Line(AbstractObject):
         self.protocol = linefeatures['protocol']
         self.number = linefeatures['number']
         self.context = linefeatures['context']
-        if linefeatures['iduserfeatures'] != 0:
-            self.user_id = linefeatures['iduserfeatures']
 
     def _from_protocol(self, protocol_name, protocol):
         if protocol_name == self.PROTOCOL_SIP:
