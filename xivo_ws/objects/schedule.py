@@ -58,14 +58,14 @@ class Schedule(AbstractObject):
         if self.fallback_action is None:
             dialaction = {
                 'schedule_fallback': {
-                        "actiontype": 'none'
+                    "actiontype": 'none'
                 }
             }
         else:
             dialaction = {
                 'schedule_fallback': {
-                        "actiontype": self.fallback_action.split(':')[0],
-                        "action": self.fallback_action.split(':')[1]
+                    "actiontype": self.fallback_action.split(':')[0],
+                    "action": self.fallback_action.split(':')[1]
                 }
             }
         obj_dict['dialaction'] = dialaction
