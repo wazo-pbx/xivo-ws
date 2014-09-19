@@ -172,6 +172,53 @@ class TestSchedule(unittest.TestCase):
         self.assertEqual('', schedule.description)
         self.assertEqual(expected_opened, schedule.opened)
 
+    def test_from_obj_dict_when_no_entity_id(self):
+        obj_dict = {
+            'schedule': {
+                'id': 1,
+                'entity_id': None,
+                'name': 'huit_a_midi',
+                'timezone': 'America/Montreal',
+                'fallback_action': 'endcall:hangup',
+                'fallback_actionid': None,
+                'fallback_actionargs': '',
+                'description': '',
+                'commented': 0,
+            },
+            'dialaction': {
+                'schedule_fallback': {
+                    "actiontype": None,
+                    "action": None,
+                    "endcall": {
+                        "action": None,
+                        "actionarg1": None,
+                        "actionarg2": None
+                    },
+                }
+            },
+            'opened': [
+                {
+                    "id": 1,
+                    "schedule_id": 1,
+                    "mode": "opened",
+                    "hours": "08:00-12:00",
+                    "weekdays": "1-5",
+                    "monthdays": "1-31",
+                    "months": "1-12",
+                    "action": None,
+                    "actionid": None,
+                    "actionargs": None,
+                    "commented": False
+
+                }
+            ],
+            'closed': False
+        }
+
+        schedule = Schedule.from_obj_dict(obj_dict)
+
+        self.assertEqual(None, schedule.entity_id)
+
     def test_from_list_obj_dict(self):
         obj_dict = {'id': '1',
                     'entity_id': 1,

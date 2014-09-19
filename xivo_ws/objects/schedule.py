@@ -86,7 +86,7 @@ class Schedule(AbstractObject):
 
     def _from_schedule(self, schedule):
         self.id = int(schedule['id'])
-        self.entity_id = int(schedule['entity_id'])
+        self.entity_id = int(schedule['entity_id']) if schedule['entity_id'] else None
         self.name = schedule['name']
         self.timezone = schedule['timezone']
         self.fallback_action = schedule['fallback_action']
