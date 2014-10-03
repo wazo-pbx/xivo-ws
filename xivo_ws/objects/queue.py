@@ -137,7 +137,7 @@ class Queue(AbstractObject):
         self.context = queuefeatures['context']
         self.waittime = queuefeatures['waittime']
         self.waitratio = queuefeatures['waitratio']
-        self.ringing_time = int(queuefeatures['timeout'])
+        self.ringing_time = int(queuefeatures['timeout']) if queuefeatures['timeout'] else 0
 
     def _from_queue(self, queue):
         self.maxlen = queue['maxlen']
