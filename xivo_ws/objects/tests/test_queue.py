@@ -664,7 +664,7 @@ _QUEUE_OBJ_DICT_FROM_WS = {
         "transfer_call": "0",
         "transfer_user": "1",
         "url": "",
-        "waitratio": 100,
+        "waitratio": 1,
         "waittime": 5,
         "write_caller": "0",
         "write_calling": "0"
@@ -677,7 +677,7 @@ class TestQueue(unittest.TestCase):
     def test_to_obj_dict_full(self):
         expected_obj_dict = copy.deepcopy(_QUEUE_OBJ_DICT_TO_WS)
         expected_obj_dict['queuefeatures']['waittime'] = 5
-        expected_obj_dict['queuefeatures']['waitratio'] = 100
+        expected_obj_dict['queuefeatures']['waitratio'] = 1
         expected_obj_dict['queuefeatures']['timeout'] = '10'
         expected_obj_dict['queue']['autopause'] = False
         expected_obj_dict['queue']['leavewhenempty'] = 'unavailable, pause'
@@ -701,7 +701,7 @@ class TestQueue(unittest.TestCase):
                       autopause=False,
                       reachability_timeout=30,
                       waittime=5,
-                      waitratio=100,
+                      waitratio=1,
                       agents=[1, 2],
                       schedule_id=1,
                       wrapuptime=15,)
@@ -734,7 +734,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('default', queue.context)
         self.assertEqual(0, queue.maxlen)
         self.assertEqual(0, queue.ringing_time)
-        self.assertEqual(100, queue.waitratio)
+        self.assertEqual(1, queue.waitratio)
         self.assertEqual(5, queue.waittime)
         self.assertEqual(None, queue.schedule_id)
         self.assertEqual([50, 95], queue.agents)
@@ -752,7 +752,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('default', queue.context)
         self.assertEqual(0, queue.ringing_time)
         self.assertEqual(0, queue.maxlen)
-        self.assertEqual(100, queue.waitratio)
+        self.assertEqual(1, queue.waitratio)
         self.assertEqual(5, queue.waittime)
         self.assertEqual(1, queue.schedule_id)
         self.assertEqual([50, 95], queue.agents)
@@ -782,7 +782,7 @@ class TestQueue(unittest.TestCase):
             "transfer_call": "0",
             "transfer_user": "1",
             "url": "",
-            "waitratio": 100,
+            "waitratio": 1,
             "waittime": 5,
             "write_caller": "0",
             "write_calling": "0",
@@ -796,5 +796,5 @@ class TestQueue(unittest.TestCase):
         self.assertEqual('1022', queue.number)
         self.assertEqual('default', queue.context)
         self.assertEqual(10, queue.ringing_time)
-        self.assertEqual(100, queue.waitratio)
+        self.assertEqual(1, queue.waitratio)
         self.assertEqual(5, queue.waittime)
