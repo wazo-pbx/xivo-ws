@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from distutils.core import setup
+from setuptools import setup
+from setuptools import find_packages
 from xivo_ws.version import version
 
 setup(
@@ -9,13 +10,7 @@ setup(
     version=version,
     description='A library for the XiVO web services.',
     url='https://github.com/xivo-pbx/xivo-ws.git',
-    packages=['xivo_ws',
-              'xivo_ws.bin',
-              'xivo_ws.client',
-              'xivo_ws.debug',
-              'xivo_ws.debug.client',
-              'xivo_ws.objects',
-              'xivo_ws.objects.common'],
+    packages=find_packages(),
     scripts=['bin/xivo-ws-debug'],
     license='GPLv3',
     long_description=open('README.md').read(),
