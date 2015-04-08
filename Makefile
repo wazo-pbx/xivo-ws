@@ -1,11 +1,11 @@
 .PHONY: build
 build:
-	python setup.py sdist -f
+	python setup.py sdist
 
 .PHONY: upload
-upload: build
-	python setup.py sdist -f register upload
+upload:
+	python setup.py sdist register upload
 
 .PHONY: clean
 clean:
-	rm -rf MANIFEST build dist
+	rm -rf MANIFEST build dist xivo_ws.egg-info
