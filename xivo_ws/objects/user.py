@@ -140,6 +140,7 @@ class UserLine(AbstractObject):
         Attribute('secret'),
         Attribute('number'),
         Attribute('device_id'),
+        Attribute('device_slot'),
     ]
 
     def _add_line(self, obj_dict):
@@ -157,6 +158,8 @@ class UserLine(AbstractObject):
             }
         if self.device_id is not None:
             linefeatures['device'] = [self.device_id]
+        if self.device_slot is not None:
+            linefeatures['num'] = [self.device_slot]
         obj_dict['linefeatures'] = linefeatures
 
 

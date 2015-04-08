@@ -48,6 +48,7 @@ class TestUser(unittest.TestCase):
                 'context': ['default'],
                 'number': [1000],
                 'device': [42],
+                'num': [2],
                 'secret': ['toto']
             },
             'dialaction': {
@@ -82,7 +83,7 @@ class TestUser(unittest.TestCase):
                     entity_id=2,
                     agent_id=1,
                     enable_hint=True,
-                    line=UserLine(number=1000, context='default', device_id=42, secret='toto'),
+                    line=UserLine(number=1000, context='default', device_id=42, device_slot=2, secret='toto'),
                     voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'),
                     mobile_number='5555555555')
 
