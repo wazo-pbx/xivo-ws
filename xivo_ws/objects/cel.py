@@ -82,13 +82,10 @@ class CELWebService(AbstractWebService):
     _ACTIONS = [
     ]
 
-    def search_by_date(self, date_start, date_end=None):
-        if not date_start:
-            raise Exception('missing start date')
-        query_string = 'dbeg=%s' % date_start
-        if date_end:
-            query_string += '&dend=%s' % date_end
+    def search_by_id(self, id_beg):
+        query_string = 'act=searchid&idbeg=%s' % id_beg
         response = self._ws_client.custom_request(self._PATH, query_string)
         return [CEL.from_list_obj_dict(cel) for cel in json.loads(response)]
+
 
 register_ws_class(CELWebService, 'cels')
