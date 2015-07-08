@@ -81,11 +81,11 @@ class TestCELWebService(unittest.TestCase):
         ws_client = Mock()
         self._ws = CELWebService(ws_client)
 
-    def test_search_by_date_start_only(self):
-        start_date = '2013-01-01'
+    def test_search_by_id(self):
+        id_beg = 22
         self._ws._ws_client.custom_request.return_value = '[]'
 
-        self._ws.search_by_date(start_date)
+        self._ws.search_by_id(id_beg)
 
         self._ws._ws_client.custom_request.assert_called_once_with(self._ws._PATH,
-                                                                   'dbeg=2013-01-01')
+                                                                   'act=searchid&idbeg=22')
