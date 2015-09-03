@@ -125,9 +125,6 @@ class User(AbstractObject):
         obj.enable_transfer = obj_dict['enablexfer']
         if obj_dict['agentid']:
             obj.agent_id = int(obj_dict['agentid'])
-        if obj_dict['voicemailid']:
-            obj.voicemail = UserVoicemail()
-            obj.voicemail.id = obj_dict['voicemailid']
         obj.mobile_number = obj_dict['mobilephonenumber']
         return obj
 
@@ -168,19 +165,20 @@ class UserVoicemail(AbstractObject):
         Attribute('id'),
         Attribute('name', required=True),
         Attribute('number', required=True),
+        Attribute('context', required=True),
         Attribute('password'),
     ]
 
     def _add_voicemail(self, obj_dict):
         self._check_required_attributes()
         voicemail_dict = {
-            'fullname': self.name,
-            'mailbox': self.number
+            'name': self.name,
+            'number': self.number,
+            'context': self.context
         }
         if self.password is not None:
             voicemail_dict['password'] = self.password
         obj_dict['voicemail'] = voicemail_dict
-        obj_dict['voicemail-option'] = 'add'
 
 
 class UserIncall(AbstractObject):
@@ -219,8 +217,9 @@ class _ImportContentGenerator(object):
     ]
     _VOICEMAIL_COLUMNS = [
         ('name', 'voicemailname'),
-        ('number', 'voicemailmailbox'),
+        ('number', 'voicemailnumber'),
         ('password', 'voicemailpassword'),
+        ('context', 'voicemailcontext'),
     ]
     _INCALL_COLUMNS = [
         ('exten', 'incallexten'),

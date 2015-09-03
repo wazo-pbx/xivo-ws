@@ -65,11 +65,11 @@ class TestUser(unittest.TestCase):
                     'actiontype': 'none',
                 },
             },
-            'voicemail-option': 'add',
             'voicemail': {
-                'fullname': 'jack johnson',
-                'mailbox': 1000,
+                'name': 'jack johnson',
+                'number': 1000,
                 'password': 'qwerty',
+                'context': 'default',
             }
         }
         user = User(firstname='Jack',
@@ -84,7 +84,7 @@ class TestUser(unittest.TestCase):
                     agent_id=1,
                     enable_hint=True,
                     line=UserLine(number=1000, context='default', device_id=42, device_slot=2, secret='toto'),
-                    voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty'),
+                    voicemail=UserVoicemail(number=1000, name='jack johnson', password='qwerty', context='default'),
                     mobile_number='5555555555')
 
         obj_dict = user.to_obj_dict()
@@ -206,8 +206,6 @@ class TestUser(unittest.TestCase):
             'entityid': 2,
             'firstname': 'Jack',
             'lastname': 'Johnson',
-            "voicemailtype": 'asterisk',
-            "voicemailid": 5,
             "agentid": 1,
             "pictureid": None,
             "callerid": "\"Jack Johnson\"",
@@ -262,7 +260,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.client_password, 'johnson')
         self.assertEqual(user.client_profile_id, '5')
         self.assertEqual(user.agent_id, 1)
-        self.assertEqual(user.voicemail.id, 5)
         self.assertEqual(user.mobile_number, '5555555555')
 
 
@@ -270,7 +267,7 @@ class TestImportContentGenerator(unittest.TestCase):
     def test_header(self):
         user_columns = 'entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|enablexfer'
         line_columns = 'phonenumber|context|protocol|linesecret'
-        voicemail_columns = 'voicemailname|voicemailmailbox|voicemailpassword'
+        voicemail_columns = 'voicemailname|voicemailnumber|voicemailpassword|voicemailcontext'
         incall_columns = 'incallexten|incallcontext|incallringseconds'
         expected_result = '%s|%s|%s|%s' % (user_columns, line_columns, voicemail_columns, incall_columns)
         generator = _ImportContentGenerator()
@@ -283,7 +280,7 @@ class TestImportContentGenerator(unittest.TestCase):
 
         generator.add_users([user])
 
-        self.assertEqual('1|John|||||||1|1||||||||||', generator._rows[1])
+        self.assertEqual('1|John|||||||1|1|||||||||||', generator._rows[1])
 
     def test_empty_string_enable_transfer(self):
         generator = _ImportContentGenerator()
@@ -291,7 +288,7 @@ class TestImportContentGenerator(unittest.TestCase):
 
         generator.add_users([user])
 
-        self.assertEqual('1|John|||||||1|||||||||||', generator._rows[1])
+        self.assertEqual('1|John|||||||1||||||||||||', generator._rows[1])
 
     def test_one_full_user(self):
         generator = _ImportContentGenerator()
@@ -306,12 +303,12 @@ class TestImportContentGenerator(unittest.TestCase):
                     enable_hint=True,
                     enable_transfer=True,
                     line=UserLine(number=123, context='default', protocol='sip', secret='toto'),
-                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty'),
+                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty', context='default'),
                     incall=UserIncall(exten=1000, context='from-extern', ringseconds=10))
 
         generator.add_users([user])
 
-        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|1|123|default|sip|toto|John F Jackson|1000|qwerty|1000|from-extern|10', generator._rows[1])
+        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|1|123|default|sip|toto|John F Jackson|1000|qwerty|default|1000|from-extern|10', generator._rows[1])
 
 
 class TestUserWebService(unittest.TestCase):
@@ -321,9 +318,9 @@ class TestUserWebService(unittest.TestCase):
 
     def test_import(self):
         expected_content = b"""\
-entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|enablexfer|phonenumber|context|protocol|linesecret|voicemailname|voicemailmailbox|voicemailpassword|incallexten|incallcontext|incallringseconds
-1|John|||||||1|1||||||||||
-1|Jack|Johnson||||||1|1||||||||||
+entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|enablexfer|phonenumber|context|protocol|linesecret|voicemailname|voicemailnumber|voicemailpassword|voicemailcontext|incallexten|incallcontext|incallringseconds
+1|John|||||||1|1|||||||||||
+1|Jack|Johnson||||||1|1|||||||||||
 """
         users = [User(firstname='John'), User(firstname='Jack', lastname='Johnson')]
 
