@@ -37,7 +37,6 @@ class Line(AbstractObject):
         Attribute('username'),
         Attribute('secret', default='', required=True),
         Attribute('language'),
-        Attribute('mailbox'),
         Attribute('host'),
         Attribute('port'),
         Attribute('setvar'),
@@ -82,7 +81,6 @@ class Line(AbstractObject):
         self.username = protocol['username']
         self.secret = protocol['secret']
         self.language = protocol['language']
-        self.mailbox = protocol['mailbox']
         self.host = protocol['host']
         self.port = protocol['port']
         self.setvar = protocol['setvar']
