@@ -218,7 +218,7 @@ class TestUser(unittest.TestCase):
             "enablehint": True,
             "enablevoicemail": False,
             "enablexfer": True,
-            "enableautomon": False,
+            "enableonlinerec": False,
             "callrecord": False,
             "incallfilter": False,
             "enablednd": False,
