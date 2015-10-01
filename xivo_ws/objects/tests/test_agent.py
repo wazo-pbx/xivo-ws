@@ -148,7 +148,7 @@ class TestAgent(unittest.TestCase):
                     "destbusy": "",
                     "destrna": "",
                     "destunc": "",
-                    "enableautomon": False,
+                    "enableonlinerec": False,
                     "enablebusy": False,
                     "enableclient": True,
                     "enablednd": False,
