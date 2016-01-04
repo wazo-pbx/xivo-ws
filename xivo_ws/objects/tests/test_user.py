@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@ from __future__ import unicode_literals
 
 import unittest
 from mock import Mock
-from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService, _ImportContentGenerator, \
-    UserIncall
+from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserWebService
 
 
 class TestUser(unittest.TestCase):
@@ -263,69 +262,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.mobile_number, '5555555555')
 
 
-class TestImportContentGenerator(unittest.TestCase):
-    def test_header(self):
-        user_columns = 'entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|enablexfer'
-        line_columns = 'phonenumber|context|protocol|linesecret'
-        voicemail_columns = 'voicemailname|voicemailnumber|voicemailpassword|voicemailcontext'
-        incall_columns = 'incallexten|incallcontext|incallringseconds'
-        expected_result = '%s|%s|%s|%s' % (user_columns, line_columns, voicemail_columns, incall_columns)
-        generator = _ImportContentGenerator()
-
-        self.assertEqual(expected_result, generator._rows[0])
-
-    def test_one_minimal_user(self):
-        generator = _ImportContentGenerator()
-        user = User(firstname='John')
-
-        generator.add_users([user])
-
-        self.assertEqual('1|John|||||||1|1|||||||||||', generator._rows[1])
-
-    def test_empty_string_enable_transfer(self):
-        generator = _ImportContentGenerator()
-        user = User(firstname='John', enable_transfer='')
-
-        generator.add_users([user])
-
-        self.assertEqual('1|John|||||||1||||||||||||', generator._rows[1])
-
-    def test_one_full_user(self):
-        generator = _ImportContentGenerator()
-        user = User(firstname='John F',
-                    lastname='Jackson',
-                    language='fr_FR',
-                    enable_client=True,
-                    client_username='user',
-                    client_password='pass',
-                    client_profile='client',
-                    entity_id=2,
-                    enable_hint=True,
-                    enable_transfer=True,
-                    line=UserLine(number=123, context='default', protocol='sip', secret='toto'),
-                    voicemail=UserVoicemail(number=1000, name='John F Jackson', password='qwerty', context='default'),
-                    incall=UserIncall(exten=1000, context='from-extern', ringseconds=10))
-
-        generator.add_users([user])
-
-        self.assertEqual('2|John F|Jackson|fr_FR|1|user|pass|client|1|1|123|default|sip|toto|John F Jackson|1000|qwerty|default|1000|from-extern|10', generator._rows[1])
-
-
 class TestUserWebService(unittest.TestCase):
     def setUp(self):
         ws_client = Mock()
         self._ws = UserWebService(ws_client)
-
-    def test_import(self):
-        expected_content = b"""\
-entityid|firstname|lastname|language|enableclient|username|password|profileclient|enablehint|enablexfer|phonenumber|context|protocol|linesecret|voicemailname|voicemailnumber|voicemailpassword|voicemailcontext|incallexten|incallcontext|incallringseconds
-1|John|||||||1|1|||||||||||
-1|Jack|Johnson||||||1|1|||||||||||
-"""
-        users = [User(firstname='John'), User(firstname='Jack', lastname='Johnson')]
-
-        self._ws.import_(users)
-
-        self._ws._ws_client.custom_request.assert_called_once_with(self._ws._PATH,
-                                                                   'act=import',
-                                                                   expected_content)

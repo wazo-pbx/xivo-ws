@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2013-2014 Avencall
+# Copyright (C) 2013-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -151,8 +151,9 @@ def create_users(xivo_server):
         users.append(user)
         current_user_no += 1
 
-    print 'Importing users...'
-    xivo_server.users.import_(users)
+    print 'Adding users...'
+    for user in users:
+        xivo_server.users.add(user)
 
 
 def create_agents(xivo_server):

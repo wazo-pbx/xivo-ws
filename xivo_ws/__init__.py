@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ from xivo_ws.objects.sccp_general_settings import SCCPGeneralSettings
 from xivo_ws.objects.schedule import Schedule
 from xivo_ws.objects.siptrunk import SIPTrunk
 from xivo_ws.objects.statconf import Statconf
-from xivo_ws.objects.user import User, UserLine, UserVoicemail, UserIncall
+from xivo_ws.objects.user import User, UserLine, UserVoicemail
 from xivo_ws.objects.voicemail import Voicemail
 from xivo_ws.objects.queueskillrules import QueueSkillRules
 

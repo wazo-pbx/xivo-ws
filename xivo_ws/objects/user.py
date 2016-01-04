@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 
 from __future__ import unicode_literals
 
-from itertools import chain
 from xivo_ws.objects.common import Attribute, AbstractObject, Actions, AbstractWebService
 from xivo_ws.registry import register_ws_class
 
@@ -40,7 +39,6 @@ class User(AbstractObject):
         Attribute('bsfilter', default='no'),
         Attribute('line'),
         Attribute('voicemail'),
-        Attribute('incall'),
         Attribute('mobile_number'),
     ]
 
@@ -181,114 +179,6 @@ class UserVoicemail(AbstractObject):
         obj_dict['voicemail'] = voicemail_dict
 
 
-class UserIncall(AbstractObject):
-    _ATTRIBUTES = [
-        Attribute('exten', required=True),
-        Attribute('context', required=True),
-        Attribute('ringseconds'),
-    ]
-
-
-def _int_or_empty_string(value):
-    if value == '':
-        return value
-    return int(value)
-
-
-class _ImportContentGenerator(object):
-    _COLUMNS = [
-        # (attr_name, column_name, map function)
-        ('entity_id', 'entityid', None),
-        ('firstname', 'firstname', None),
-        ('lastname', 'lastname', None),
-        ('language', 'language', None),
-        ('enable_client', 'enableclient', int),
-        ('client_username', 'username', None),
-        ('client_password', 'password', None),
-        ('client_profile', 'profileclient', None),
-        ('enable_hint', 'enablehint', int),
-        ('enable_transfer', 'enablexfer', _int_or_empty_string),
-    ]
-    _LINE_COLUMNS = [
-        ('number', 'phonenumber'),
-        ('context', 'context'),
-        ('protocol', 'protocol'),
-        ('secret', 'linesecret'),
-    ]
-    _VOICEMAIL_COLUMNS = [
-        ('name', 'voicemailname'),
-        ('number', 'voicemailnumber'),
-        ('password', 'voicemailpassword'),
-        ('context', 'voicemailcontext'),
-    ]
-    _INCALL_COLUMNS = [
-        ('exten', 'incallexten'),
-        ('context', 'incallcontext'),
-        ('ringseconds', 'incallringseconds'),
-    ]
-
-    def __init__(self):
-        self._rows = []
-        self._add_header()
-
-    def _add_header(self):
-        header = '|'.join(column[1] for column in chain(self._COLUMNS,
-                                                        self._LINE_COLUMNS,
-                                                        self._VOICEMAIL_COLUMNS,
-                                                        self._INCALL_COLUMNS))
-        self._rows.append(header)
-
-    def add_users(self, users):
-        for user in users:
-            self._rows.append(self._user_to_row(user))
-
-    def _user_to_row(self, user):
-        elements = []
-        for attribute_name, _, map_function in self._COLUMNS:
-            attribute = getattr(user, attribute_name)
-            if attribute is None:
-                elements.append('')
-            else:
-                if map_function is not None:
-                    attribute = map_function(attribute)
-                elements.append(unicode(attribute))
-        line = user.line
-        for attribute_name, _ in self._LINE_COLUMNS:
-            if line is None:
-                elements.append('')
-            else:
-                attribute = getattr(line, attribute_name)
-                if attribute is None:
-                    elements.append('')
-                else:
-                    elements.append(unicode(attribute))
-        voicemail = user.voicemail
-        for attribute_name, _ in self._VOICEMAIL_COLUMNS:
-            if voicemail is None:
-                elements.append('')
-            else:
-                attribute = getattr(voicemail, attribute_name)
-                if attribute is None:
-                    elements.append('')
-                else:
-                    elements.append(unicode(attribute))
-        incall = user.incall
-        for attribute_name, _ in self._INCALL_COLUMNS:
-            if incall is None:
-                elements.append('')
-            else:
-                attribute = getattr(incall, attribute_name)
-                if attribute is None:
-                    elements.append('')
-                else:
-                    elements.append(unicode(attribute))
-        return '|'.join(elements)
-
-    def get_content(self):
-        unicode_content = '\n'.join(chain(self._rows, ['']))
-        return unicode_content.encode('UTF-8')
-
-
 class UserWebService(AbstractWebService):
     _PATH = '/service/ipbx/json.php/restricted/pbx_settings/users/'
     _OBJECT_CLASS = User
@@ -301,15 +191,6 @@ class UserWebService(AbstractWebService):
         Actions.LIST,
         Actions.SEARCH,
     ]
-
-    def import_(self, users):
-        content = self._generate_import_content(users)
-        self._ws_client.custom_request(self._PATH, 'act=import', content)
-
-    def _generate_import_content(self, users):
-        generator = _ImportContentGenerator()
-        generator.add_users(users)
-        return generator.get_content()
 
 
 register_ws_class(UserWebService, 'users')
