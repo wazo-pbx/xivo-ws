@@ -2,13 +2,18 @@ xivo-ws
 =========
 [![Build Status](https://travis-ci.org/xivo-pbx/xivo-ws.png?branch=master)](https://travis-ci.org/xivo-pbx/xivo-ws)
 
-xivo-ws is a python library for accessing XiVO web services.
+xivo-ws is a python library for accessing the "old" XiVO web services.
+
+These web services are provided by the web-interface. They are *obsolete* and
+will be removed soon. You should not use them in new developments, and if you
+were already using them, you should migrate to the [XiVO REST
+APIs](http://documentation.xivo.io/en/stable/api_sdk/rest_api/rest_api.html).
 
 
 Configuration
 -------------
 
-On your XiVO, you must create a web service user. Please refer to the [documentation](http://documentation.xivo.io/en/stable/api_sdk/web_services.html) for more details.
+On your XiVO, you must create a web service user.
 
 
 Example
@@ -28,11 +33,6 @@ xivo_server.users.add(user)
 ~~~
 
 More examples are available in the ```examples``` directory.
-
-Further documentation
----------------------
-
-* Creating a web service user: http://documentation.xivo.io/en/stable/api_sdk/web_services.html#configuration
 
 
 xivo-ws-debug
