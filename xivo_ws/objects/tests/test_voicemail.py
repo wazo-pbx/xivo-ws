@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,31 +23,25 @@ from xivo_ws.objects.voicemail import Voicemail
 
 class TestVoicemail(unittest.TestCase):
     def test_to_obj_dict(self):
-        expected_obj_dict = {'voicemail': {
-                                        'mailbox': '1200',
-                                        'fullname': 'Voicemail',
-                                        'password': None,
-                                        'email': None,
-                                        'tz': None,
-                                    }
-                             }
+        expected_obj_dict = {'voicemail': {'mailbox': '1200',
+                                           'fullname': 'Voicemail',
+                                           'password': None,
+                                           'email': None,
+                                           'tz': None}}
         voicemail = Voicemail(mailbox='1200',
-                        fullname='Voicemail')
+                              fullname='Voicemail')
 
         obj_dict = voicemail.to_obj_dict()
 
         self.assertEqual(expected_obj_dict, obj_dict)
 
     def test_from_obj_dict(self):
-        obj_dict = {'voicemail': {
-                            "uniqueid": "1",
-                            "mailbox": "1200",
-                            "fullname": "Mailbox Name",
-                            "password": "",
-                            "email": "toto@lol.com",
-                            "tz": "eu-fr",
-                            }
-                    }
+        obj_dict = {'voicemail': {"uniqueid": "1",
+                                  "mailbox": "1200",
+                                  "fullname": "Mailbox Name",
+                                  "password": "",
+                                  "email": "toto@lol.com",
+                                  "tz": "eu-fr"}}
 
         voicemail = Voicemail.from_obj_dict(obj_dict)
 
@@ -64,8 +58,7 @@ class TestVoicemail(unittest.TestCase):
                     "fullname": "Mailbox Name",
                     "password": "",
                     "email": "toto@lol.com",
-                    "tz": "eu-fr",
-                    }
+                    "tz": "eu-fr"}
 
         voicemail = Voicemail.from_list_obj_dict(obj_dict)
 

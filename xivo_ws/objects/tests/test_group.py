@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ class TestGroup(unittest.TestCase):
                 'number': '2034',
                 'context': 'default',
                 'timeout': '0'
-                },
+            },
             'queue': {},
             'user': [1, 2, 3]
         }
@@ -52,23 +52,23 @@ class TestGroup(unittest.TestCase):
                 'number': '2034',
                 'context': 'default',
                 'timeout': '0'
-                },
+            },
             'queue': {},
             'user': [
-                     {
-                        "queue_name": "huge",
-                        "interface": "SIP/imm1zf",
-                        "penalty": "0",
-                        "call-limit": "0",
-                        "paused": None,
-                        "commented": False,
-                        "usertype": "user",
-                        "userid": 6733,
-                        "channel": "SIP",
-                        "category": "group",
-                        "skills": "user-6733",
-                        "state_interface": ""
-                    }
+                {
+                    "queue_name": "huge",
+                    "interface": "SIP/imm1zf",
+                    "penalty": "0",
+                    "call-limit": "0",
+                    "paused": None,
+                    "commented": False,
+                    "usertype": "user",
+                    "userid": 6733,
+                    "channel": "SIP",
+                    "category": "group",
+                    "skills": "user-6733",
+                    "state_interface": ""
+                }
             ]
         }
 

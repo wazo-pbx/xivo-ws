@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ class TestQueueSkillRules(unittest.TestCase):
             'rule': ["anthropology > 70"]
         }
         skill = QueueSkillRules(name='test_rule',
-                        rule=["anthropology > 70"])
+                                rule=["anthropology > 70"])
 
         obj_dict = skill.to_obj_dict()
 

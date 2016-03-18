@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,8 +42,9 @@ class TestWebServiceClient(unittest.TestCase):
 
         ws_client.add(u'/foo/', {u'a': u'b'})
 
-        self._http_client.post.assert_called_with(u'/foo/?act=add', '{"a": "b"}',
-                                             {u'Content-Type': u'application/json'})
+        self._http_client.post.assert_called_with(u'/foo/?act=add',
+                                                  u'{"a": "b"}',
+                                                  {u'Content-Type': u'application/json'})
 
     def test_add_returns_cleaned_object_id(self):
         ws_client = self._new_web_service_client()

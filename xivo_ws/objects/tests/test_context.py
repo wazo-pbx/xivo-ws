@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ class TestContext(unittest.TestCase):
                 'entity': 'entity',
                 'contexttype': 'internal',
             },
-           'contextinclude': []
+            'contextinclude': []
         }
         context = Context(name='default',
                           display_name='Default',
@@ -99,10 +99,10 @@ class TestContext(unittest.TestCase):
             }
         }
         context_include = [{
-                'context': 'default',
-                'include': 'to-extern',
-                'priority': '0'
-            }]
+            'context': 'default',
+            'include': 'to-extern',
+            'priority': '0'
+        }]
         context = Context(id='default',
                           name='default',
                           display_name='Default',

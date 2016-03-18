@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@ class TestSCCPGeneralSettings(unittest.TestCase):
 
     def test_to_obj_dict(self):
         expected_obj_dict = {
-            'directmedia' : 1,
-            'dialtimeout' : 5,
-            'language'    : 'en_US'
+            'directmedia': 1,
+            'dialtimeout': 5,
+            'language': 'en_US'
         }
 
         settings = SCCPGeneralSettings(
@@ -43,9 +43,9 @@ class TestSCCPGeneralSettings(unittest.TestCase):
     def test_from_obj_dict(self):
         obj_dict = {
             'sccpgeneralsettings': {
-                'directmedia' : 0,
-                'dialtimeout' : 6,
-                'language'    : 'fr_FR'
+                'directmedia': 0,
+                'dialtimeout': 6,
+                'language': 'fr_FR'
             }
         }
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -47,10 +47,10 @@ class TestStatconf(unittest.TestCase):
             }
         }
         stat_conf = Statconf(name='conf_1',
-                        hour_start='08:00',
-                        hour_end='20:00',
-                        dbegcache='2012-01',
-                        monday=True)
+                             hour_start='08:00',
+                             hour_end='20:00',
+                             dbegcache='2012-01',
+                             monday=True)
 
         obj_dict = stat_conf.to_obj_dict()
 
