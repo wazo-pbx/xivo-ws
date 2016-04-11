@@ -73,13 +73,6 @@ class Line(AbstractObject):
         self.name = protocol['name']
 
     @classmethod
-    def from_obj_dict(cls, obj_dict):
-        obj = cls()
-        obj._from_linefeatures(obj_dict['linefeatures'])
-        obj._from_protocol(obj.protocol, obj_dict['protocol'])
-        return obj
-
-    @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_linefeatures(obj_dict)
@@ -94,7 +87,6 @@ class LineWebService(AbstractWebService):
     _ACTIONS = [
         Actions.LIST,
         Actions.SEARCH,
-        Actions.VIEW,
     ]
 
     def search_by_number_context(self, number, context):
