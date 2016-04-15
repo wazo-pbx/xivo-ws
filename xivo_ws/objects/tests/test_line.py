@@ -116,7 +116,6 @@ class TestLine(unittest.TestCase):
                 "session-minse": None,
                 "session-refresher": None,
                 "session-timers": None,
-                "setvar": "XIVO_USERID=4",
                 "snom_aoc_enabled": None,
                 "subscribecontext": None,
                 "subscribemwi": "0",
