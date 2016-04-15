@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -332,7 +332,6 @@ class TestLine(unittest.TestCase):
             "session-minse": None,
             "session-refresher": None,
             "session-timers": None,
-            "setvar": "XIVO_USERID=4",
             "snom_aoc_enabled": None,
             "subscribecontext": None,
             "subscribemwi": "0",
