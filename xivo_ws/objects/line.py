@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +39,6 @@ class Line(AbstractObject):
         Attribute('language'),
         Attribute('host'),
         Attribute('port'),
-        Attribute('setvar'),
         Attribute('interface'),
     ]
 
@@ -83,7 +82,6 @@ class Line(AbstractObject):
         self.language = protocol['language']
         self.host = protocol['host']
         self.port = protocol['port']
-        self.setvar = protocol['setvar']
 
     def _from_custom_protocol(self, protocol):
         self.name = protocol['name']
