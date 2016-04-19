@@ -42,24 +42,6 @@ class Line(AbstractObject):
         Attribute('interface'),
     ]
 
-    def _to_obj_dict(self, obj_dict):
-        protocol = {
-            'name': self.name,
-            'protocol': self.protocol,
-            'context': self.context
-        }
-        if self.protocol == self.PROTOCOL_SIP:
-            self._to_sip_protocol(protocol)
-        elif self.protocol == self.PROTOCOL_CUSTOM:
-            self._to_custom_protocol(protocol)
-        obj_dict['protocol'] = protocol
-
-    def _to_sip_protocol(self, protocol):
-        protocol['secret'] = self.secret
-
-    def _to_custom_protocol(self, protocol):
-        protocol['interface'] = self.interface
-
     def _from_linefeatures(self, linefeatures):
         self.id = linefeatures['id']
         self.protocol = linefeatures['protocol']
@@ -91,13 +73,6 @@ class Line(AbstractObject):
         self.name = protocol['name']
 
     @classmethod
-    def from_obj_dict(cls, obj_dict):
-        obj = cls()
-        obj._from_linefeatures(obj_dict['linefeatures'])
-        obj._from_protocol(obj.protocol, obj_dict['protocol'])
-        return obj
-
-    @classmethod
     def from_list_obj_dict(cls, obj_dict):
         obj = cls()
         obj._from_linefeatures(obj_dict)
@@ -110,12 +85,8 @@ class LineWebService(AbstractWebService):
     _OBJECT_CLASS = Line
 
     _ACTIONS = [
-        Actions.ADD,
-        Actions.EDIT,
-        Actions.DELETE,
         Actions.LIST,
         Actions.SEARCH,
-        Actions.VIEW,
     ]
 
     def search_by_number_context(self, number, context):
