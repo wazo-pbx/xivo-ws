@@ -93,7 +93,6 @@ class TestLine(unittest.TestCase):
             "qualify": None,
             "qualifyfreq": None,
             "regexten": None,
-            "registertrying": None,
             "regseconds": "0",
             "regserver": None,
             "remotesecret": None,
