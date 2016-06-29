@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,6 +28,8 @@ class Schedule(AbstractObject):
         Attribute('name', required=True),
         Attribute('timezone', required=True),
         Attribute('fallback_action'),
+        Attribute('fallback_action_destination_id', default=None),
+        Attribute('fallback_action_destination_args', default_factory=list),
         Attribute('description'),
         Attribute('opened', default_factory=list),
         Attribute('closed', default_factory=list),
@@ -64,10 +66,14 @@ class Schedule(AbstractObject):
         else:
             dialaction = {
                 'schedule_fallback': {
-                    "actiontype": self.fallback_action.split(':')[0],
-                    "action": self.fallback_action.split(':')[1]
+                    "actiontype": self.fallback_action,
                 }
             }
+            if self.fallback_action_destination_id:
+                dialaction['schedule_fallback']['actionarg1'] = self.fallback_action_destination_id
+            if self.fallback_action_destination_args:
+                dialaction['schedule_fallback']['actionarg2'] = self.fallback_action_destination_args
+
         obj_dict['dialaction'] = dialaction
 
     def _to_opened(self, obj_dict):
@@ -90,6 +96,8 @@ class Schedule(AbstractObject):
         self.name = schedule['name']
         self.timezone = schedule['timezone']
         self.fallback_action = schedule['fallback_action']
+        self.fallback_action_destination_id = schedule['fallback_actionid']
+        self.fallback_action_destination_args = schedule['fallback_actionargs']
         self.description = schedule['description']
 
     def _from_closed(self, closed):
