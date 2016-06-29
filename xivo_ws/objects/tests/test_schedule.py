@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -55,7 +55,8 @@ class TestSchedule(unittest.TestCase):
         schedule = Schedule(name='huit_a_midi',
                             entity_id=1,
                             timezone='America/Montreal',
-                            fallback_action='endcall:hangup',
+                            fallback_action='hangup',
+                            fallback_actiontype='endcall',
                             description='',
                             opened=opened,
                             closed=[])

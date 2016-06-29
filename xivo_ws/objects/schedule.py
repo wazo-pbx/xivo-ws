@@ -28,7 +28,8 @@ class Schedule(AbstractObject):
         Attribute('name', required=True),
         Attribute('timezone', required=True),
         Attribute('fallback_action'),
-        Attribute('fallback_action_destination_id', default=None),
+        Attribute('fallback_actiontype'),
+        Attribute('fallback_action_destination_id'),
         Attribute('fallback_action_destination_args', default_factory=list),
         Attribute('description'),
         Attribute('opened', default_factory=list),
@@ -57,24 +58,23 @@ class Schedule(AbstractObject):
         obj_dict['schedule'] = schedule
 
     def _to_dialaction(self, obj_dict):
-        if self.fallback_action is None:
-            dialaction = {
-                'schedule_fallback': {
-                    "actiontype": 'none'
-                }
+        if self.fallback_actiontype is None:
+            destination = {
+                "actiontype": 'none'
             }
         else:
-            dialaction = {
-                'schedule_fallback': {
-                    "actiontype": self.fallback_action,
-                }
+            destination = {
+                "actiontype": self.fallback_actiontype,
             }
+            if self.fallback_action:
+                destination['action'] = self.fallback_action
             if self.fallback_action_destination_id:
-                dialaction['schedule_fallback']['actionarg1'] = self.fallback_action_destination_id
+                destination['actionarg1'] = self.fallback_action_destination_id
             if self.fallback_action_destination_args:
-                dialaction['schedule_fallback']['actionarg2'] = self.fallback_action_destination_args
+                destination['actionarg2'] = self.fallback_action_destination_args
 
-        obj_dict['dialaction'] = dialaction
+        obj_dict['dialaction'] = {}
+        obj_dict['dialaction']['schedule_fallback'] = destination
 
     def _to_opened(self, obj_dict):
         obj_dict['opened'] = list(self.opened)
