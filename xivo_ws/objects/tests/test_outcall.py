@@ -60,7 +60,6 @@ class TestOutcall(unittest.TestCase):
             'internal': '0',
             'name': 'out-testload',
             'preprocess_subroutine': None,
-            'useenum': '0',
         }
 
         outcall = Outcall.from_list_obj_dict(obj_dict)
