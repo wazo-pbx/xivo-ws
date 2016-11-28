@@ -9,7 +9,7 @@ setup(
     name='xivo-ws',
     version=version,
     description='A library for the XiVO web services.',
-    url='https://github.com/xivo-pbx/xivo-ws.git',
+    url='https://github.com/wazo-pbx/xivo-ws.git',
     packages=find_packages(),
     scripts=['bin/xivo-ws-debug'],
     license='GPLv3',
