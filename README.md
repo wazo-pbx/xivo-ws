@@ -1,6 +1,6 @@
 xivo-ws
 =========
-[![Build Status](https://travis-ci.org/xivo-pbx/xivo-ws.png?branch=master)](https://travis-ci.org/xivo-pbx/xivo-ws)
+[![Build Status](https://travis-ci.org/wazo-pbx/xivo-ws.png?branch=master)](https://travis-ci.org/wazo-pbx/xivo-ws)
 
 xivo-ws is a python library for accessing the "old" XiVO web services.
 
