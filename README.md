@@ -2,18 +2,18 @@ xivo-ws
 =========
 [![Build Status](https://travis-ci.org/wazo-pbx/xivo-ws.png?branch=master)](https://travis-ci.org/wazo-pbx/xivo-ws)
 
-xivo-ws is a python library for accessing the "old" XiVO web services.
+xivo-ws is a python library for accessing the "old" Wazo web services.
 
 These web services are provided by the web-interface. They are **obsolete** and
 will be removed soon. You should not use them in new developments, and if you
-were already using them, you should migrate to the [XiVO REST
-APIs](http://documentation.xivo.io/en/stable/api_sdk/rest_api/rest_api.html).
+were already using them, you should migrate to the [Wazo REST
+APIs](http://documentation.wazo.community/en/stable/api_sdk/rest_api/rest_api.html).
 
 
 Configuration
 -------------
 
-On your XiVO, you must create a web service user.
+On your Wazo, you must create a web service user.
 
 
 Example

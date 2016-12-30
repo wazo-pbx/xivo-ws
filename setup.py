@@ -8,8 +8,8 @@ from xivo_ws.version import version
 setup(
     name='xivo-ws',
     version=version,
-    description='A library for the XiVO web services.',
-    url='https://github.com/wazo-pbx/xivo-ws.git',
+    description='A library for the Wazo web services.',
+    url='http://wazo.community',
     packages=find_packages(),
     scripts=['bin/xivo-ws-debug'],
     license='GPLv3',
