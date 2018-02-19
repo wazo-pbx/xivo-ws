@@ -1,6 +1,6 @@
 xivo-ws
 =========
-[![Build Status](https://travis-ci.org/wazo-pbx/xivo-ws.png?branch=master)](https://travis-ci.org/wazo-pbx/xivo-ws)
+[![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=xivo-ws)](https://jenkins.wazo.community/job/xivo-ws)
 
 xivo-ws is a python library for accessing the "old" Wazo web services.
 
